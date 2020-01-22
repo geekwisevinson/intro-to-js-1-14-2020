@@ -32,7 +32,7 @@
     }
     function createTodoLi(text) {
         const li = document.createElement('li');
-        ul.appendChild(li);
+        ul.prepend(li);
         li.innerHTML = text;
         addDeleteButton(li);
     }
@@ -41,8 +41,8 @@
         const deleteButton = document.createElement('button');
         li.prepend(deleteButton);
         deleteButton.innerHTML = 'X';
-        deleteButton.addEventListener('click', () => {
-            this.remove();
+        deleteButton.addEventListener('click', function() {
+            this.parentElement.remove();
         })
     }
 
