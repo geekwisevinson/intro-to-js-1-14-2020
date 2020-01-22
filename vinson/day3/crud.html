@@ -42,7 +42,7 @@
         li.prepend(deleteButton);
         deleteButton.innerHTML = 'X';
         deleteButton.addEventListener('click', function() {
-            this.remove();
+            this.parentElement.remove();
         })
     }
 
