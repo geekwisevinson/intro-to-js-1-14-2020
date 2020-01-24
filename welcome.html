@@ -59,6 +59,8 @@
             });
             return topic;
         }
+
+
         const topics = [
             [
                 'Variable declarations',
@@ -86,8 +88,8 @@
                 '*',
                 '/',
                 '%',
-                '===',
-                '==',
+                '===', //do these equal the same
+                '==', //truthy falsey 
                 '!',
                 '!=='
             ],
@@ -112,11 +114,21 @@
                 'git add .',
                 'git commit -m "bleh"',
                 'git push',
+            ],
+            [
+                'Loops',
+                'for: for(let i; i < 9; i++) { // code }',
+                'array.forEach( function(item, index, array) {// code})',
+                'for ( const prop in person) { console.log(prop, person[prop]) }'
             ]
         ];
         topics.forEach( topic => {
             createTopic(topic)
         });
+
+        let name = `vinson
+            C. F
+        `
 
     </script>
 
