@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crud</title>
+    <style>
+        body {
+            padding: 100px;
+        }
+        body * {
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+
+<input type="text"> <button>Add Todo</button>
+<ul>
+
+</ul>
+<script>
+    const input = document.querySelector('input');
+    const button = document.querySelector('button');
+    const ul = document.querySelector('ul');
+    button.addEventListener('click', addTodo);
+    function addTodo() {
+        if (!input.value) {
+            return;
+        }
+        createTodoLi(input.value);
+        input.value = '';
+    }
+    function createTodoLi(text) {
+        const li = document.createElement('li');
+        ul.prepend(li);
+        li.innerHTML = text;
+        addDeleteButton(li);
+    }
+
+    function addDeleteButton(li) {
+        const deleteButton = document.createElement('button');
+        li.prepend(deleteButton);
+        deleteButton.innerHTML = 'X';
+        deleteButton.addEventListener('click', function() {
+            this.parentElement.remove();
+        })
+    }
+
+    console.log(input, button, ul);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+    <style>
+        body * {
+            font-size: xx-large;
+        }
+    </style>
+</head>
+<body>
+    <input type="text"> <button>Add Todo</button>
+    <ul>
+
+    </ul>
+    <script>
+        const input = document.querySelector('input');
+        const button = document.querySelector('button');
+        const ul = document.querySelector('ul');
+        button.addEventListener('click', addTodo);
+
+        function addTodo() {
+            if (!input.value) {
+                return;
+            }
+            console.log(input.value);
+            createTodoLi(input.value);
+            input.value = '';
+        }
+
+        function createTodoLi(text) {
+            const li = document.createElement('li');
+            console.log(li);
+            ul.appendChild(li);
+            li.innerHTML = text;
+            addDeleteButton(li);
+        }
+
+        function addDeleteButton (li) {
+            const deleteButton = document.createElement('button');
+            li.appendChild(deleteButton);
+            deleteButton.innerHTML = 'x';
+            deleteButton.addEventListener('click', function () {
+                li.remove();
+            })
+        }
+
+        console.log(input, button, ul);
+    </script>
+</body>
+</html>
