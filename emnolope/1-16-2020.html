@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+  <header>
+    <script>
+      let   var1="one";
+      const var2="dos";
+      var   var3="san";
+      let name="wika wika Slim Shady"
+      let greeting = `Hello my name is ${name}.`;
+      alert(greeting);
+      var para = document.createElement("p");               // Create a <p> element
+      para.innerText = greeting;               // Insert text
+      document.body.appendChild(para);                      // Append <p> to <body>
+      let array = ['apple', 'orange', 'pear']
+      alert(array[1])
+      let person = {
+        name: "FuelTheNuel",
+        eyeColor: "Pink",
+        favorite: "Gettin dem anime girls",
+      };
+      person.favorite === person["favorite"]
+      person.items = [{weapon: "pistol"},{socks:"rainbow colored"}];
+      //Use the JS hacks that let your change file be tiny
+      //let chorus = 50;
+      var i;
+      //for (i = 0; i < 50; i++) {
+      //  document.body.appendChild(para);
+      //}
+      var note = document.createElement("p");
+      note.innerText = '<strong>IN JAVASCRIPT EVERYTHING IS AN OBJECT</strong>'.replace('OBJECT','OBJECT UNDER THE HOOD');
+      document.body.appendChild(note);
+      "string".charAt(3)==="i";
+      true ? alert('say me') : alert('I don\'t wanna I\'m shy!')
+      //IN JAVASCRIPT EVERYTHING IS AN OBJECT UNDER THE HOOD
+      //THIS FUNCTION IS CURSED. function delaycolorshift(color){setTimeout(()=>{document.body.style.backgroundColor = color}, 1000)}
+      //This one is extra cursed ['red','yellow','lime','cyan','blue','violet'].forEach(function(color){setTimeout(()=>{document.body.style.backgroundColor = color}, 30)})
+    </script>
+  </header>
+  <body>
+    <h1>Variables are like useful?</h1>
+    
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE=html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>(C)(R)(U)(D)</title>
+    <style>
+html, body {
+    font-family: Verdana,sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+p {
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    font-size: 15px;
+}
+.addbutton {
+    border-radius: 12px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+.removebutton {
+    border-radius: 50%;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0px 0px;
+}
+.removebutton:hover {
+  background-color: #f4511e;
+}
+    </style>
+  </head>
+  <body>
+    <input type="text">
+    <button class="button addbutton">Add Todo</button>
+    <ul></ul>
+    <script>
+      const input=document.querySelector('input');
+      const button=document.querySelector('button');
+      const ul=document.querySelector('ul');
+      let debug="";
+      button.addEventListener('click',function(){addTodo(input.value)})
+      {
+        let var1=3;
+      }
+      function addTodo(thingTodo){
+        console.log(thingTodo);
+        if (!thingTodo) {return;}
+        const el=document.createElement('li');
+        el.innerHTML="    "+thingTodo;
+        el.index="var"+addTodo.index;
+        localStorage.setItem(el.index,input.value);
+        addTodo.index++;
+        ul.appendChild(el);
+        input.value="";
+        addDel(el)
+      }addTodo.index=0;
+      function addDel(el){
+        const deleteButton=document.createElement('button');
+        deleteButton.innerHTML=' x ';
+        deleteButton.addEventListener(
+          'click',function delThing(){
+            this.parentElement.remove();
+            localStorage.removeItem(el.index);
+          }
+        )
+        deleteButton.className="button removebutton"
+        console.log(this);
+        debug=this;
+        el.prepend(deleteButton);
+        /*
+        
+ 
+        */
+      }
+      console.log(input.value)
+    </script>
+  </body>
+</html>

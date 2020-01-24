@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        .wrapper {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .wrapper:nth-child(odd) {
+            background-color: black;
+            color: white;
+            border: 20px solid black;
+
+        }
+        .wrapper ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper li {
+            padding: 2px 5px;
+            font-size: larger;
+            text-align: left;
+        }
+        .wrapper li:first-child {
+            text-decoration: underline;
+            font-size: xx-large;
+            padding: 10px;
+            list-style: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Intro to JS</h1>
+
+
+    <script>
+        function createTopic(list) {
+            const topic = {
+                wrapper: document.createElement('div'),
+                ul: document.createElement('ul'),
+            };
+            topic.wrapper.classList.add('wrapper');
+            topic.wrapper.appendChild(topic.ul);
+            document.body.appendChild(topic.wrapper);
+            list.forEach( (item, index) => {
+
+                const li = document.createElement('li');
+                li.innerHTML = item;
+               topic.ul.appendChild(li);
+            });
+            return topic;
+        }
+        const topics = [
+            [
+                'Variable declarations',
+                'let',
+                'const',
+                'var',
+            ],
+            [
+                'Data Types',
+                'string',
+                'number',
+                'boolean',
+                'array',
+                'object',
+            ],
+            [
+                'Comments',
+                '/* */ comment block',
+                '// comment line'
+            ],
+            [
+                'Basic Operators',
+                '+',
+                '-',
+                '*',
+                '/',
+                '%',
+                '===',
+                '==',
+                '!',
+                '!=='
+            ],
+            [
+                'Conditionals',
+                'if (true) { do this } else { do this instead}',
+                '(true) ? do this : do this instead',
+            ],
+            [
+                'Functions',
+                'alert("hello World")',
+                'function myFunction (param1, param2) { do something with param1 and param2 then return the answer}',
+            ],
+            [
+                'Events',
+                'click',
+                'hover',
+                'scroll',
+            ],
+            [
+                'Git Commands',
+                'git add .',
+                'git commit -m "bleh"',
+                'git push',
+            ]
+        ];
+        topics.forEach( topic => {
+            createTopic(topic)
+        });
+
+    </script>
+
+</body>
+</html>
