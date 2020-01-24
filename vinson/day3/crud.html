@@ -22,7 +22,17 @@
     const input = document.querySelector('input');
     const button = document.querySelector('button');
     const ul = document.querySelector('ul');
+    const list = [];
+    const listFromLocalStorage = JSON.parse(getListFromLocalStorage());
+    if (listFromLocalStorage) {
+        listFromLocalStorage.forEach( item => createTodoLi(item));
+    }
     button.addEventListener('click', addTodo);
+    input.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            addTodo();
+        }
+    });
     function addTodo() {
         if (!input.value) {
             return;
@@ -31,23 +41,33 @@
         input.value = '';
     }
     function createTodoLi(text) {
+        if (list.indexOf(text) !== -1) {
+            alert( text + ' is already in your list');
+            return;
+        }
         const li = document.createElement('li');
         ul.prepend(li);
         li.innerHTML = text;
-        addDeleteButton(li);
+        addDeleteButton(li, text);
+        list.push(text);
+        saveList(list);
     }
-
-    function addDeleteButton(li) {
+    function addDeleteButton(li, text) {
         const deleteButton = document.createElement('button');
         li.prepend(deleteButton);
         deleteButton.innerHTML = 'X';
         deleteButton.addEventListener('click', function() {
             this.parentElement.remove();
+            list.splice(list.indexOf(text), 1);
+            saveList(list);
         })
     }
-
-    console.log(input, button, ul);
-
+    function saveList(list) {
+        window.localStorage.setItem('list', JSON.stringify(list))
+    }
+    function getListFromLocalStorage() {
+        return window.localStorage.getItem('list');
+    }
 </script>
 
 </body>
