@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+*{
+  font-size:xx-large;
+}
+.field{
+  height:30vh;
+}
+.field:nth-child(2){
+  background-color:green;
+}
+.field:nth-child(3){
+  background-color:yellow;
+}
+.field:nth-child(4){
+  background-color:blue;
+}
+.red{
+  color:red;
+}
+.black{
+  color:black;
+}
+.card{
+  height:140px;
+  width:100px;
+  background-color:FloralWhite;
+  border:1px solid grey;
+  display: inline-block;
+}
+.suit{
+  text-align:center;
+  padding-top: 30px
+}
+    </style>
+  </head>
+  <body>
+  <!--
+    <div class='field'>
+      <button onclick="drawCard(0)">+</button>
+    </div>
+    <div class='field'>
+      <button onclick="drawCard(1)">+</button>
+    </div>
+    -->
+    <script>
+      let deck=[]
+      const values=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+      const suits=['&spades;','&clubs;','&hearts;','&diams;'];
+      const colors={'reds':suits.slice(0,2),'blacks':suits.slice(2,4)}
+      const players=['dealer','player1','player2'];
+      const hands=[]
+      //function addPlayers(players){
+      for(let value=0;value<players.length;value++){
+        console.log(value);
+        var readyplayer1=document.createElement('div');
+        readyplayer1.classList.add('field');
+        readyplayer1.innerHTML=`<button onclick="drawCard(${value})">+</button>`;
+        console.log(readyplayer1);
+        document.body.append(readyplayer1);
+      }
+      for(let value=0;value<players.length;value++){
+        players[value].hand=[];
+      }
+      //}addPlayers(players);
+      function newDeck(){
+        const newCards=[];
+        suits.forEach(suit=>{
+          values.forEach(value=>{
+             newCards.push({
+               value,
+               suit,
+               color:colors['reds'].includes(suit)?'black':'red',
+             })
+          })
+        })
+        return newCards;
+      }
+      deck=[...newDeck(),...newDeck()];
+      function getRandomNum(range){ 
+        return Math.floor(Math.random()*range);
+      }
+      function drawCard(playerIndex){
+        //system internals
+        const myCard=deck.splice(getRandomNum(deck.length),1)[0];
+        console.log(myCard,'myCard');
+        players[playerIndex].hand.append(myCard);
+        //render
+        const cardElem=document.createElement('div');
+        cardElem.classList.add('card');
+        cardElem.classList.add(myCard.color)
+        cardElem.innerHTML=`
+          <div class="">${myCard.value}</div>
+          <div class="suit">${myCard.suit}</div>
+        `;
+        const table=document.querySelectorAll('.field')[playerIndex];
+        console.log(table);
+        table.appendChild(cardElem);
+      }
+      card2num={'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,'J':10,'Q':10,'K':10};
+      function totalHand(hand){
+        let total=0;
+        for(card in hand){
+          if card
+        }
+        return total;
+      }
+      //drawCard(0);
+      //drawCard(0);
+      //drawCard(1);
+      //drawCard(1);
+    </script>
+  </body>
+</html>
