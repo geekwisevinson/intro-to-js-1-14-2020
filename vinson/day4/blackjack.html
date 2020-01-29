@@ -7,20 +7,42 @@
         * {
             font-size: xx-large;
         }
-        .cards {
-            height: 20vh;
+        body {
+            background-image: url('https://cdn.hipwallpaper.com/m/33/1/yK9OeE.jpg');
+            background-repeat:no-repeat;
+            background-size:cover;
+            color: white;
+            padding: 20px;
         }
-        .cards:nth-child(1) {
+        .cards::after {
+            content: "";
+            opacity: 0.1;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+        }
+        .cards:nth-child(2)::after {
             background-color: yellow;
         }
-        .cards:nth-child(2) {
-            background-color: blue;
+        .cards:nth-child(3)::after {
+            background-color: green;
         }
+        .cards {
+            margin: 10px;
+            padding: 20px;
+            position: relative;
+        }
+
         .card {
             height: 200px;
             width: 100px;
+            padding: 10px;
+            margin: 4px;
             background-color:  grey;
-            border: 1px solid red;
+            border: 1px solid white;
             display: inline-block;
         }
         .suit {
