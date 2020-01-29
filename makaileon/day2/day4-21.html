@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            font-size: xx-large;
+        }
+        .cards {
+            height: 20vh;
+        }
+        .cards:nth-child(1) {
+            background-color: yellow;
+        }
+        .cards:nth-child(2) {
+            background-color: blue;
+        }
+        .card {
+            height: 200px;
+            width: 100px;
+            background-color:  grey;
+            border: 1px solid red;
+            display: inline-block;
+        }
+        .suit {
+            text-align: center;
+            padding-top: 30px;
+        }
+        .red {
+            color: red;
+        }
+        .black {
+            color: black;
+        }
+        .hidden {
+            opacity: 0;
+        }
+        .dealerTotal {
+            /* visibility: hidden; */
+        }
+    </style>
+</head>
+<body>
+
+
+<div>
+    <div >dealer: <span class="dealerTotal"></span></div>
+    <div >player: <span class="playerTotal"></span></div>
+</div>
+<div class="cards">
+    <button onclick="drawCard(0)">+</button>
+    <button onclick="passTurn(0)">pass</button>
+</div>
+<div class="cards">
+    <button onclick="drawCard(1)">+</button>
+    <button onclick="passTurn(1)">pass</button>
+</div>
+
+<script>
+    let cards = [];
+    let pass = [];
+    const hearts = '&hearts;';
+    const clubs = '&clubs;';
+    const spades = '&spades;';
+    const diamonds = '&diams;';
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const suits = [hearts, clubs, spades, diamonds];
+    const reds = [hearts, diamonds];
+    const dealerTotal = document.querySelector('.dealerTotal');
+    const playerTotal = document.querySelector('.playerTotal');
+    const dealersHand = [];
+    const playersHand = [];
+
+
+    function startCardsOver() {
+        const tempCards = [];
+        suits.forEach( suit => {
+            values.forEach( value => {
+                tempCards.push({
+                    value,
+                    suit,
+                    color: reds.includes(suit) ? 'red' : 'black',
+                })
+            })
+        });
+        cards = tempCards;
+    }
+    startCardsOver();
+
+    function drawCard(player, hidden) {
+        const cardEl = document.createElement('div');
+        cardEl.classList.add('card');
+        const table = document.querySelectorAll('.cards')[player];
+        table.appendChild(cardEl);
+        const myCard = cards.splice(getRandom(cards.length), 1)[0];
+        console.log(myCard, 'myCard');
+        player === 0 ? dealersHand.push(myCard) : playersHand.push(myCard);
+        cardEl.classList.add(myCard.color);
+        cardEl.innerHTML = `
+        <div class="${hidden ? 'hidden': 'visible'}">
+            <div>${myCard.value}</div>
+            <div class="suit">${myCard.suit}</div>
+        </div>
+`;
+        console.log('added card');
+        player === 0 ?
+        dealerTotal.innerHTML = calculateTotal(dealersHand) :
+            playerTotal.innerHTML = calculateTotal(playersHand)
+        ;
+    }
+    drawCard(0, true);
+    drawCard(0);
+    drawCard(1);
+    drawCard(1);
+
+    function passTurn () {
+        const dealerPassTotal = calculateTotal(dealersHand);
+        const playerPassTotal = calculateTotal(playersHand);
+        pass.push("passed");
+        if (pass.length === 2) {
+            if (dealerPassTotal < playerPassTotal) { 
+                alert("player wins!");
+            } else if (dealerPassTotal > playerPassTotal) {
+                alert("dealer wins!");
+            } else {
+                alert("it's a draw!");
+            }
+        };
+    };
+
+    function getRandom(range) {
+        return Math.floor( Math.random() * range)
+    }
+
+    function calculateTotal(list, playersHand, dealersHand) {
+        let total = 0;
+        list.forEach( card => {
+            total += Number(getValues(card.value));
+        });
+        if (total > 21) {
+            setTimeout(function () {
+                alert('Bust!!')
+            }, 0);
+        }
+        return total;
+    }
+
+
+    function getValues(value) {
+        switch (value) {
+            case 'A':
+                return confirm('Ace is 11?') ? 11 : 1;
+            case 'K':
+                return 10;
+            case 'Q':
+                return 10;
+            case 'J':
+                return 10;
+            default:
+                return value;
+        }
+    }
+</script>
+</body>
+</html>
