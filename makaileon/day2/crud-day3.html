@@ -20,35 +20,52 @@
         const input = document.querySelector('input');
         const button = document.querySelector('button');
         const ul = document.querySelector('ul');
+        const list = [];
+        const listFromLocalStorage = JSON.parse(getListFromLocalStorage());
+        if (listFromLocalStorage) {
+            getListFromLocalStorage.forEach(item => createTodoLi(item));
+        }
         button.addEventListener('click', addTodo);
-
-        function addTodo() {
+        input.addEventListener('keydown', function() {
+            if (event.key === 'Enter') {
+                addTodo();
+            }
+        });
+        function addTodo(item) {
             if (!input.value) {
                 return;
-            }
-            console.log(input.value);
+            };
             createTodoLi(input.value);
             input.value = '';
-        }
-
+        };
         function createTodoLi(text) {
+            if (list.indexOf(text) !== -1) {
+                alert(text + ' is already in your list!');
+                return;
+            }
             const li = document.createElement('li');
-            console.log(li);
-            ul.appendChild(li);
+            ul.append(li);
             li.innerHTML = text;
             addDeleteButton(li);
-        }
-
-        function addDeleteButton (li) {
+            list.push(text);
+        };
+        function addDeleteButton (li, text) {
             const deleteButton = document.createElement('button');
             li.appendChild(deleteButton);
             deleteButton.innerHTML = 'x';
             deleteButton.addEventListener('click', function () {
-                li.remove();
+                this.parentElement.remove();
+                list.splice(list.indexOf(text), 1);
+                saveList(list);
             })
-        }
-
-        console.log(input, button, ul);
+        };
+        function saveList(list) {
+            window.localStorage.setItem('list', JSON.stringify(list));
+        };
+        function getListFromLocalStorage() {
+            return window.localStorage.getItem('list');
+        };
+    console.log(input, value, )
     </script>
 </body>
 </html>
