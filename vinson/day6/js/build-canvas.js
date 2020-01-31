@@ -10,6 +10,14 @@ const bird = {
     motion: 5,
 };
 
+const pipe = {
+    w: 80,
+    h: 200,
+    x: 200,
+    y: 0,
+    gap: 200
+};
+
 const background = {
     x: 0,
     y: 0,
@@ -44,13 +52,6 @@ const s = { // source
     w: 360,
     h: 640,
 };
-const d = { //destination
-    x: 0,
-    y: 0,
-    w: 360,
-    h: 640,
-};
-
 function drawBackground() {
     context.drawImage(
         img, // the image to draw
@@ -72,11 +73,13 @@ function gameLoop() {
     updateBackground();
     updateBackground2();
     updateBird();
+    updatePipe();
 
 
     drawBackground();
     drawBackground2();
     drawBird();
+    drawPipe();
 
     window.requestAnimationFrame(gameLoop);
 }
@@ -86,6 +89,18 @@ function drawBird() {
         img, // the image to draw
         360, 81 + ( getFallSpeed() > 0 ? 0 : 70 ), 80, 70, // source dimensions
         bird.x, bird.y, 80, 70,
+    )
+}
+function drawPipe() {
+    context.drawImage(
+        img, // the image to draw
+        360, 0, 80, 80, // source dimensions
+        pipe.x, pipe.y, pipe.w, pipe.h,
+    );
+    context.drawImage(
+        img, // the image to draw
+        360, 0, 80, 80, // source dimensions
+        pipe.x, pipe.h + pipe.gap, pipe.w, pipe.h + 400,
     )
 }
 
@@ -118,10 +133,18 @@ function updateBackground2() {
     }
 }
 
+function updatePipe() {
+    pipe.x -= 3;
+    if (pipe.x < -canvas.width + 1) {
+        pipe.x = canvas.width;
+        pipe.h = Math.floor(Math.random() * 240) + 150
+    }
+}
+
 gameLoop();
 
 document.addEventListener('keydown', function () {
-    if (bird.lift < 5) {
-        bird.lift = 10;
+    if (bird.lift < 7) {
+        bird.lift = 11;
     }
 });
