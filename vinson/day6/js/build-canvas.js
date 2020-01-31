@@ -37,4 +37,12 @@ function draw() {
         d.x, d.y, d.w, d.h,
     )
 }
-draw();
+
+
+function gameLoop() {
+    draw();
+    window.requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+
