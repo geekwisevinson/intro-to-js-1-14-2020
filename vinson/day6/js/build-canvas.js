@@ -15,7 +15,7 @@ const pipe = {
     h: 200,
     x: 200,
     y: 0,
-    gap: 200
+    gap: 200,
 };
 
 const background = {
