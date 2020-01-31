@@ -1,0 +1,3 @@
+console.log(appName,primaryColor);
+createHeader();
+//afterUl();
