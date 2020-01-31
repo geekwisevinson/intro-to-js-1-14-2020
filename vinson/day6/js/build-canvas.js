@@ -4,7 +4,7 @@ const context = canvas.getContext('2d');
 const bird = {
     w: 80,
     h: 70,
-    x: 100,
+    x: 40,
     y: 100,
     lift: 10,
     motion: 5,
@@ -84,7 +84,7 @@ function gameLoop() {
 function drawBird() {
     context.drawImage(
         img, // the image to draw
-        360, 81, 80, 70, // source dimensions
+        360, 81 + ( getFallSpeed() > 0 ? 0 : 70 ), 80, 70, // source dimensions
         bird.x, bird.y, 80, 70,
     )
 }
@@ -121,5 +121,7 @@ function updateBackground2() {
 gameLoop();
 
 document.addEventListener('keydown', function () {
-    bird.lift = 10;
+    if (bird.lift < 5) {
+        bird.lift = 10;
+    }
 });
