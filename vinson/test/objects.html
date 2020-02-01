@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            position: absolute;
+        }
+        section {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        html, body {
+            height: 100%;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const px = 'px';
+    const skinColor = '#e5c298';
+    const objects = [
+        {
+            type: 'head',
+            paint: 'brown',
+            width: 300,
+            height: 300,
+            x: 500,
+            y: 200,
+            borderRadius: '50%',
+            children: [
+                {
+                    type: 'face',
+                    paint: '#e5c298',
+                    width: 260,
+                    height: 260,
+                    x: 20,
+                    y: 40,
+                    borderRadius: '50%',
+                    children: [
+                        {
+                            type: 'left-eye',
+                            paint: 'white',
+                            width: 80,
+                            height: 80,
+                            x: 40,
+                            y: 70,
+                            borderRadius: '50%',
+                            children: [
+                                {
+                                    type: 'pupil',
+                                    paint: 'green',
+                                    borderRadius: '50%',
+                                    width: 40,
+                                    height: 40,
+                                    x: 20,
+                                    y: 20,
+                                    children: [
+
+                                    ]
+                                },
+                                {
+                                    type: 'top-lid',
+                                    paint: skinColor,
+                                    width: 80,
+                                    height: 30,
+                                    x: 0,
+                                    y: 0,
+                                    children: [
+
+                                    ]
+                                },
+                                {
+                                    type: 'bottom-lid',
+                                    paint: skinColor,
+                                    width: 80,
+                                    height: 30,
+                                    x: 0,
+                                    y: 60,
+                                    children: [
+
+                                    ]
+                                },
+                                {
+                                    type: 'eye-brow',
+                                    paint: 'black',
+                                    width: 80,
+                                    height: 10,
+                                    x: 0,
+                                    y: 0,
+                                    children: [
+
+                                    ]
+                                },
+                            ]
+                        },
+                        {
+                            type: 'right-eye',
+                            paint: 'white',
+                            width: 80,
+                            height: 80,
+                            x: 140,
+                            y: 70,
+                            borderRadius: '50%',
+                            children: [
+
+                                {
+                                    type: 'pupil',
+                                    paint: 'green',
+                                    borderRadius: '50%',
+                                    width: 40,
+                                    height: 40,
+                                    x: 20,
+                                    y: 20,
+                                    children: [
+
+                                    ]
+                                },
+                                {
+                                    type: 'top-lid',
+                                    paint: skinColor,
+                                    width: 80,
+                                    height: 30,
+                                    x: 0,
+                                    y: 0,
+                                    borderRadius: '-10px',
+                                    children: [
+
+                                    ]
+                                },
+                                {
+                                    type: 'bottom-lid',
+                                    paint: skinColor,
+                                    width: 80,
+                                    height: 30,
+                                    x: 0,
+                                    y: 60,
+                                    borderRadius: '10px',
+                                    children: [
+
+                                    ]
+                                },
+                                {
+                                    type: 'eye-brow',
+                                    paint: 'black',
+                                    width: 80,
+                                    height: 10,
+                                    x: 0,
+                                    y: 0,
+                                    children: [
+
+                                    ]
+                                },
+                            ]
+                        },
+                        {
+                            type: 'mouth',
+                            paint: 'black',
+                            width: 80,
+                            height: 10,
+                            x: 90,
+                            y: 190,
+                            borderRadius: '20%',
+                            children: [
+
+                            ]
+                        },
+                    ]
+                }
+            ]
+        }
+        ];
+    createObjectsFromList(objects, document.body);
+
+
+    function createObjectsFromList(list, parent) {
+        list.forEach( object => {
+            const el = document.createElement('div');
+            const childrenWrap = document.createElement('section');
+            el.appendChild(childrenWrap);
+            parent.appendChild(el);
+            el.classList.add(object.type);
+            styleEl(el, object);
+            createObjectsFromList(object.children, childrenWrap)
+        });
+    }
+
+    function styleEl(el, obj) {
+        const keys = Object.keys(obj);
+        keys.forEach( key => {
+            modifyStyleProp(el, key, obj[key])
+        } )
+    }
+
+    function modifyStyleProp(el, key, value) {
+
+        switch (key) {
+            case 'height':
+                return el.style[key] = value + px;
+            case 'width':
+                return el.style[key] = value + px;
+            case 'paint':
+                return el.style['backgroundColor'] = value;
+            case 'x':
+                return el.style['left'] = value + px;
+            case 'y':
+                return el.style['top'] = value + px;
+            default:
+                el.style[key] = value;
+        }
+    }
+</script>
+<div class="deleteMe">
+    <script>
+        const button = document.createElement('button');
+        button.addEventListener('click', alerter);
+        function alerter( ) {
+            alert('still works')
+        }
+        document.querySelector('.deleteMe').remove();
+        document.body.appendChild(button);
+    </script>
+</div>
+
+
+</body>
+</html>

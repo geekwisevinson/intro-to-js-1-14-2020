@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .total {
+            display: flex;
+        }
+        .total > * {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="full">
+
+    <div class="total">
+        <div id="side"></div>
+        <div id="main"></div>
+    </div>
+
+</div>
+
+
+<script>
+    console.log('music');
+    let step = 0;
+    const steps = [];
+
+
+    function runStep() {
+        steps[step]();
+        step++;
+    }
+
+    function createStepDisplay() {
+        const el = document.createElement('div');
+        const stepDisplay = document.createElement('div');
+        const functionDisplay = document.createElement('div');
+        stepDisplay.innerHTML = `<div>STEP: ${step}</div>`;
+        functionDisplay.innerHTML = `<div>function: ${steps[step]}</div>`;
+        el.appendChild(stepDisplay);
+        el.appendChild(functionDisplay);
+        document.querySelector('#side').appendChild(el);
+    }
+    const myInterval = setInterval(function () {
+        console.log('interval', step);
+        if (steps[step]) {
+            createStepDisplay();
+            runStep();
+        } else {
+            clearInterval(myInterval);
+            alert('complete')
+        }
+    }, 2000);
+
+
+    function setBodyBackground() {
+        document.body.style.backgroundColor = 'black';
+        document.body.style.color = 'white';
+    }
+    steps.push(setBodyBackground);
+    function setMainBackground() {
+        document.querySelector('#main').style.backgroundColor = 'red';
+    }
+    steps.push(setMainBackground);
+
+</script>
+</body>
+</html>
