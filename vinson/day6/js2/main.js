@@ -1,8 +1,10 @@
 const canvas = buildCanvas();
 const img = buildImg();
+// const img2 = buildImg2();
 const context = canvas.getContext('2d');
 
 const myBird = new Bird({
+    canvas,
     context,
     img,
     x: 200,

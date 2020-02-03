@@ -1,6 +1,8 @@
 class Movable extends Drawable{
     xSpeed = 0; // final x speed;
     ySpeed = 0; // final y speed;
+    xDir = 0;
+    yDir = 0;
 
     xForce = 0; // internal x force to move;
     yForce = 0; // internal y force to move;
@@ -51,9 +53,6 @@ class Movable extends Drawable{
         this.checkActions();
         this.applyGravity();
         this.applyForce();
-
-
-
         x += this.xForce + this.xResistance;
         y += this.yForce + this.yResistance;
         this.ySpeed = y;
@@ -98,22 +97,27 @@ class Movable extends Drawable{
         if (this.y <= 500) {
             this.walls.down = false;
         }
-        if (this.y > 640) {
-            this.y = -100;
+        if (this.y > this.canvas.height) {
+            this.y = 0 - this.w;
         }
 
         if (this.y < -this.h) {
-            this.y = 640;
+            this.y = this.canvas.height;
         }
 
-        if (this.x > 360) {
-            this.x = -100;
+        if (this.x > this.canvas.width) {
+            this.x = 0 - this.w;
+        }
+
+        if (this.x < 0 - this.w) {
+            this.x = this.canvas.width;
         }
 
     }
     move() {
         this.x += this.xSpeed;
         this.y += this.ySpeed;
+
     }
     jump() {
         this.yForce = this.jumpPower;
@@ -121,18 +125,18 @@ class Movable extends Drawable{
 
     walkRight() {
         this.xForce = this.walkSpeed;
+        this.xDir = 1;
     }
     walkLeft() {
         this.xForce = -this.walkSpeed;
+        this.xDir = -1;
     }
-
     press(code) {
         this.pressed[code] = true;
     }
     release(code) {
         delete this.pressed[code];
     }
-
     checkActions() {
         if (this.pressed[this.keyMap['right']]) {
             this.walkRight();
@@ -146,9 +150,14 @@ class Movable extends Drawable{
     }
 
     draw() {
+        this.context.save();
 
-        super.draw();
+        if (this.xDir === -1) {
+            super.drawFlipX();
+        } else {
+            super.draw();
+        }
+
+        this.context.restore();
     }
-
-
 }

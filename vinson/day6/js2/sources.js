@@ -12,6 +12,12 @@ const sources = {
             w: 80,
             h: 70,
         },
+        flap2: {
+            x:0,
+            y: 0,
+            w: 350,
+            h: 650,
+        },
     },
     backgroundColor: {
         default: {
