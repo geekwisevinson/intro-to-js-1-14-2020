@@ -105,17 +105,15 @@ function gameLoop(){
   //context.clearRect();
   updateBackground();
   updateBird();
-//  if(step%2==0){
-    updatePipe();
-    updatePipe();
-    updatePipe();
-//  }
+  updatePipe();
+  updatePipe();
+  updatePipe();
   drawBackground();
   drawBird();
   console.log('gameloop');
   console.log(step);
   drawPipe();
-  //draw();
+  checkCollision();
   window.requestAnimationFrame(gameLoop);
   step++;
 }
