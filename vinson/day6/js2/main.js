@@ -1,6 +1,6 @@
 const canvas = buildCanvas();
-const img = buildImg();
-// const img2 = buildImg2();
+const img = buildImg('img/sprite.png');
+const gif = buildImg('img/bunny.gif');
 const context = canvas.getContext('2d');
 
 const myBird = new Bird({
@@ -16,16 +16,36 @@ const myBird = new Bird({
     source: sources.bird.fall,
 });
 
-document.addEventListener('keydown', function (event) {
-    myBird.press(event.code);
+const myBunny = new Bird({
+    canvas,
+    context,
+    img: gif,
+    x: 200,
+    y: 50,
+    w: 80,
+    h: 70,
+    xSpeed: 0,
+    ySpeed: 0,
+    source: sources.bunny.default,
 });
-document.addEventListener('keyup', function (event) {
-    myBird.release(event.code);
+
+[myBird, myBunny].forEach( obj => {
+    document.addEventListener('keydown', function (event) {
+        obj.press(event.code);
+    });
+    document.addEventListener('keyup', function (event) {
+        obj.release(event.code);
+    });
 });
+
 function gameLoop() {
-    context.clearRect(0, 0, 360, 640)
-    myBird.update();
-    myBird.draw();
+    context.clearRect(0, 0, 360, 640);
+
+    // myBird.update();
+    // myBird.draw();
+
+    myBunny.update();
+    myBunny.draw();
     window.requestAnimationFrame(gameLoop);
 }
 

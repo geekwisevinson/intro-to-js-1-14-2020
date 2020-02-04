@@ -23,5 +23,13 @@ const sources = {
         default: {
 
         }
+    },
+    bunny: {
+        default: {
+            x: 0,
+            y: 0,
+            w: 229,
+            h: 273,
+        }
     }
 };

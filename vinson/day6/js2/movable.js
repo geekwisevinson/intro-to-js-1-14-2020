@@ -38,6 +38,7 @@ class Movable extends Drawable{
 
     constructor(config) {
         super(config);
+        console.log('config', config);
         Object.keys(config).forEach( (key) => {
             this[key] = config[key];
         });
