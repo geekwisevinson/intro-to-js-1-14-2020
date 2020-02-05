@@ -1,5 +1,64 @@
-<script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2/webcomponents-bundle.js"></script>
-<script src="https://unpkg.com/tone"></script>
-<script src="https://unpkg.com/@tonejs/ui"></script>
-
-<tone-demo autoplay></tone-demo>
+<!DOCTYPE=HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>http</title>
+    <style>
+.post{
+border:2px solid green;
+padding:10px;
+margin: 10px;
+}
+    </style>
+  </head>
+  <body>
+    <script>
+url='http://jsonplaceholder.typicode.com/'+'posts';
+fetchAndBarf();
+function fetchAndBarf(){
+  document.body.innerHTML='';
+  fetch(url)
+    .then(prejson=>prejson.json())
+    .then(onGitboi)
+    .catch(err=>console.log(err));
+}
+function createPost(post){
+  //box
+  const el=document.createElement('div');
+  el.classList.add('post');
+  document.body.appendChild(el);
+  //ID
+  const idEl=document.createElement('button');
+  idEl.innerText=post.id;
+  el.appendChild(idEl);
+  //title
+  const header=document.createElement('h2');
+  el.appendChild(header);
+  header.innerText=post.title;
+  //content
+  const para=document.createElement('p');
+  el.appendChild(para);
+  para.innerText=post.body;
+  idEl.addEventListener('click',function(){
+    document.body.innerHTML='';
+    barfBite(url+'/'+post.id);
+  })
+function onGitboi(res){
+  res.forEach(createPost);
+}
+function barfBite(url){
+  fetch(url)//==>
+    .then(a=>a.json())
+    .then(function(post){
+      createPost(post);
+      const returnButton=document.createElement('button');
+      document.body.appendChild(returnButton);
+      returnButton.innerText='Go back!';
+      returnButton.addEventListener('click',fetchAndBarf);
+      window.scrollTo(0, 0);
+    })
+    .catch(document.body.innerHTML='Error! barfbite');
+}
+    </script>
+  </body>
+</html>

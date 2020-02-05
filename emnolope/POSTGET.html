@@ -43,6 +43,7 @@ function createPost(post){
     document.body.innerHTML='';
     barfBite(url+'/'+post.id);
   })
+}
 function onGitboi(res){
   res.forEach(createPost);
 }
@@ -54,9 +55,9 @@ function barfBite(url){
       const returnButton=document.createElement('button');
       document.body.appendChild(returnButton);
       returnButton.innerText='Go back!';
-      returnButton.addEventListener('click',fetchAndBarf)
+      returnButton.addEventListener('click',fetchAndBarf);
     })
-    .catch(document.body.innerHTML='Error! barfbite')
+    .catch(document.body.innerHTML='Error! barfbite');
 }
     </script>
   </body>
