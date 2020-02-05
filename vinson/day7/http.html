@@ -45,19 +45,7 @@
             console.log(this.innerText);
             const newUrl = url + '/' + this.innerText;
             console.log(newUrl);
-            fetch(newUrl).then( res => res.json() ).then(function (post) {
-                document.body.innerHTML = '';
-                createPost(post);
-                const button = document.createElement('button');
-                document.body.appendChild(button);
-                button.innerText = 'Return to Main page';
-
-                button.addEventListener('click', function () {
-                    document.body.innerHTML = '';
-                    whatToDoWhenPageLoads();
-                });
-                window.scrollTo(0, 0);
-            });
+            getSinglePost(newUrl)
         });
 
         const header = document.createElement('h2');
@@ -69,6 +57,22 @@
         para.innerText = post.body;
     }
 
+
+    function getSinglePost(newUrl) {
+        fetch(newUrl).then( res => res.json() ).then(function (post) {
+            document.body.innerHTML = '';
+            createPost(post);
+            const button = document.createElement('button');
+            document.body.appendChild(button);
+            button.innerText = 'Return to Main page';
+
+            button.addEventListener('click', function () {
+                document.body.innerHTML = '';
+                whatToDoWhenPageLoads();
+            });
+            window.scrollTo(0, 0);
+        });
+    }
 </script>
 
 </body>
