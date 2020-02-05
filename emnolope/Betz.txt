@@ -1,0 +1,28 @@
+
+>>
+document.body.innerHTML='';
+createPost(post);
+const button=document.createElement('button');
+document.body.appendChild(button);
+button.innerText="Return2MainPage";
+//window.scrollTo(300,0)
+button.addEventListener(click,fetchAndBarf);
+<<
+
+<button onclick="playKick()">kick</button>
+<button onclick="playSnare()">snare</button>
+<audio id="kick" src="./kick.mp3"></audio>
+<audio id="snare" src="./kick.mp3"></audio>
+<script>
+//const kick=document.querySelector('#kick');
+//const snare=document.querySelector('#snare');
+
+function playKick(){
+  kick.currentTime=0;
+  kick.play();
+}
+function playSnare(){
+  snare.currentTime=0; 
+  snare.play();
+}
+</script>
