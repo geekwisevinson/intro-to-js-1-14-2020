@@ -12,6 +12,8 @@
 <audio id="kick" src="./kick.mp3"></audio>
 <audio id="snare" src="./snare.mp3" ></audio>
 
+<video id="video" src="./mov_bbb.mp4"></video>
+
 <script>
     const kick = document.querySelector('#kick');
     const snare = document.querySelector('#snare');
@@ -24,6 +26,12 @@
         if (event.code === 'KeyK') {
             playSnare();
         }
+        if (event.code === 'KeyV') {
+            playVideo();
+        }
+        if (event.code === 'KeyR') {
+            restartVideo();
+        }
     });
 
     function playKick() {
@@ -35,6 +43,14 @@
         console.log(snare);
         kick.currentTime = 0;
         snare.play();
+    }
+
+    function playVideo() {
+        video.play();
+    }
+    function restartVideo() {
+        video.currentTime = 4;
+        video.play();
     }
 </script>
 
