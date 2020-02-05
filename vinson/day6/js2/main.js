@@ -41,11 +41,12 @@ const myBunny = new Bird({
 function gameLoop() {
     context.clearRect(0, 0, 360, 640);
 
-    // myBird.update();
-    // myBird.draw();
+    myBird.update();
+    myBird.draw();
 
-    myBunny.update();
-    myBunny.draw();
+
+    // myBunny.update();
+    // myBunny.draw();
     window.requestAnimationFrame(gameLoop);
 }
 
