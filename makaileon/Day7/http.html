@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>http</title>
+</head>
+<body>
+    <script>
+        const url = 'https://jsonplaceholder.typicode.com/'
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('GET', url);
+        // xhr.onerror = function(err) {console.log(err)};
+        // xhr.onload = function(response) {console.log('works', JSON.parse(xhr.response))};
+        // xhr.send();
+
+        fetch(url).then( function (response) {
+            return response.json();
+        } ).then(whatToDoWHenPostComesBack).catch( err => console.log(err));
+
+        function whatToDoWHenPostComesBack (res) {
+            console.log(' what to do ' + res);
+            // res.forEach( post => {
+            //     const el = document.createElement('h3');
+            //     document.body.appendChild(el);
+            //     const header = document.createElement('h2');
+            //     el.innerText = post.title;
+            //     el.appendChild(header)
+            //     header.innerText = post.title;
+            // })
+        }
+        // const myPromise = new Promise(function(resolve, reject) {
+        //     setTimeout(function() {
+        //     const randomNumber = Math.random();
+        //     if (randomNumber > .5) {
+        //         resolve(randomNumber);
+        //     } else {
+        //         reject('Error');
+        //     }
+        // }, 5000)
+        // });
+
+        // myPromise.then(function(result) {
+        //     console.log(result);
+        // }).catch(function () {
+        //     console.log('Not what I expected');
+        // });
+    </script>
+</body>
+</html>
