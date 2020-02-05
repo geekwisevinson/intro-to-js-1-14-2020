@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button onclick="playKick()">kick</button>
+<button onclick="playSnare()">snare</button>
+
+<audio id="kick" src="./kick.mp3"></audio>
+<audio id="snare" src="./snare.mp3" ></audio>
+
+<script>
+    const kick = document.querySelector('#kick');
+    const snare = document.querySelector('#snare');
+
+    document.addEventListener('keydown', function (event) {
+        console.log(event.code);
+        if (event.code === 'KeyJ') {
+            playKick();
+        }
+        if (event.code === 'KeyK') {
+            playSnare();
+        }
+    });
+
+    function playKick() {
+        console.log('kick');
+        kick.currentTime = 0;
+        kick.play();
+    }
+    function playSnare() {
+        console.log(snare);
+        kick.currentTime = 0;
+        snare.play();
+    }
+</script>
+
+</body>
+</html>
