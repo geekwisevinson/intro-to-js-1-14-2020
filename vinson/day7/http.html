@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Http</title>
+
+    <style>
+        body {
+            height: 100%;
+        }
+        .post {
+            border: 2px solid green;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const url = 'https://jsonplaceholder.typicode.com/' + 'posts';
+
+    function whatToDoWhenPageLoads() {
+        fetch(url).then( function (response) {
+            return response.json();
+        } ).then( whatToDoWhenPostsComeBack ).catch( err => console.log(err));
+    }
+
+   whatToDoWhenPageLoads();
+
+    function whatToDoWhenPostsComeBack(res) {
+        console.log('what to do', res);
+        res.forEach( createPost )
+    }
+
+    function createPost(post) {
+        const el = document.createElement('div');
+        el.classList.add('post');
+        document.body.appendChild(el);
+
+        const idEl = document.createElement('div');
+        idEl.innerText = post.id;
+        el.appendChild(idEl);
+        idEl.addEventListener('click', function () {
+            console.log(this.innerText);
+            const newUrl = url + '/' + this.innerText;
+            console.log(newUrl);
+            getSinglePost(newUrl)
+        });
+
+        const header = document.createElement('h2');
+        el.appendChild(header);
+        header.innerText = post.title;
+
+        const para = document.createElement('p');
+        el.appendChild(para);
+        para.innerText = post.body;
+    }
+
+
+    function getSinglePost(newUrl) {
+        fetch(newUrl).then( res => res.json() ).then(function (post) {
+            document.body.innerHTML = '';
+            createPost(post);
+            const button = document.createElement('button');
+            document.body.appendChild(button);
+            button.innerText = 'Return to Main page';
+
+            button.addEventListener('click', function () {
+                document.body.innerHTML = '';
+                whatToDoWhenPageLoads();
+            });
+            window.scrollTo(0, 0);
+        });
+    }
+</script>
+
+</body>
+</html>

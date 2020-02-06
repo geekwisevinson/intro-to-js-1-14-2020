@@ -19,6 +19,12 @@ const s = { // source
     w: 400,
     h: 400,
 };
+const spaceship = {
+    x: 0,
+    y: 0,
+    w: 100,
+    h: 90,
+};
 
 function buildImg() {
     const img = document.createElement('img');
@@ -59,12 +65,28 @@ function drawBackground2() {
         background2.x, background2.y, background2.w, background2.h,
     )
 }
+function buildSpaceship() {
+    const spaceship = document.createElement('img');
+    spaceship.src = 'game-assets/red-ship.png';
+    document.body.appendChild(spaceship);
+    return spaceship;
+}
+function drawSpaceship() {
+    context.drawImage(
+        spaceshipImage, // the image to draw
+        spaceship.x, spaceship.y, spaceship.w, spaceship.h, // source dimensions
+        spaceship.x, spaceship.y, spaceship.w, spaceship.h,
+    )
+}
+const spaceshipImage = buildSpaceship();
 function gameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
     drawBackground2();
     updateBackground();
     updateBackground2();
+    drawSpaceship();
     window.requestAnimationFrame(gameLoop);
 }
-gameLoop();
+
+console.log(spaceship)

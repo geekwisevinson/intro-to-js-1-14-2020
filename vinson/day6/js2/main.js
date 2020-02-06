@@ -12,7 +12,7 @@ const myBird = new Bird({
     canvas,
     context,
     img,
-    x: 100,
+    x: 200,
     y: 50,
     w: 80,
     h: 70,
@@ -74,6 +74,8 @@ function gameLoop() {
         item.draw();
     });
 
+    // myBird.update();
+    // myBird.draw();
 
     window.requestAnimationFrame(gameLoop);
 }
