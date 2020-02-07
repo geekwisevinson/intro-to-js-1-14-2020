@@ -40,7 +40,7 @@ const spaceGuy = new Bird({
     canvas,
     context,
     img: gif,
-    imgArr: [spaceGuyImg0, spaceGuyImg1, spaceGuyImg2, spaceGuyImg3, spaceGuyImg4],
+    imgArr: [spaceGuyImg1, spaceGuyImg2, spaceGuyImg3, spaceGuyImg4],
     x: 120,
     y: 50,
     w: 80,
