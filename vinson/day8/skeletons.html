@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basics</title>
+</head>
+<body>
+
+<h1>
+    Basics
+</h1>
+
+
+<script>
+    // all statements end with a semicolon;
+    // white space does not change code functionality
+
+    /*
+    convention state place variables at top
+    convention state place execution code in the middle
+    convention state place functions at bottom
+    */
+
+    // declare variable without initial value
+    var myVar;
+    let myLet;
+    // const has to be declared with an initial value
+    const myConst = true;
+
+    // types
+    const myString = 'single' + "double" + `backticks ${myConst}`;
+    const myNumber = 8 + 33.3;
+    const myBoolean = false;
+    // complex structures
+    const myObject = {
+        // assigment in an object requires a colon : and ended with a comma
+        name: myString + 'some direct string',
+        // property is a variable attached to an object
+        address: {
+            streetName: 'name of street'
+        },
+    };
+    const myArray = [
+        // arrays assume property names called indexes; end with commas
+        myString + 'some direct string',
+        {
+            streetName: 'name of street'
+        }
+    ];
+    const newArray = myArray.filter( function (item) {
+        return typeof item === 'string';
+    });
+
+    // functions
+    // functions can have as many params as you need
+    // parameter is a variable that is passed into a function
+    function functionName(param1, param2, param3) {
+        // variables in a function should be written at the top
+        const myConst = param1;
+        let answer = param2;
+        answer = myConst * param3;
+        // all functions return undefined unless you assign the return;
+        return answer;
+    }
+
+    // the value of "functionNameReturn" will be what is returned
+    const functionNameReturn = functionName(1, 2, 3);
+
+    // arrow do not create scope
+    // implied return
+    const myArrowFunction = (param1, param2) => param1 * param2;
+    // return not implied
+    const myArrowFunction2 = (param1, param2, param3) => {
+        // variables in a function should be written at the top
+        const myConst = param1;
+        let answer = param2;
+        answer = myConst * param3;
+        // all functions return undefined unless you assign the return;
+        return answer;
+    };
+
+    // methods
+    const myObjectWithMethods = {
+        name: 'Vince',
+        // objects can have functions called "methods"
+        greet1: greet,
+        greet,
+    };
+
+    const myObjectWithMethods2 = {
+        name: 'John',
+        // objects can have functions called "methods"
+        greet1: greet,
+        greet,
+    };
+
+    function greet() {
+        console.log('hell my name is ' + this.name)
+    }
+
+    // classes
+    class MyPerson {
+        lastName = 'F';
+        /* a constructor is the first function that
+        automatically runs when it is "newed"
+         */
+        constructor(name) {
+            this.name = name;
+            console.log('person')
+        }
+        greet() {
+            const myLet = 1;
+            console.log(myLet, this.name);
+        }
+    }
+
+    const myPerson = new MyPerson('Max');
+    const myPerson2 = new MyPerson('joe');
+    const myPerson3 = new MyPerson('larry');
+    const myPerson4 = new MyPerson('Moe');
+
+    class Student extends MyPerson {
+        title = 'student';
+        constructor(name) {
+            // all extended class need a super call
+            console.log('student');
+            super(name);
+        }
+    }
+    const myStudent = new Student('James', 3);
+
+
+    let value = 100;
+    // setInterval and setTimout deal with time
+    const myInterval = setInterval(function () {
+
+        const h1 = document.querySelector('h1');
+        h1.style.backgroundColor = `hsl(${value}, 50%, 50%`;
+        h1.style.color = `hsl(${value + 125}, 50%, 50%`;
+        h1.style.position = 'absolute';
+        h1.style.top = value + 'px';
+        value++
+    }, 50);
+    setTimeout(function() {
+        console.log('finally!');
+        clearInterval(myInterval);
+    }, 5000);
+
+    // condition logic
+    const userResponse = prompt('how old are you');
+    if ( Number(userResponse) > 18 ) {
+        // if the condition is true execute the code block
+        console.log('you can enter this site');
+    } else if (Number(userResponse) > 13) {
+        console.log('ask your parents for permission');
+    } else {
+        console.log('get out a here')
+    }
+
+    // ternary
+    (Number(userResponse) > 18) ? console.log('you can enter this site') : (Number(userResponse) > 13) ? console.log('ask your parents for permission') : console.log('get out a here');
+
+    // switch
+    switch (Number(userResponse)) {
+        case 19:
+            console.log('you can enter this site');
+            break;
+         case 15:
+            console.log('ask your parents for permission');
+            break;
+            default:
+                console.log('too young');
+    }
+
+    const time = new Date().getHours();
+    if (time < 12) {
+        document.body.style.backgroundColor = 'red'
+    } else {
+        document.body.style.backgroundColor = 'black'
+    }
+</script>
+
+
+
+
+</body>
+</html>
