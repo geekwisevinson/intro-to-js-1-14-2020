@@ -9,14 +9,13 @@
 
 
 <script>
-
-    /*
-    1. any prop update should have a function
-    2. any calc should have have a function that returns
-    * */
-
+    const globalData = {
+        images: ['https://image.shutterstock.com/image-illustration/3d-computer-desktop-pc-pc3d-260nw-1190426668.jpg', 'https://www.pcsknox.com/images/easyblog_articles/426/Gnome-computer.png'],
+        imageIndex: 0,
+        pages: {},
+        components: {},
+    };
     loadPage('home');
-
     function getTextFromFile(type, file) {
         return fetch(`./${type}/${file}.html`)
             .then( res => { return res.text() });
@@ -42,6 +41,7 @@
                 for (let prop in models) {
                     component.innerHTML = replaceText(text, prop, models[prop]);
                 }
+                changeImage(0);
             });
         })
     }
@@ -52,6 +52,22 @@
     function updateHtml(el, text) {
         el.innerHTML = text;
     }
+
+    function changeImage(value) {
+        const img = document.querySelector('img');
+        if (img) {
+            globalData.imageIndex += value;
+            if (globalData.imageIndex < 0) {
+                globalData.imageIndex = globalData.images.length - 1;
+            }
+            if (globalData.imageIndex > globalData.images.length - 1) {
+                globalData.imageIndex = 0;
+            }
+            img.src = globalData.images[globalData.imageIndex];
+        }
+    }
+
+
 </script>
 
 </body>
