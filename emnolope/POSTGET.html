@@ -57,7 +57,7 @@ function barfBite(url){
       returnButton.innerText='Go back!';
       returnButton.addEventListener('click',fetchAndBarf);
     })
-    .catch(document.body.innerHTML='Error! barfbite');
+    .catch(function(){document.body.innerHTML='Error! barfbite'});
 }
     </script>
   </body>
