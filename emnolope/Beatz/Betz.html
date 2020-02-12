@@ -6,15 +6,14 @@
   </head>
   <body>
 
-
-<button onclick="playKick();">kick</button>
-<button onclick="playSnare();">snare</button>
-<audio id="kick" src="./kick.mp3"></audio>
-<audio id="snare" src="./snare.mp3"></audio>
-<script>
+    <button onclick="playKick();">kick</button>
+    <button onclick="playSnare();">snare</button>
+    <audio id="kick" src="./kick.mp3"></audio>
+    <audio id="snare" src="./snare.mp3"></audio>
+    <video id="video" src="./mov_bbb.mp4"></video>
+    <script>
 //const kick=document.querySelector('#kick');
 //const snare=document.querySelector('#snare');
-
 function playKick(){
   kick.currentTime=0;
   kick.play();
@@ -23,11 +22,21 @@ function playSnare(){
   snare.currentTime=0; 
   snare.play();
 }
-//IMPLEMENT VIDEO PLAYING
-//IMPLEMENT
-</script>
-
-
+function playVideo(){
+  video.play()
+}
+function restartVideo(){
+  video.currentTime=0;
+  video.play();
+}
+document.addEventListener("keyup",function(event){
+  if (!event.code) return;
+  if (event.code==='Digit1') playKick();
+  if (event.code==='Digit2') playSnare()
+  if (event.code==='KeyK') playVideo();
+  if (event.code==='Digit0') restartVideo();
+});
+    </script>
   </body>
 </html>
 

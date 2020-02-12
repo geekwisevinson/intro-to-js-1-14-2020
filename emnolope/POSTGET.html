@@ -28,7 +28,7 @@ function createPost(post){
   el.classList.add('post');
   document.body.appendChild(el);
   //ID
-  const idEl=document.createElement('div');
+  const idEl=document.createElement('button');
   idEl.innerText=post.id;
   el.appendChild(idEl);
   //title
@@ -39,21 +39,25 @@ function createPost(post){
   const para=document.createElement('p');
   el.appendChild(para);
   para.innerText=post.body;
-  /*
-
->>
-document.body.innerHTML='';
-createPost(post);
-const button=document.createElement('button');
-document.body.appendChild(button);
-button.innerText="Return2MainPage";
-//window.scrollTo(300,0)
-button.addEventListener(click,fetchAndBarf);
-<<
-  */
+  idEl.addEventListener('click',function(){
+    document.body.innerHTML='';
+    barfBite(url+'/'+post.id);
+  })
 }
 function onGitboi(res){
   res.forEach(createPost);
+}
+function barfBite(url){
+  fetch(url)//==>
+    .then(a=>a.json())
+    .then(function(post){
+      createPost(post);
+      const returnButton=document.createElement('button');
+      document.body.appendChild(returnButton);
+      returnButton.innerText='Go back!';
+      returnButton.addEventListener('click',fetchAndBarf);
+    })
+    .catch(function(){document.body.innerHTML='Error! barfbite'});
 }
     </script>
   </body>
