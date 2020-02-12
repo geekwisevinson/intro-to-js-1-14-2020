@@ -33,14 +33,15 @@
     function checkForComponents(el) {
         const components = el.querySelectorAll('[data-component]');
         components.forEach( component => {
+            console.log(component, 'component');
             const componentName = component.getAttribute('data-component');
             const models = JSON.parse(component.getAttribute('data-models'));
             console.log(componentName, models);
             loadComponent(componentName).then( text => {
+                component.innerHTML = text;
                 for (let prop in models) {
                     component.innerHTML = replaceText(text, prop, models[prop]);
                 }
-
             });
         })
     }
