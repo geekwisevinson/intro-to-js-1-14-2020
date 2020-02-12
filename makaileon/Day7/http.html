@@ -2,50 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>http</title>
+    <title>Http</title>
+
+    <style>
+        body {
+            height: 100%;
+        }
+        .post {
+            border: 2px solid green;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        const url = 'https://jsonplaceholder.typicode.com/'
-        // const xhr = new XMLHttpRequest();
-        // xhr.open('GET', url);
-        // xhr.onerror = function(err) {console.log(err)};
-        // xhr.onload = function(response) {console.log('works', JSON.parse(xhr.response))};
-        // xhr.send();
 
-        fetch(url).then( function (response) {
-            return response.json();
-        } ).then(whatToDoWHenPostComesBack).catch( err => console.log(err));
+<button  onclick="playKick()">kick</button>
 
-        function whatToDoWHenPostComesBack (res) {
-            console.log(' what to do ' + res);
-            // res.forEach( post => {
-            //     const el = document.createElement('h3');
-            //     document.body.appendChild(el);
-            //     const header = document.createElement('h2');
-            //     el.innerText = post.title;
-            //     el.appendChild(header)
-            //     header.innerText = post.title;
-            // })
+<button onclick="playSnare()">snare</button>
+
+<audio id="kick" src="kick.mp3"></audio>
+<audio id="snare" src="snare.mp3"></audio>
+
+<script>
+    const kick = document.querySelector('#kick');
+    const snare = document.querySelector('#snare');
+
+    document.addEventListener('keydown', function(event) {
+        console.log(event.code)
+        if (event.code === 'KeyJ') {
+            playKick();
         }
-        // const myPromise = new Promise(function(resolve, reject) {
-        //     setTimeout(function() {
-        //     const randomNumber = Math.random();
-        //     if (randomNumber > .5) {
-        //         resolve(randomNumber);
-        //     } else {
-        //         reject('Error');
-        //     }
-        // }, 5000)
-        // });
+        if (event.code === 'KeyK') {
+            playSnare();
+        }
+    });
 
-        // myPromise.then(function(result) {
-        //     console.log(result);
-        // }).catch(function () {
-        //     console.log('Not what I expected');
-        // });
-    </script>
+    function playKick() {
+        kick.currentTime = 0;
+        kick.play();
+    }
+    function playSnare() {
+        snare.currentTime = 0;
+        snare.play();
+    }
+
+
+
+
+
+
+
+
+
+
+
+//     const url = 'https://jsonplaceholder.typicode.com/' + 'posts';
+
+//     function whatToDoWhenPageLoads() {
+//         fetch(url).then( function (response) {
+//             return response.json();
+//         } ).then( whatToDoWhenPostsComeBack ).catch( err => console.log(err));
+//     }
+
+//    whatToDoWhenPageLoads();
+
+//     function whatToDoWhenPostsComeBack(res) {
+//         console.log('what to do', res);
+//         res.forEach( createPost )
+//     }
+
+//     function createPost(post) {
+//         const el = document.createElement('div');
+//         el.classList.add('post');
+//         document.body.appendChild(el);
+
+//         const idEl = document.createElement('div');
+//         idEl.innerText = post.id;
+//         el.appendChild(idEl);
+//         idEl.addEventListener('click', function () {
+//             console.log(this.innerText);
+//             const newUrl = url + '/' + this.innerText;
+//             console.log(newUrl);
+//             fetch(newUrl).then( res => res.json() ).then(function (post) {
+//                 document.body.innerHTML = '';
+//                 createPost(post);
+//                 const button = document.createElement('button');
+//                 document.body.appendChild(button);
+//                 button.innerText = 'Return to Main page';
+
+//                 button.addEventListener('click', function () {
+//                     document.body.innerHTML = '';
+//                     whatToDoWhenPageLoads();
+//                 });
+//                 window.scrollTo(0, 0);
+//             });
+//         });
+
+//         const header = document.createElement('h2');
+//         el.appendChild(header);
+//         header.innerText = post.title;
+
+//         const para = document.createElement('p');
+//         el.appendChild(para);
+//         para.innerText = post.body;
+//     }
+
+</script>
+
 </body>
 </html>

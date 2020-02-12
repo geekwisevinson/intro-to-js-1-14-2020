@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //all statements end with a semicolon
+        var myVar;
+        let myLet;
+        // const has to be declared with an initial value
+        const myConst = true;
+
+
+
+
+        //types
+        const myString = 'single' + "double" + `backticks ${myConst}`;
+        const myNumber = 8;
+        const myBoolean = false;
+        // complez structures 
+        const myObject = {
+            // assignment in an object
+            name: myString + 'some direct string',
+
+            // property is a variable attached to an object
+            address: {
+                streetName: 'name of street'
+            },
+        };
+
+        const myArray = [
+            //arrays assume property names called indices
+            myString + 'some direct string',
+            {
+            streetName: 'name of street',
+            },
+        ]
+        const myRef = myArray[0];
+
+        const newArray = myArray.filter(function (item) {
+            return typeof item === 'string';
+        });
+
+        //functions 
+        // you can have as many params as you need for a function
+        // parameter is a variable that is passed into a function
+        function functionName (param1, param2, param3) {
+            //variables in a function hould be written at the top
+            const myConst = param1;
+            let answer = param2;
+            answer = myConst * param3;
+            // all functions return undefined unless you assign the real values
+            return answer;
+        }
+
+        const myFunctionReturn = functionName(1, 2, 3);
+
+
+        //implied return 
+        const myArrowFunction = (param1, param2) => param1 * param2;
+
+        //return not implied 
+        const myArrowFunction = (param1, param2, param3) => {
+            //variables in a function hould be written at the top
+            const myConst = param1;
+            let answer = param2;
+            answer = myConst * param3;
+            // all functions return undefined unless you assign the real values
+            return answer;
+        };
+
+        class MyPerson {
+            lastName = 'F.';
+            constructor(name) {
+                this.name = name;
+            }
+            greet() {
+
+            }
+        }
+
+        const myPerson = new MyPerson('Joe');
+        
+        let value = 0;
+
+        setInterval(function () {
+            document.body.style.backgroundColor = `hsl(${value}, 50%, 50%)`
+            value++;
+        }, 1000)
+        
+        
+        
+    </script>
+</body>
+</html>
