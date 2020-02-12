@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [data-component=anchor] a {
+            background-color: red;
+            color: white;
+            display: inline-block;
+            padding: 20px;
+            margin: 20px;
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const body = document.querySelector('body');
+
+    const htmlData = {
+        pages: {},
+        components: {},
+    };
+
+    const globalData = {
+        score: 9,
+        currentPage: '',
+        users: [{score: 10, page: 'test'}, {score: 10, page: 'test2'},{score: 10, page: 'test3'},],
+    };
+
+
+    getPage('landing');
+    function getPage(page) {
+        getHtml('pages', page).then( res => {
+            body.innerHTML = res;
+            parseComponents(document.body);
+            globalData.currentPage = page;
+        })
+    }
+
+    function getHtml(type, file) {
+        return new Promise(function (resolve, reject) {
+            if (htmlData && htmlData[type][file]) {
+                resolve(htmlData[type][file])
+            } else {
+                fetch(`./${type}/${file}.html`).then(res => {
+                    return res.text();
+                }).then(res => {
+                    resolve(res);
+                    htmlData[type][file] = res;
+                })
+            }
+        });
+    }
+
+    function parseComponents(element) {
+        console.log('element', element);
+        const componentMarkers = element.querySelectorAll('[data-component]');
+        componentMarkers.forEach( marker => {
+            const componentName = marker.getAttribute('data-component');
+            const models = marker.getAttribute('data-models');
+            const globals = marker.getAttribute('data-globals');
+            getComponent(componentName).then( res => {
+                marker.innerHTML = res;
+                parseVars(marker, JSON.parse(models), JSON.parse(globals));
+                parseComponents(marker);
+            })
+        });
+    }
+
+    function getComponent(component) {
+        return getHtml('components', component);
+    }
+
+    function parseVars(marker, models, globals, skip) {
+        console.log('parseVars');
+        const gwFor = marker.getAttribute('data-gwFor');
+        console.log(gwFor);
+        if (gwFor && !skip) {
+            const items = globalData[JSON.parse(gwFor)['items']];
+            items.forEach( item => {
+                const markerClone = marker.cloneNode(true);
+                markerClone.setAttribute('data-models', JSON.stringify(item));
+                console.log('clone', markerClone, marker.parentElement);
+                marker.parentElement.appendChild(markerClone);
+                parseVars(markerClone, item, globals, true);
+                markerClone.innerHTML += 'this is a copy' + JSON.stringify(item);
+                parseComponents(markerClone);
+            });
+            marker.remove();
+        } else {
+            loopOverVariables(marker, models, globals) ;
+        }
+
+
+
+    }
+
+
+    function loopOverVariables(marker, models, globals)  {
+        console.log('models', models);
+        for (let prop in models) {
+            const thingToReplace = `{{${prop}}}`;
+            const newValue = replaceSingleVar(new RegExp(thingToReplace, 'g'), `${models[prop]}`, marker.innerHTML);
+            marker.innerHTML = newValue;
+        }
+
+        for (let prop in globals) {
+            const thingToReplace = `{{${prop}}}`;
+            const newValue = replaceSingleVar(new RegExp(thingToReplace, 'g'), `${globalData[globals[prop]]}`, marker.innerHTML);
+            marker.innerHTML = newValue;
+        }
+    }
+
+    function replaceSingleVar(thingToReplace, value, string) {
+
+        return string.replace(new RegExp(thingToReplace, 'g'), `${value}`);
+    }
+
+
+
+
+
+
+
+
+
+    function updatePage() {
+        getPage(globalData.currentPage);
+    }
+
+    document.addEventListener('click', function () {
+        updateScore(-2)
+    });
+
+    function updateScore(value) {
+        globalData.score += value;
+        updatePage();
+    }
+
+</script>
+
+
+</body>
+</html>
