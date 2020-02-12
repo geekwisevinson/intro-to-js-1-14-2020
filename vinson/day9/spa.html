@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spa</title>
+</head>
+<body>
+
+
+
+<script>
+
+    /*
+    1. any prop update should have a function
+    2. any calc should have have a function that returns
+    * */
+
+    loadPage('home');
+
+
+    function getTextFromFile(type, file) {
+        return fetch(`./${type}/${file}.html`)
+            .then( res => { return res.text() });
+    }
+    function loadPage(file) {
+        return getTextFromFile('pages', file).then( res => {
+                updateHtml(document.body, res);
+                checkForComponents(document.body);
+            });
+    }
+    function loadComponent(file) {
+        return getTextFromFile('components', file);
+    }
+    function checkForComponents(el) {
+        const components = el.querySelectorAll('[data-component]');
+        components.forEach( component => {
+            const componentName = component.getAttribute('data-component');
+            console.log(componentName);
+            loadComponent(componentName).then( text => {
+                component.innerHTML = text;
+            });
+        })
+    }
+    function updateHtml(el, text) {
+        el.innerHTML = text;
+    }
+</script>
+
+</body>
+</html>
