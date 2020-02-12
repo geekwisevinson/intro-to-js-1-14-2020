@@ -17,7 +17,6 @@
 
     loadPage('home');
 
-
     function getTextFromFile(type, file) {
         return fetch(`./${type}/${file}.html`)
             .then( res => { return res.text() });
@@ -35,11 +34,19 @@
         const components = el.querySelectorAll('[data-component]');
         components.forEach( component => {
             const componentName = component.getAttribute('data-component');
-            console.log(componentName);
+            const models = JSON.parse(component.getAttribute('data-models'));
+            console.log(componentName, models);
             loadComponent(componentName).then( text => {
-                component.innerHTML = text;
+                for (let prop in models) {
+                    component.innerHTML = replaceText(text, prop, models[prop]);
+                }
+
             });
         })
+    }
+
+    function replaceText(string, textToReplace, textWeWant) {
+        return string.replace(textToReplace, textWeWant)
     }
     function updateHtml(el, text) {
         el.innerHTML = text;
