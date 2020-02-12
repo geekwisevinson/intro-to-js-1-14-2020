@@ -31,5 +31,13 @@ const sources = {
             w: 229,
             h: 273,
         }
+    },
+    spaceGuy: {
+        default: {
+            x: 200,
+            y: 200,
+            w: 800,
+            h: 800,
+        },
     }
 };
