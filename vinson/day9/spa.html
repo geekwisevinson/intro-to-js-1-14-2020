@@ -6,7 +6,7 @@
 </head>
 <body>
 
-
+<script src="utility/utility.js"></script>
 
 <script>
     const globalData = {
@@ -15,45 +15,65 @@
         pages: {},
         components: {},
     };
+
+    const log = new Log();
     loadPage('home');
     function getTextFromFile(type, file) {
         return fetch(`./${type}/${file}.html`)
             .then( res => { return res.text() });
     }
     function loadPage(file) {
+        console.clear();
+        log.intent(loadPage.name, 'is to start the process of loading a specific test');
+        log.calls(loadPage.name, getTextFromFile.name, 'to get HTML!', 'a promise. .... has to wait......');
         return getTextFromFile('pages', file).then( res => {
+            log.resolves(loadPage.name, getTextFromFile.name, {res});
+            log.calls(loadPage.name, updateHtml.name, 'to update the body with the HTML!');
                 updateHtml(document.body, res);
+            log.calls(loadPage.name, checkForComponents.name, 'to look to see if we need to replace any html with components');
                 checkForComponents(document.body);
             });
     }
     function loadComponent(file) {
+        log.intent(loadComponent.name, 'is to get the text from the components file');
+        log.calls(loadComponent.name, getTextFromFile.name, 'to get text', 'a PROMISE. ... it has to wait....');
         return getTextFromFile('components', file);
     }
     function checkForComponents(el) {
+        log.intent(checkForComponents.name, 'is to query the html and look for the [data-component] attribute');
         const components = el.querySelectorAll('[data-component]');
+        log.calls(checkForComponents.name, 'forEach', 'to loop over all the components it finds');
         components.forEach( component => {
-            console.log(component, 'component');
             const componentName = component.getAttribute('data-component');
             const models = JSON.parse(component.getAttribute('data-models'));
-            console.log(componentName, models);
+            log.calls(checkForComponents.name, loadComponent.name, 'for each component it finds', 'a PROMISE. ... it has to wait....');
             loadComponent(componentName).then( text => {
+                log.resolves(checkForComponents.name, loadComponent.name, {text});
                 component.innerHTML = text;
+
                 for (let prop in models) {
+                    log.calls(checkForComponents.name, replaceText.name, 'forEach component it finds that has a model');
                     component.innerHTML = replaceText(text, prop, models[prop]);
                 }
-                changeImage(0);
+                if (componentName === 'pictures') {
+                    changeImage(globalData.imageIndex);
+                }
+
             });
         })
     }
 
     function replaceText(string, textToReplace, textWeWant) {
+        log.intent(replaceText.name, 'replaces text in one string with text from another');
         return string.replace(textToReplace, textWeWant)
     }
     function updateHtml(el, text) {
+        log.intent(updateHtml.name, `is to update the element with the HTML `,[{text}] );
         el.innerHTML = text;
     }
 
     function changeImage(value) {
+        log.intent(changeImage.name, 'load and manage the pictures', globalData.imageIndex);
         const img = document.querySelector('img');
         if (img) {
             globalData.imageIndex += value;
@@ -66,6 +86,7 @@
             img.src = globalData.images[globalData.imageIndex];
         }
     }
+
 
 
 </script>
