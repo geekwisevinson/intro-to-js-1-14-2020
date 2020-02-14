@@ -8,6 +8,7 @@
 
 
 <script>
+    let id = 1;
     function geo_success(position) {
         console.log(position);
         showPreLocation(position);
@@ -33,7 +34,9 @@
             heading: position.coords.heading,
             speed: position.coords.speed,
             timestamp: position.timestamp,
+            id: id,
         };
+        id++;
         document.body.appendChild(pre);
         pre.innerHTML = JSON.stringify(coords, null, 4);
         console.log(coords);
