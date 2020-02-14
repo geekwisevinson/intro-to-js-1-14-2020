@@ -1,0 +1,1657 @@
+[
+    {
+        "name": "chris",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./chris",
+        "folders": [
+            {
+                "name": "index.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./chris/index.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "emnolope",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./emnolope",
+        "folders": [
+            {
+                "name": "Beatz",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/Beatz",
+                "folders": [
+                    {
+                        "name": "snare.mp3",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Beatz/snare.mp3",
+                        "type": "mp3"
+                    },
+                    {
+                        "name": "mov_bbb.mp4",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Beatz/mov_bbb.mp4",
+                        "type": "mp4"
+                    },
+                    {
+                        "name": "kick.mp3",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Beatz/kick.mp3",
+                        "type": "mp3"
+                    },
+                    {
+                        "name": "Betz.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Beatz/Betz.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day3",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/day3",
+                "folders": [
+                    {
+                        "name": "crud.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/day3/crud.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "DoReMiFa",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/DoReMiFa",
+                "folders": [
+                    {
+                        "name": "wtf.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/DoReMiFa/wtf.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "notes.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/DoReMiFa/notes.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "log1.txt",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/DoReMiFa/log1.txt",
+                        "type": "txt"
+                    },
+                    {
+                        "name": "index.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/DoReMiFa/index.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "doremi.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/DoReMiFa/doremi.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "Grid.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/DoReMiFa/Grid.js",
+                        "type": "js"
+                    }
+                ]
+            },
+            {
+                "name": "FlappyDappy",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/FlappyDappy",
+                "folders": [
+                    {
+                        "name": "style.css",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/FlappyDappy/style.css",
+                        "type": "css"
+                    },
+                    {
+                        "name": "flappy.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/FlappyDappy/flappy.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "build-canvas.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/FlappyDappy/build-canvas.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "background.png",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/FlappyDappy/background.png",
+                        "type": "png"
+                    }
+                ]
+            },
+            {
+                "name": "Framework",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/Framework",
+                "folders": [
+                    {
+                        "name": "components",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./emnolope/Framework/components",
+                        "folders": [
+                            {
+                                "name": "title.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Framework/components/title.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "pages",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./emnolope/Framework/pages",
+                        "folders": [
+                            {
+                                "name": "home.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Framework/pages/home.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "contact.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Framework/pages/contact.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "about.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Framework/pages/about.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "index.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Framework/index.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "htmlcheatsheet",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/htmlcheatsheet",
+                "folders": [
+                    {
+                        "name": "index2.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/htmlcheatsheet/index2.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "index.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/htmlcheatsheet/index.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "Scope",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./emnolope/Scope",
+                "folders": [
+                    {
+                        "name": "execute.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/execute.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "create_header.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/create_header.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "colors.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/colors.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "FUCKOFF_files",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./emnolope/Scope/FUCKOFF_files",
+                        "folders": [
+                            {
+                                "name": "execute.js.download",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Scope/FUCKOFF_files/execute.js.download",
+                                "type": "js"
+                            },
+                            {
+                                "name": "create_header.js.download",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Scope/FUCKOFF_files/create_header.js.download",
+                                "type": "js"
+                            },
+                            {
+                                "name": "colors.js.download",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./emnolope/Scope/FUCKOFF_files/colors.js.download",
+                                "type": "js"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "variables.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/variables.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "scope.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/scope.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "player.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/player.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "Vomitfile.md.txt",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./emnolope/Scope/Vomitfile.md.txt",
+                        "type": "md"
+                    }
+                ]
+            },
+            {
+                "name": "PLEASE KILL ME.txt",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/PLEASE KILL ME.txt",
+                "type": "txt"
+            },
+            {
+                "name": "welcome_original.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/welcome_original.html",
+                "type": "html"
+            },
+            {
+                "name": "clearncopy.bat",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/clearncopy.bat",
+                "type": "bat"
+            },
+            {
+                "name": "1-14-2020.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/1-14-2020.html",
+                "type": "html"
+            },
+            {
+                "name": "JackBlack.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/JackBlack.html",
+                "type": "html"
+            },
+            {
+                "name": "intro-to-js-1-14-2020 - Shortcut.lnk",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/intro-to-js-1-14-2020 - Shortcut.lnk",
+                "type": "lnk"
+            },
+            {
+                "name": "index.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/index.html",
+                "type": "html"
+            },
+            {
+                "name": "1-16-2020.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/1-16-2020.html",
+                "type": "html"
+            },
+            {
+                "name": "Betz.txt",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/Betz.txt",
+                "type": "txt"
+            },
+            {
+                "name": "1-16-2020-9pm.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/1-16-2020-9pm.html",
+                "type": "html"
+            },
+            {
+                "name": "DOM.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/DOM.html",
+                "type": "html"
+            },
+            {
+                "name": "Resources.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/Resources.html",
+                "type": "html"
+            },
+            {
+                "name": "POSTGET.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./emnolope/POSTGET.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "huisinga",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./huisinga",
+        "folders": [
+            {
+                "name": "huisinga.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./huisinga/huisinga.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "makaileon",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./makaileon",
+        "folders": [
+            {
+                "name": "asteroid",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/asteroid",
+                "folders": [
+                    {
+                        "name": "game-assets",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./makaileon/asteroid/game-assets",
+                        "folders": [
+                            {
+                                "name": "red-ship.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/asteroid/game-assets/red-ship.png",
+                                "type": "png"
+                            },
+                            {
+                                "name": "red-laser.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/asteroid/game-assets/red-laser.png",
+                                "type": "png"
+                            },
+                            {
+                                "name": "blue-ship.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/asteroid/game-assets/blue-ship.png",
+                                "type": "png"
+                            },
+                            {
+                                "name": "blue-laser.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/asteroid/game-assets/blue-laser.png",
+                                "type": "png"
+                            },
+                            {
+                                "name": "background-purple.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/asteroid/game-assets/background-purple.png",
+                                "type": "png"
+                            },
+                            {
+                                "name": "asteroid.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/asteroid/game-assets/asteroid.png",
+                                "type": "png"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "start-game.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/asteroid/start-game.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "spaceship.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/asteroid/spaceship.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "comets.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/asteroid/comets.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "canvas.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/asteroid/canvas.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "asteroid.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/asteroid/asteroid.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day2",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/day2",
+                "folders": [
+                    {
+                        "name": "local-storage.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day2/local-storage.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "day4-21.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day2/day4-21.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "crud-day3.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day2/crud-day3.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day5",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/day5",
+                "folders": [
+                    {
+                        "name": "variable.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/variable.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "updateScore.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/updateScore.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "scope.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/scope.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "player.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/player.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "makaileonday2.code-workspace",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/makaileonday2.code-workspace",
+                        "type": "code-workspace"
+                    },
+                    {
+                        "name": "execute.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/execute.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "create-header.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/create-header.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "colors.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day5/colors.js",
+                        "type": "js"
+                    }
+                ]
+            },
+            {
+                "name": "day6",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/day6",
+                "folders": [
+                    {
+                        "name": "img",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./makaileon/day6/img",
+                        "folders": [
+                            {
+                                "name": "sprite.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day6/img/sprite.png",
+                                "type": "png"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "js",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./makaileon/day6/js",
+                        "folders": [
+                            {
+                                "name": "build-canvas.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day6/js/build-canvas.js",
+                                "type": "js"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "flappy.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day6/flappy.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "Day7",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/Day7",
+                "folders": [
+                    {
+                        "name": "snare.mp3",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/Day7/snare.mp3",
+                        "type": "mp3"
+                    },
+                    {
+                        "name": "kick.mp3",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/Day7/kick.mp3",
+                        "type": "mp3"
+                    },
+                    {
+                        "name": "http.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/Day7/http.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day8",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/day8",
+                "folders": [
+                    {
+                        "name": "skeltons.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day8/skeltons.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day9",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./makaileon/day9",
+                "folders": [
+                    {
+                        "name": "components",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./makaileon/day9/components",
+                        "folders": [
+                            {
+                                "name": "title.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day9/components/title.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "pictures.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day9/components/pictures.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "nav.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day9/components/nav.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "pages",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./makaileon/day9/pages",
+                        "folders": [
+                            {
+                                "name": "home.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day9/pages/home.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "contact.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day9/pages/contact.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "about.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./makaileon/day9/pages/about.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "spa.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./makaileon/day9/spa.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "index.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./makaileon/index.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "pDunCanCode",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./pDunCanCode",
+        "folders": [
+            {
+                "name": "index.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./pDunCanCode/index.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "rj",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./rj",
+        "folders": [
+            {
+                "name": "index.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./rj/index.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "vinson",
+        "isDirectory": true,
+        "isFile": false,
+        "level": 1,
+        "path": "./vinson",
+        "folders": [
+            {
+                "name": "day10",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day10",
+                "folders": [
+                    {
+                        "name": "vanta.waves.min.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/vanta.waves.min.js",
+                        "type": "waves"
+                    },
+                    {
+                        "name": "vanta.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/vanta.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "vanta.birds.min.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/vanta.birds.min.js",
+                        "type": "birds"
+                    },
+                    {
+                        "name": "three.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/three.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "index.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/index.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "getfiles.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/getfiles.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "geolocation.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day10/geolocation.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day2",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day2",
+                "folders": [
+                    {
+                        "name": "local-storage.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day2/local-storage.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day3",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day3",
+                "folders": [
+                    {
+                        "name": "crud.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day3/crud.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day4",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day4",
+                "folders": [
+                    {
+                        "name": "blackjack.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day4/blackjack.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day5",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day5",
+                "folders": [
+                    {
+                        "name": "variables.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/variables.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "update-score.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/update-score.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "scope.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/scope.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "player.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/player.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "execute.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/execute.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "create-header.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/create-header.js",
+                        "type": "js"
+                    },
+                    {
+                        "name": "colors.js",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day5/colors.js",
+                        "type": "js"
+                    }
+                ]
+            },
+            {
+                "name": "day6",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day6",
+                "folders": [
+                    {
+                        "name": "img",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/day6/img",
+                        "folders": [
+                            {
+                                "name": "sprite.png",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/sprite.png",
+                                "type": "png"
+                            },
+                            {
+                                "name": "rvky5wg.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/rvky5wg.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "bunny.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/bunny.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "5.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/5.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "4.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/4.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "3.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/3.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "2.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/2.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "1.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/1.gif",
+                                "type": "gif"
+                            },
+                            {
+                                "name": "0.gif",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/img/0.gif",
+                                "type": "gif"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "js",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/day6/js",
+                        "folders": [
+                            {
+                                "name": "globals.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js/globals.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "drawable.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js/drawable.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "build-canvas.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js/build-canvas.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "bird.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js/bird.js",
+                                "type": "js"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "js2",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/day6/js2",
+                        "folders": [
+                            {
+                                "name": "sources.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/sources.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "movable.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/movable.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "main.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/main.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "drawable.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/drawable.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "build-img.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/build-img.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "build-canvas.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/build-canvas.js",
+                                "type": "js"
+                            },
+                            {
+                                "name": "bird.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day6/js2/bird.js",
+                                "type": "js"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "flappy2.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day6/flappy2.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "flappy.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day6/flappy.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day7",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day7",
+                "folders": [
+                    {
+                        "name": "mov_bbb.mp4",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day7/mov_bbb.mp4",
+                        "type": "mp4"
+                    },
+                    {
+                        "name": "http.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day7/http.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "drums.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day7/drums.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day8",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day8",
+                "folders": [
+                    {
+                        "name": "skeletons.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day8/skeletons.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "day9",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/day9",
+                "folders": [
+                    {
+                        "name": "components",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/day9/components",
+                        "folders": [
+                            {
+                                "name": "title.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/components/title.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "pictures.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/components/pictures.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "nav.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/components/nav.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "pages",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/day9/pages",
+                        "folders": [
+                            {
+                                "name": "signup.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/pages/signup.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "home.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/pages/home.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "contact.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/pages/contact.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "about.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/pages/about.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "utility",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/day9/utility",
+                        "folders": [
+                            {
+                                "name": "utility.js",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/day9/utility/utility.js",
+                                "type": "js"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "spa.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/day9/spa.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "test",
+                "isDirectory": true,
+                "isFile": false,
+                "level": 2,
+                "path": "./vinson/test",
+                "folders": [
+                    {
+                        "name": "components",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/test/components",
+                        "folders": [
+                            {
+                                "name": "title.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/test/components/title.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "anchor.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/test/components/anchor.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "pages",
+                        "isDirectory": true,
+                        "isFile": false,
+                        "level": 3,
+                        "path": "./vinson/test/pages",
+                        "folders": [
+                            {
+                                "name": "landing.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/test/pages/landing.html",
+                                "type": "html"
+                            },
+                            {
+                                "name": "about.html",
+                                "isDirectory": false,
+                                "isFile": true,
+                                "level": 4,
+                                "path": "./vinson/test/pages/about.html",
+                                "type": "html"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "spa.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/test/spa.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "objects.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/test/objects.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "music.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/test/music.html",
+                        "type": "html"
+                    },
+                    {
+                        "name": "drag.html",
+                        "isDirectory": false,
+                        "isFile": true,
+                        "level": 3,
+                        "path": "./vinson/test/drag.html",
+                        "type": "html"
+                    }
+                ]
+            },
+            {
+                "name": "index.html",
+                "isDirectory": false,
+                "isFile": true,
+                "level": 2,
+                "path": "./vinson/index.html",
+                "type": "html"
+            }
+        ]
+    },
+    {
+        "name": "welcome.html",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./welcome.html",
+        "type": "html"
+    },
+    {
+        "name": "README.md",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./README.md",
+        "type": "md"
+    },
+    {
+        "name": "index.html",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./index.html",
+        "type": "html"
+    },
+    {
+        "name": "test.json",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./test.json",
+        "type": "json"
+    },
+    {
+        "name": "test.html",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./test.html",
+        "type": "html"
+    },
+    {
+        "name": "index.html~0e67376f1868f948ce5ec65725f3e5d665238ecc",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./index.html~0e67376f1868f948ce5ec65725f3e5d665238ecc",
+        "type": "html~0e67376f1868f948ce5ec65725f3e5d665238ecc"
+    },
+    {
+        "name": "build-index.js",
+        "isDirectory": false,
+        "isFile": true,
+        "level": 1,
+        "path": "./build-index.js",
+        "type": "js"
+    }
+]
