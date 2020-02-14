@@ -1,6 +1,8 @@
 const canvas = buildCanvas();
 const img = buildImg();
 const context = canvas.getContext('2d');
+const spaceshipImage = buildSpaceship();
+const asteroidImage = buildAsteroid();
 const background = {
     x: 0,
     y: 400,
@@ -20,11 +22,19 @@ const s = { // source
     h: 400,
 };
 const spaceship = {
+    speed: 0,
     x: 0,
     y: 0,
     w: 100,
     h: 90,
 };
+const asteroid = {
+    fall: 0,
+    x: 0,
+    y: 0,
+    w: 30,
+    h: 30,
+}
 
 function buildImg() {
     const img = document.createElement('img');
@@ -67,7 +77,7 @@ function drawBackground2() {
 }
 function buildSpaceship() {
     const spaceship = document.createElement('img');
-    spaceship.src = 'game-assets/red-ship.png';
+    spaceship.src = 'game-assets/blue-ship.png';
     document.body.appendChild(spaceship);
     return spaceship;
 }
@@ -75,10 +85,26 @@ function drawSpaceship() {
     context.drawImage(
         spaceshipImage, // the image to draw
         spaceship.x, spaceship.y, spaceship.w, spaceship.h, // source dimensions
-        spaceship.x, spaceship.y, spaceship.w, spaceship.h,
+        140, 300, spaceship.w, spaceship.h,
     )
 }
-const spaceshipImage = buildSpaceship();
+function drawAsteroid() {
+        context.drawImage(
+            asteroidImage, // the image to draw
+            asteroid.x, asteroid.y, asteroid.w, asteroid.h, // source dimensions
+            100, asteroidFallSpeed(), asteroid.w, asteroid.h,
+        )        
+}
+function buildAsteroid() {
+    const asteroid = document.createElement('img');
+    asteroid.src = 'game-assets/asteroid.png';
+    document.body.appendChild(asteroid);
+    return asteroid;
+}
+function asteroidFallSpeed () {
+    asteroid.y += -.8;
+    return asteroid.fall;
+}
 function gameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
@@ -86,6 +112,7 @@ function gameLoop() {
     updateBackground();
     updateBackground2();
     drawSpaceship();
+    drawAsteroid();
     window.requestAnimationFrame(gameLoop);
 }
 

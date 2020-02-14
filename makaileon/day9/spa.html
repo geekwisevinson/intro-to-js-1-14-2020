@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spa</title>
+</head>
+<body>
+
+
+
+<script>
+
+    /*
+    1. any prop update should have a function
+    2. any calc should have have a function that returns
+    * */
+
+    const globalData = {
+        images: ['https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.guidedogs.org%2Fwp-content%2Fuploads%2F2019%2F11%2Fwebsite-donate-mobile.jpg&imgrefurl=https%3A%2F%2Fwww.guidedogs.org%2F&tbnid=xb6jERFNl0vhqM&vet=12ahUKEwiCgIfgmsvnAhWFlJ4KHfTcDv4QMygFegUIARCTAg..i&docid=BrLcM4GhgobYpM&w=500&h=667&q=dog&ved=2ahUKEwiCgIfgmsvnAhWFlJ4KHfTcDv4QMygFegUIARCTAg'],
+
+        imageIndex: 0,
+    }
+
+    loadPage('home');
+
+
+    function getTextFromFile(type, file) {
+        return fetch(`./${type}/${file}.html`)
+            .then( res => { return res.text() });
+    }
+    function loadPage(file) {
+        return getTextFromFile('pages', file).then( res => {
+                updateHtml(document.body, res);
+                checkForComponents(document.body);
+            });
+    }
+    function loadComponent(file) {
+        return getTextFromFile('components', file);
+    }
+    function checkForComponents(el) {
+        const components = el.querySelectorAll('[data-component]');
+        components.forEach( component => {
+            const componentName = component.getAttribute('data-component');
+            const models = JSON.parse(component.getAttribute('data-models'));
+            console.log(models);
+            console.log(componentName);
+            loadComponent(componentName).then( text => {
+                component.innerHTML = text;
+                for (let prop in models) {
+                    component.innerHTML = replaceText(text, prop, models[prop] );
+                }
+                changeImage(0);
+            });
+        })
+    }
+
+    function replaceText (string, textToReplace, textWeWant) {
+        return string.replace(textToReplace, textWeWant)
+    }
+    function updateHtml(el, text) {
+        el.innerHTML = text;
+    }
+    function changeImage(value) {
+    const img = document.querySelector('img');
+    if (img) {
+
+        globalData.imageIndex += value;
+        if (globalData.imageIndex < 0) {
+            globalData.imageIndex = globalData.images.length - 1;
+        }
+        if (globalData.imageIndex > 0) {
+            globalData.imageIndex = globalData.images.length - 1;
+        }
+
+ 
+        img.src = globalData.images[globalData.imageIndex];
+    }}
+</script>
+
+</body>
+</html>
