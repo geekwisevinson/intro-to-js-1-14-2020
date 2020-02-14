@@ -22,14 +22,13 @@ function getInfo(pathSrc) {
             if (item.isDirectory) {
                 const newPathSource = [...pathSrc, item.name];
                 item.folders = getInfo(newPathSource);
+                item.type = 'folder';
                 return item;
             }
-        }).sort((item, b )=> item.isFile ?
-            1 :
-            item.name.toLowerCase() > b.name.toLowerCase()? 1 : -1);
+        }).sort(reOrder).sort(reOrder);
 }
 fs.writeFileSync('./test.json', JSON.stringify(index.root, null, 4) );
-fs.writeFileSync('./test.html', whatToWrite(index.root));
+fs.writeFileSync('./index.html', whatToWrite(index.root));
 
 function whatToWrite(arr) {
     let html = getStartHtml();
@@ -56,7 +55,7 @@ function createHTMLFolder(item, name) {
     return `
 <div>
 <li>
-   <h${item.level}>${item.name}</h${item.level}>
+   <h${item.level}>${item.name[0].toUpperCase() + item.name.slice(1)}</h${item.level}>
    <ul>
    ${testDirectory(item)}
 </ul>
@@ -69,11 +68,7 @@ function createHTMLFolder(item, name) {
 
 function createHTMLFile(item) {
     console.log(item);
-    return item.type !== 'html' ? `
-     <a href="${item.path}">${item.name}</a>
-            ` :  `
-     <a href="${item.path}" class="html">${item.name}</a>
-            `
+    return `<a class="${item.type}" href="${item.path}">${item.name}</a>`;
 }
 
 function testDirectory(item) {
@@ -85,6 +80,22 @@ function testDirectory(item) {
     return html;
 }
 
+function reOrder( a, b ) {
+    const good = -1;
+    const bad = -good;
+    const idk = 0;
+    if (a.type === 'folder' && b.type !== 'folder' ) {
+        return good;
+    }
+    if (a.type === 'html' && ( b.type !== 'folder' && b.type !== 'html'  )) {
+        return good;
+    }
+    if (a.type === 'js' && ( b.type !== 'folder' && b.type !== 'html' && b.type !== 'js'  )) {
+        return good;
+    }
+    return 0;
+}
+
 
 function getStartHtml() {
     return `
@@ -93,27 +104,77 @@ function getStartHtml() {
 <head>
     <meta charset="UTF-8">
     <title>Intro to js</title>
+    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
     <style>
+    body {
+        font-family: 'Lemonada', cursive;
+      background: 
+    linear-gradient(
+            hsla(0, 10%, 90%, .7),
+       hsla(0, 10%, 90%, .7)
+    ),
+    url(./rocks-tile.jpg);
+  background-size: cover;
+  height: 100vh;
+    }
+    
     li {
         border: 1px solid black;
+        box-shadow: 8px 7px #888888;
         list-style: none;
-        padding-left: 1em;
-        padding-bottom: 1em;
+        background-color: ${getHsla(0, 10, 90, .9)};
     }
+    
+    h1 + * {
+         background-image: url("./rocks-tile.jpg");
+    }
+    
     a {
-        margin: 20px;
+        margin: 0 20px;
     }
+    
+   
     
     h1 + ul {
         height: 0;
         overflow: hidden;
+            background-color: ${getHsla(0, 10, 90, .9)};
+     margin: 0;
+     padding: 0;
+         linear-gradient(
+            hsla(0, 10%, 90%, .7),
+       hsla(0, 10%, 90%, .7)
+    ),
+    url(./rocks-tile.jpg);
+    }
+    
+    ul {
+     background-color: ${getHsla(0, 10, 90, .9)};
+     margin: 0 !important;
+     padding: 0 !important;
     }
     
     h1.show + ul {
         height: auto;
+        background-color: ${getHsla(0, 10, 90, .9)};
+     margin: 0;
+     padding: 0;
+    }
+    h1.show + ul li{
+        background-color: ${getHsla(0, 10, 90, .9)};
+        padding: 0 20px;;
+    }
+     h1.show + ul > a{
+        background-color: ${getHsla(0, 10, 90, .9)};
+        padding: 0 20px;;
     }
     .html{
         font-size: xx-large;
+        color: green;
+    }
+    .js {
+       font-size: x-large;
+       color: red;  
     }
 </style>
 
@@ -128,8 +189,8 @@ function getEndHtml() {
  return `
     <script >
         document.querySelectorAll('h1').forEach(function() {
-          this.addEventListener('click', show)
-        })
+          this.addEventListener('click', show);
+        });
     
         function show(event) {
             console.log( event);
@@ -144,4 +205,8 @@ function getEndHtml() {
     </script>
 </body>
  `
+}
+
+function getHsla(h,s,l, a) {
+    return `hsla(${h}, ${s}%, ${l}%, ${a})`
 }
