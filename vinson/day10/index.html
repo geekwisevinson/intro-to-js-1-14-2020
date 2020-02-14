@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        input[type=range] {
+            width: 500px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+
+<script>
+    const create = (thing) => document.createElement(thing);
+    const q = (thing) => document.querySelector(thing);
+
+    const body = q('body');
+    const selectButton = create('button');
+    const dial = create('input');
+    const canvas = create('canvas');
+
+
+
+
+    prepDial();
+
+    function prepCanvas() {
+        body.appendChild(canvas);
+    }
+
+    body.appendChild(selectButton);
+
+    let hue = 200;
+
+
+
+    function updateBackgroundColor() {
+        body.style.backgroundColor = `hsla(${hue}, 50%, 50%, 1)`;
+    }
+
+    setInterval(updateBackgroundColor, 100);
+    function prepDial() {
+        dial.type = 'range';
+        dial.min = 0;
+        dial.max = 255;
+        dial.addEventListener('input', function (event) {
+            console.log(event.target.value);
+            hue = this.value;
+        });
+        body.appendChild(dial);
+    }
+
+</script>
+
+
+</body>
+</html>

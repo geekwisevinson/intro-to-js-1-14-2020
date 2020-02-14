@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .empty, .fill {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            display: inline-block;;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="empty">
+    <div class="fill"></div>
+</div>
+<div class="empty"></div>
+<div class="empty"></div>
+<div class="empty"></div>
+<div class="empty"></div>
+
+<script>
+    const q = document.querySelector;
+    const qa = document.querySelectorAll;
+    q('.fill');
+
+    qa('.empty');
+
+</script>
+</body>
+</html>
