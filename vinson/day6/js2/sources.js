@@ -39,5 +39,13 @@ const sources = {
             w: 800,
             h: 800,
         },
-    }
+    },
+    background: {
+        default: {
+            x: 0,
+            y: 0,
+            w: 360,
+            h: 640,
+        }
+    },
 };

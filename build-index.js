@@ -105,9 +105,11 @@ function getStartHtml() {
     <meta charset="UTF-8">
     <title>Intro to js</title>
     <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One&display=swap" rel="stylesheet">
     <style>
     body {
-        font-family: 'Lemonada', cursive;
+        /*font-family: 'Lemonada', cursive;*/
+        font-family: 'Patua One', cursive;
       background: 
     linear-gradient(
             hsla(0, 10%, 90%, .7),
@@ -118,11 +120,19 @@ function getStartHtml() {
   height: 100vh;
     }
     
+    h1 {
+        padding-left: 20px;
+        user-select: none;
+ 
+    }
+    
     li {
         border: 1px solid black;
         box-shadow: 8px 7px #888888;
         list-style: none;
         background-color: ${getHsla(0, 10, 90, .9)};
+        margin-bottom: 7px;
+        padding-bottom: 4px;
     }
     
     h1 + * {
@@ -131,6 +141,8 @@ function getStartHtml() {
     
     a {
         margin: 0 20px;
+        padding-bottom: 10px;
+        display: inline-block;
     }
     
    
@@ -171,16 +183,19 @@ function getStartHtml() {
     .html{
         font-size: xx-large;
         color: green;
+        font-weight: bolder;
     }
     .js {
        font-size: x-large;
-       color: red;  
+       font-weight: bolder;
+       color: darkred;  
     }
 </style>
 
 
 </head>
 <body>
+    <h1></h1>
     `
 }
 

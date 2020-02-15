@@ -51,6 +51,22 @@ const spaceGuy = new Bird({
     source: sources.spaceGuy.default,
 });
 
+const bg1 = new Bird({
+    canvas,
+    context,
+    img: img,
+    imgArr: [],
+    x: 0,
+    y: 0,
+    w: 360,
+    h: 640,
+    z: 2,
+    xSpeed: 0,
+    ySpeed: 0,
+    gravity: 0,
+    source: sources.background.default,
+});
+
 [myBird, myBunny, spaceGuy].forEach( obj => {
     document.addEventListener('keydown', function (event) {
         obj.press(event.code);
@@ -62,7 +78,7 @@ const spaceGuy = new Bird({
 
 
 
-const zObjects = [spaceGuy];
+const zObjects = [spaceGuy, bg1];
 function gameLoop() {
     context.clearRect(0, 0, 360, 640);
     zObjects.sort(function (a,b) {
