@@ -29,13 +29,17 @@ const spaceship = {
     h: 90,
 };
 const asteroid = {
-    fall: 0,
     x: 0,
     y: 0,
     w: 30,
     h: 30,
 }
-
+const laser = {
+    x: 0,
+    y: 0,
+    h: 100,
+    w: 90,
+}
 function buildImg() {
     const img = document.createElement('img');
     img.src = 'game-assets/background-purple.png';
@@ -92,7 +96,7 @@ function drawAsteroid() {
         context.drawImage(
             asteroidImage, // the image to draw
             asteroid.x, asteroid.y, asteroid.w, asteroid.h, // source dimensions
-            100, asteroidFallSpeed(), asteroid.w, asteroid.h,
+            asteroid.x, asteroid.y, asteroid.w, asteroid.h,
         )        
 }
 function buildAsteroid() {
@@ -101,9 +105,18 @@ function buildAsteroid() {
     document.body.appendChild(asteroid);
     return asteroid;
 }
-function asteroidFallSpeed () {
-    asteroid.y += -.8;
-    return asteroid.fall;
+function buildLaser() {
+    const laser = document.createElement('img');
+    laser.src = 'game-assets/red-laser.png';
+    document.body.appendChild(laser);
+    return laser;
+}
+function drawLaser() {
+    context.drawImage(
+        laserImage, // the image to draw
+        laser.x, laser.y, laser.w, laser.h, // source dimensions
+        laser.x, laser.y, laser.w, laser.h,
+    )
 }
 function gameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -112,8 +125,5 @@ function gameLoop() {
     updateBackground();
     updateBackground2();
     drawSpaceship();
-    drawAsteroid();
     window.requestAnimationFrame(gameLoop);
 }
-
-console.log(spaceship)

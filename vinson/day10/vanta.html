@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        body, html {
+            height: 100%;
+        }
+        #background, #background2 {
+            height: 200px;
+        }
+    </style>
+    <script src="./three.js"></script>
+    <script src="./vanta.birds.min.js"></script>
+    <script src="./vanta.waves.min.js"></script>
+</head>
+<body>
+
+<div id="background"></div>
+<div id="background2"></div>
+<script>
+    const height = document.body.clientHeight;
+    VANTA.BIRDS({
+        el: "#background",
+        mouseControls: true,
+        touchControls: true,
+        minHeight: 200,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00
+    });
+    VANTA.WAVES({
+        el: "#background2",
+        mouseControls: true,
+        touchControls: true,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00
+    })
+</script>
+
+</body>
+</html>
