@@ -17,20 +17,26 @@
 <script>
     const create = (thing) => document.createElement(thing);
     const q = (thing) => document.querySelector(thing);
-
+    const canvasSize = 500;
     const body = q('body');
     const selectButton = create('button');
     const dial = create('input');
     const canvas = create('canvas');
-
-
+    const context = canvas.getContext('2d');
+    const xOffset = canvas.getContext('2d');
 
 
     prepDial();
 
     function prepCanvas() {
         body.appendChild(canvas);
+        canvas.width = 'canvasSize';
+        canvas.height = 'canvasSize';
+        context.fillStyle = 'white';
+        context.fillRect(0,0,'canvasSize','canvasSize');
     }
+
+    prepCanvas();
 
     body.appendChild(selectButton);
 
@@ -43,6 +49,18 @@
     }
 
     setInterval(updateBackgroundColor, 100);
+
+    function updatePath() {
+        console.log(x,y);
+        context.lineTo(x,y);
+
+    }
+
+    document.addEventListener('mousemove', function(event){
+        console.log(event.clientX, event.clientY);
+        updatePath(event.clientX, event.clientY);
+    }
+
     function prepDial() {
         dial.type = 'range';
         dial.min = 0;

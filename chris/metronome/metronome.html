@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<!-- 
+    Objective 1: Allow user to tap out a tempo
+        - Listen to space bar for "taps", calculate tempo based on average of last 4 taps
+        - Assume meter of 4/4 for now
+        - Possibly include button for Tap
+    Objective 2: Allow user to enter tempo manually or by up down arrows (+/-)
+    Objective 3: Allow user to play the click back per the entered tempo
+-->
+
+<button onclick="getTime(event)">TAP</button>
+<p>BPM: <span id="bpm">-</span></p>
+
+<script>
+
+let count = 0;
+let timeDiff1 = 0;
+let timeDiff2 = 0;
+let timeDiff3 = 0;
+let timeDiff4 = 0;
+let time1 = 0;
+let time2 = 0;
+let time3 = 0;
+let time4 = 0;
+
+// const create = (thing) => document.createElement(thing);
+// const q = (thing) => document.querySelector(thing);
+// const body = q('body');
+// const dial = create('input');
+
+document.body.addEventListener("keypress", getTime);
+
+
+function getTime(event) {
+
+    if(count===4){
+        count=0
+    }
+
+    count = count + 1
+
+    console.log(count);
+
+    switch(count) {
+
+    case 1:
+    time1 = event.timeStamp/1000;
+    timeDiff1 = time1-time4;
+    if(timeDiff1>2 && time4!==0){clearAll()}
+    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    break;
+
+    case 2:
+    time2 = event.timeStamp/1000;
+    timeDiff2 = time2-time1;
+    if(timeDiff2>2){clearAll()}
+    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    break;
+
+    case 3:
+    time3 = event.timeStamp/1000;
+    timeDiff3 = time3-time2;
+    if(timeDiff3>2){clearAll()}
+    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    break;
+
+    case 4:
+    time4 = event.timeStamp/1000;
+    timeDiff4 = time4-time3;
+    if(timeDiff4>2){clearAll()}
+    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    break;
+}
+
+    function bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4) {
+        
+        if(time4===0)
+        {
+            avgTime = (timeDiff2 + timeDiff3 + timeDiff4)/3;
+            console.log('average of 3')
+        }
+        else {
+            avgTime = (timeDiff1 + timeDiff2 + timeDiff3 + timeDiff4)/4;
+            console.log('average of 4')
+        }
+        console.log('timeDiff1='+timeDiff1);
+        console.log('timeDiff2='+timeDiff2);
+        console.log('timeDiff3='+timeDiff3);
+        console.log('timeDiff4='+timeDiff4);
+        bpm = (60/avgTime);
+        bpm = Math.round(bpm);
+
+        if(timeDiff1===0 || timeDiff2===0 || timeDiff3===0 || timeDiff4 ===0 || bpm<30 || bpm>200) {
+        }
+        else {
+
+        var bpmWrite = document.getElementById("bpm");
+        bpmWrite.firstChild.nodeValue = bpm;
+        }
+    }
+
+    function clearAll() {
+        console.log('ALL CLEAR')
+        timeDiff1 = 0;
+        timeDiff2 = 0;
+        timeDiff3 = 0;
+        timeDiff4 = 0;
+        time1 = 0;
+        time2 = 0;
+        time3 = 0;
+        time4 = 0;
+        count = 0;
+        avgTime = 0;
+        bpm = 0;
+        var bpmWrite = document.getElementById("bpm");
+        bpmWrite.firstChild.nodeValue = bpm;
+    }
+}
+</script>
+
+</body>
+</html>
