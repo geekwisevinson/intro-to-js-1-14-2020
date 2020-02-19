@@ -1,0 +1,6 @@
+.vf-type-container {
+    display: flex;
+}
+.vf-type-column {
+    flex-direction: column;
+}
