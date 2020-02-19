@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag n Drop</title>
+    <style>
+        body {
+            background-color: lightyellow;
+        }
+
+        .empty {
+            display: inline-block;
+            width: 160px;
+            height: 160px;
+            border: 3px solid black;
+        }
+
+        .fill {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            margin: auto;
+            background-image: url('https://source.unsplash.com/random/150x150');
+        }
+
+        .invisible {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>puff the magic dragon drop</h1>
+    <div class="empty">
+        <div class="fill" draggable="true"></div>
+    </div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+
+    <script>
+        const fill = document.querySelector('.fill');
+        const empties = document.querySelectorAll('.empty')
+        console.log(fill, empties);
+        
+        fill.addEventListener('dragstart', function () {
+            setTimeout( () => {
+                this.classList.add('invisible');
+            }, 0)
+        });
+
+        fill.addEventListener('dragend', function () {
+            setTimeout( () => {
+                this.classList.remove('invisible');
+            }, 0)
+        });
+
+        empties.forEach( empty => {
+            empty.addEventListener('drop', function () {
+                console.log('drop');
+                this.appendChild('fill')
+            }
+        )});
+
+    </script>
+</body>
+</html>

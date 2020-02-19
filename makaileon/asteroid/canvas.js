@@ -3,6 +3,7 @@ const img = buildImg();
 const context = canvas.getContext('2d');
 const spaceshipImage = buildSpaceship();
 const asteroidImage = buildAsteroid();
+const asteroids = [];
 const background = {
     x: 0,
     y: 400,
@@ -28,12 +29,6 @@ const spaceship = {
     w: 100,
     h: 90,
 };
-const asteroid = {
-    x: 0,
-    y: 0,
-    w: 30,
-    h: 30,
-}
 const laser = {
     x: 0,
     y: 0,
@@ -54,13 +49,13 @@ function buildCanvas() {
     return canvas;
 }
 function updateBackground() {
-    background.y += 8;
+    background.y += 10;
     if (background.y > canvas.height - 10) {
         background.y = -canvas.height + 10;
     }
 }
 function updateBackground2() {
-    background2.y += 8;
+    background2.y += 10;
     if (background2.y > canvas.height - 10) {
         background2.y = -canvas.height + 10;
     }
@@ -92,12 +87,14 @@ function drawSpaceship() {
         140, 300, spaceship.w, spaceship.h,
     )
 }
-function drawAsteroid() {
+function drawAsteroid() { 
+    asteroids.forEach(asteroid => {
         context.drawImage(
             asteroidImage, // the image to draw
-            asteroid.x, asteroid.y, asteroid.w, asteroid.h, // source dimensions
+            0, 0, 30, 30, // source dimensions
             asteroid.x, asteroid.y, asteroid.w, asteroid.h,
-        )        
+        )  
+    })      
 }
 function buildAsteroid() {
     const asteroid = document.createElement('img');
@@ -118,12 +115,49 @@ function drawLaser() {
         laser.x, laser.y, laser.w, laser.h,
     )
 }
+function getFallSpeed(asteroid) {
+    return asteroid.fall
+}
+function multipleAsteroids() {
+    return Math.floor(Math.random() * canvas.width)
+}
+function updateAsteroid() {
+    asteroids.forEach((asteroid, index) => {
+        asteroid.y += .8;
+        if(asteroid.y > canvas.height) {
+            asteroid.y = -35;
+            asteroids.splice(index, 1)
+        }
+    })
+}
 function gameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    drawBackground();
-    drawBackground2();
+    updateAsteroid();
     updateBackground();
     updateBackground2();
+
+    drawBackground();
+    drawBackground2();
     drawSpaceship();
+    drawAsteroid();
     window.requestAnimationFrame(gameLoop);
 }
+
+setInterval(function () {
+    const x = Math.floor(Math.random() * canvas.width);
+    asteroids.push({
+        fall: 0,
+        x: x,
+        y: 0,
+        w: 30,
+        h: 30,
+    });
+}, 2000)
+
+document.addEventListener('keydown', function(e) {
+    console.log(e.code);
+    if(e.code === 'KeyA') {
+        spaceship.x += 4;
+    }
+})
+
