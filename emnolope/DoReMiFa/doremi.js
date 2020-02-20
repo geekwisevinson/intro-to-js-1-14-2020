@@ -1,5 +1,59 @@
 //create a synth and connect it to the master output (your speakers)
-var synth = new Tone.Synth().toMaster();
+
+class Grid{
+  constructor(){this.rows={};this.cols={};}
+  //Pay attention to the plural and singular
+  addRow(Key,Values){
+    if(!this.rows[Key]){
+      this.makeRow(Key);
+      for(const value of Values) this.rows[Key][value]={};
+    }
+    else for(const value of Values) this.rows[Key][value]={};
+    for(const value of Values){
+      if(!this.cols[value]) this.cols[value]={};
+      this.cols[value][Key]={};
+    }
+  }
+  addCol(Keys,Value){
+    if(!this.cols[value]){
+      this.makeCol(Value);
+      for(key of Keys) this.cols[value][key]={};
+    }
+    else for(key of Keys) this.cols[value][key]={};
+    for(key in Keys){
+      if(!this.rows[key]) this.rows[key]={};
+      this.rows[key][value]={};
+    }
+  }
+  addCrd(Key,Value){
+    if(!this.rows[key]) this.rows[key]={};
+    this.rows[key][value]={};
+    if(!this.cols[value]) this.cols[value]={};
+    this.cols[value][key]={};
+  }
+  subRow(Key,Values){
+    if(Values==null) Values=Object.keys(this.rows[Key]);
+    if(this.rows[Key]) this.delRow(Key);
+    for(const value of Values){
+      if(this.cols[value][Key]) delete this.cols[value][Key];
+      if(Object.keys(this.cols[value]).length===0) this.delCol(value);
+    }
+  }
+  subCol(Keys,Value){
+    if(Keys==null) Keys=Object.keys(this.cols[Value]);
+    if(this.cols[Value]) this.delCol(Value);
+    for(const key in Keys){
+      if(this.rows[key][Value]) delete this.rows[key][Value];
+      if(Object.keys(this.rows[key]).length===0) this.delRow(Key);
+    }
+  }
+  makeRow(Key){this.rows[Key]={};}
+  makeCol(Value){this.cols[Value]={};}
+  delRow(Key){delete this.rows[Key];}
+  delCol(Value){delete this.cols[Value];}
+}
+
+var synth = new Tone.Synth().toMaster()
 function num2note(num){
   let octave=Math.floor(num/12)-1;
   let note=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'][num%12];
@@ -13,10 +67,8 @@ Backquote Digit1 Digit2 Digit3 Digit4 Digit5 Digit6 Digit7 Digit8 Digit9 Digit0 
 Tab KeyQ KeyW KeyE KeyR KeyT KeyY KeyU KeyI KeyO KeyP BracketLeft BracketRight Backslash 
 Capslock KeyA KeyS KeyD KeyF KeyG KeyH KeyJ KeyK KeyL Semicolon Quote Enter 
 ShiftLeft KeyZ KeyX KeyC KeyV KeyB KeyN KeyM Comma Period Slash ShiftRight 
-
 ArrowUp 
 ArrowLeft ArrowDown ArrowRight 
-
 Insert Home PageUp 
 Delete End PageDown 
 */
@@ -43,7 +95,7 @@ let usermap={
   'F1':'shiftdownsemitone',   'F2':'shiftupsemitone',
   'F3':'shiftdownoctave',     'F4':'shiftupoctave',
   'F5':'benddownsemitone',    'F6':'bendupsemitone',
-  'F7':'benddownsemitone',    'F8':'bendupsemitone',
+  'F7':'benddownoctave'  ,    'F8':'bendupoctave',
   'F9':'downchannel',         'F10':'upchannel',
   'F11':'previousmap',        'F12':'nextmap',
 };
@@ -71,7 +123,7 @@ function runcommand(comm){
     break;default:              
   }
 }
-function runcommand(comm){
+function runOffcommand(comm){
   switch(comm) {
     case "0":
     break;case"BDS": transpose++;
@@ -81,38 +133,37 @@ function runcommand(comm){
     break;default:              
   }
 }
-function isOkayToRun(eventcode,easykeybutton,down){
-  return (eventcode===easykeybutton)?!(down[easykeybutton]):false
-  //literally equivalent to if (event.code===easyKey(button) {if (down[easyKey(button)]){//do stuff}}), I just didn't want the nested if statemetns.
-}
 transpose=0;
 octave=0;
-document.addEventListener('keydown',function(event){
+function keyHandler(event){
   event.preventDefault();
-  //use event.code;
-  if (!!(comm=map[event.code])&&!down[event.code]){
-    down[event.code]=comm;
-    if (Number(comm)){
-      shiftNote=Number(comm)+transpose+octave*12;
-      down[event.code]=shiftNote;
-      noteOn(num2note(shiftNote));
-    }else{
-      //noteOn(100);//setTimeout(noteOff(100),100);
-      runcommand(comm);
-    }
-  }
-});
-document.addEventListener('keyup',function(event){
-  event.preventDefault();
-  for(let button in map){
-    if(event.code===easyKey(button)){
-      let comm=down[easyKey(button)];
+  if(event.type=="keydown"){
+    if (!!(comm=map[event.code])&&!down[event.code]){
+      down[event.code]=comm;
       if (Number(comm)){
-        noteOff(num2note(comm));
+        shiftNote=Number(comm)+transpose+octave*12;
+        down[event.code]=shiftNote;
+        noteOn(num2note(shiftNote));
       }else{
-        runOffCommand(comm);
+        //noteOn(100);//setTimeout(noteOff(100),100);
+        runcommand(comm);
       }
-      down[easyKey(button)]=false;
     }
   }
-});
+  if(event.type=="keyup"){
+    for(let button in map){
+      if(event.code===easyKey(button)){
+        let comm=down[easyKey(button)];
+        if (Number(comm)){
+          noteOff(num2note(comm));
+        }else{
+          runOffCommand(comm);
+        }
+        down[easyKey(button)]=false;
+      }
+    }
+  }
+}
+document.addEventListener('keydown',event=>keyHandler(event));
+//why i gotta put a function inside another function?
+document.addEventListener('keyup'  ,event=>keyHandler(event));
