@@ -5,6 +5,7 @@ const spaceshipImage = buildSpaceship();
 const asteroidImage = buildAsteroid();
 const laserImage = buildLaser();
 const asteroids = [];
+const lasers = [];
 const background = {
     x: 0,
     y: 400,
@@ -33,13 +34,6 @@ const spaceship = {
     w: 100,
     h: 90,
 };
-
-const laser = {
-    x: 0,
-    y: 0,
-    h: 100,
-    w: 90,
-}
 
 function buildImg() {
     const img = document.createElement('img');
@@ -93,11 +87,11 @@ function buildSpaceship() {
     return spaceship;
 }
 
-function shootLaser () {
+function drawLaser() {
     context.drawImage(
         laserImage, // the image to draw
-        laser.x, laser.y, laser.w, laser.h, // source dimensions
-        0, 0, laser.w, laser.h,
+        lasers.x, lasers.y, lasers.w, lasers.h, // source dimensions
+        lasers.x, lasers.y, lasers.w, lasers.h,
     )
 }
 
@@ -143,12 +137,24 @@ function updateAsteroid() {
     })
 }
 
+function updateLaser() {
+    lasers.forEach((lasers, index) => {
+        lasers.y -= .8;
+        if(lasers.y > canvas.height) {
+            lasers.y = -35;
+            lasers.splice(index, 1)
+        }
+    })
+}
+
 function gameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     updateAsteroid();
     updateBackground();
     updateBackground2();
+    updateLaser();
 
+    drawLaser();
     drawBackground();
     drawBackground2();
     drawSpaceship();
@@ -193,7 +199,15 @@ document.addEventListener('keydown', function(e) {
 
 document.addEventListener('keydown', function(e) {
     if(e.code === 'Space') {
-        shootLaser();
+        setTimeout(function () {
+            buildLaser();
+            lasers.push({
+                x: 0,
+                y: 0,
+                h: 100,
+                w: 90,
+            });
+        }, 200)
     }
 })
 
