@@ -1,16 +1,634 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Intro to js</title>
+    <link href="https://fonts.googleapis.com/css?family=Lemonada&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Patua+One&display=swap" rel="stylesheet">
+    <style>
+    body {
+        /*font-family: 'Lemonada', cursive;*/
+        font-family: 'Patua One', cursive;
+      background: 
+    linear-gradient(
+            hsla(0, 10%, 90%, .7),
+       hsla(0, 10%, 90%, .7)
+    ),
+    url(./rocks-tile.jpg);
+  background-size: cover;
+  height: 100vh;
+    }
+    
+    h1 {
+        padding-left: 20px;
+        user-select: none;
+ 
+    }
+    
+    li {
+        border: 1px solid black;
+        box-shadow: 8px 7px #888888;
+        list-style: none;
+        background-color: hsla(0, 10%, 90%, 0.9);
+        margin-bottom: 7px;
+        padding-bottom: 4px;
+    }
+    
+    h1 + * {
+         background-image: url("./rocks-tile.jpg");
+    }
+    
+    a {
+        margin: 0 20px;
+        padding-bottom: 10px;
+        display: inline-block;
+    }
+    
+   
+    
+    h1 + ul {
+        height: 0;
+        overflow: hidden;
+            background-color: hsla(0, 10%, 90%, 0.9);
+     margin: 0;
+     padding: 0;
+         linear-gradient(
+            hsla(0, 10%, 90%, .7),
+       hsla(0, 10%, 90%, .7)
+    ),
+    url(./rocks-tile.jpg);
+    }
+    
+    ul {
+     background-color: hsla(0, 10%, 90%, 0.9);
+     margin: 0 !important;
+     padding: 0 !important;
+    }
+    
+    h1.show + ul {
+        height: auto;
+        background-color: hsla(0, 10%, 90%, 0.9);
+     margin: 0;
+     padding: 0;
+    }
+    h1.show + ul li{
+        background-color: hsla(0, 10%, 90%, 0.9);
+        padding: 0 20px;;
+    }
+     h1.show + ul > a{
+        background-color: hsla(0, 10%, 90%, 0.9);
+        padding: 0 20px;;
+    }
+    .html{
+        font-size: xx-large;
+        color: green;
+        font-weight: bolder;
+    }
+    .js {
+       font-size: x-large;
+       font-weight: bolder;
+       color: darkred;  
+    }
+</style>
+
+
 </head>
 <body>
-
-<ul>
-    <li><a href="./vinson/index.html">Vinson</a></li>
+    <h1></h1>
+    
+<div>
+<li>
+   <h1>Chris</h1>
+   <ul>
+   <a class="html" href="./chris/index.html">index.html</a>
 </ul>
+</li>
 
+</div>
+     
+    
+<div>
+<li>
+   <h1>Emnolope</h1>
+   <ul>
+   
+<div>
+<li>
+   <h2>Beatz</h2>
+   <ul>
+   <a class="html" href="./emnolope/Beatz/Betz.html">Betz.html</a><a class="mp3" href="./emnolope/Beatz/kick.mp3">kick.mp3</a><a class="mp4" href="./emnolope/Beatz/mov_bbb.mp4">mov_bbb.mp4</a><a class="mp3" href="./emnolope/Beatz/snare.mp3">snare.mp3</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day3</h2>
+   <ul>
+   <a class="html" href="./emnolope/day3/crud.html">crud.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>DoReMiFa</h2>
+   <ul>
+   <a class="html" href="./emnolope/DoReMiFa/index.html">index.html</a><a class="html" href="./emnolope/DoReMiFa/wtf.html">wtf.html</a><a class="js" href="./emnolope/DoReMiFa/doremi.js">doremi.js</a><a class="js" href="./emnolope/DoReMiFa/Grid.js">Grid.js</a><a class="js" href="./emnolope/DoReMiFa/notes.js">notes.js</a><a class="txt" href="./emnolope/DoReMiFa/log1.txt">log1.txt</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>FlappyDappy</h2>
+   <ul>
+   <a class="html" href="./emnolope/FlappyDappy/flappy.html">flappy.html</a><a class="js" href="./emnolope/FlappyDappy/build-canvas.js">build-canvas.js</a><a class="png" href="./emnolope/FlappyDappy/background.png">background.png</a><a class="css" href="./emnolope/FlappyDappy/style.css">style.css</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Framework</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Components</h3>
+   <ul>
+   <a class="html" href="./emnolope/Framework/components/title.html">title.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Pages</h3>
+   <ul>
+   <a class="html" href="./emnolope/Framework/pages/about.html">about.html</a><a class="html" href="./emnolope/Framework/pages/contact.html">contact.html</a><a class="html" href="./emnolope/Framework/pages/home.html">home.html</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./emnolope/Framework/index.html">index.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Htmlcheatsheet</h2>
+   <ul>
+   <a class="html" href="./emnolope/htmlcheatsheet/index.html">index.html</a><a class="html" href="./emnolope/htmlcheatsheet/index2.html">index2.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Scope</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>FUCKOFF_files</h3>
+   <ul>
+   <a class="js" href="./emnolope/Scope/FUCKOFF_files/colors.js.download">colors.js.download</a><a class="js" href="./emnolope/Scope/FUCKOFF_files/create_header.js.download">create_header.js.download</a><a class="js" href="./emnolope/Scope/FUCKOFF_files/execute.js.download">execute.js.download</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./emnolope/Scope/scope.html">scope.html</a><a class="js" href="./emnolope/Scope/colors.js">colors.js</a><a class="js" href="./emnolope/Scope/create_header.js">create_header.js</a><a class="js" href="./emnolope/Scope/execute.js">execute.js</a><a class="js" href="./emnolope/Scope/player.js">player.js</a><a class="js" href="./emnolope/Scope/variables.js">variables.js</a><a class="md" href="./emnolope/Scope/Vomitfile.md.txt">Vomitfile.md.txt</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./emnolope/1-14-2020.html">1-14-2020.html</a><a class="html" href="./emnolope/1-16-2020-9pm.html">1-16-2020-9pm.html</a><a class="html" href="./emnolope/1-16-2020.html">1-16-2020.html</a><a class="html" href="./emnolope/DOM.html">DOM.html</a><a class="html" href="./emnolope/index.html">index.html</a><a class="html" href="./emnolope/JackBlack.html">JackBlack.html</a><a class="html" href="./emnolope/POSTGET.html">POSTGET.html</a><a class="html" href="./emnolope/Resources.html">Resources.html</a><a class="html" href="./emnolope/welcome_original.html">welcome_original.html</a><a class="txt" href="./emnolope/Betz.txt">Betz.txt</a><a class="bat" href="./emnolope/clearncopy.bat">clearncopy.bat</a><a class="lnk" href="./emnolope/intro-to-js-1-14-2020 - Shortcut.lnk">intro-to-js-1-14-2020 - Shortcut.lnk</a><a class="txt" href="./emnolope/PLEASE KILL ME.txt">PLEASE KILL ME.txt</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h1>Huisinga</h1>
+   <ul>
+   <a class="html" href="./huisinga/huisinga.html">huisinga.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h1>Makaileon</h1>
+   <ul>
+   
+<div>
+<li>
+   <h2>Asteroid</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Game-assets</h3>
+   <ul>
+   <a class="png" href="./makaileon/asteroid/game-assets/asteroid.png">asteroid.png</a><a class="png" href="./makaileon/asteroid/game-assets/background-purple.png">background-purple.png</a><a class="png" href="./makaileon/asteroid/game-assets/blue-laser.png">blue-laser.png</a><a class="png" href="./makaileon/asteroid/game-assets/blue-ship.png">blue-ship.png</a><a class="png" href="./makaileon/asteroid/game-assets/red-laser.png">red-laser.png</a><a class="png" href="./makaileon/asteroid/game-assets/red-ship.png">red-ship.png</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./makaileon/asteroid/asteroid.html">asteroid.html</a><a class="js" href="./makaileon/asteroid/canvas.js">canvas.js</a><a class="js" href="./makaileon/asteroid/comets.js">comets.js</a><a class="js" href="./makaileon/asteroid/spaceship.js">spaceship.js</a><a class="js" href="./makaileon/asteroid/start-game.js">start-game.js</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day2</h2>
+   <ul>
+   <a class="html" href="./makaileon/day2/crud-day3.html">crud-day3.html</a><a class="html" href="./makaileon/day2/day4-21.html">day4-21.html</a><a class="html" href="./makaileon/day2/local-storage.html">local-storage.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day5</h2>
+   <ul>
+   <a class="html" href="./makaileon/day5/scope.html">scope.html</a><a class="js" href="./makaileon/day5/colors.js">colors.js</a><a class="js" href="./makaileon/day5/create-header.js">create-header.js</a><a class="js" href="./makaileon/day5/execute.js">execute.js</a><a class="js" href="./makaileon/day5/player.js">player.js</a><a class="js" href="./makaileon/day5/updateScore.js">updateScore.js</a><a class="js" href="./makaileon/day5/variable.js">variable.js</a><a class="code-workspace" href="./makaileon/day5/makaileonday2.code-workspace">makaileonday2.code-workspace</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day6</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Img</h3>
+   <ul>
+   <a class="png" href="./makaileon/day6/img/sprite.png">sprite.png</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Js</h3>
+   <ul>
+   <a class="js" href="./makaileon/day6/js/build-canvas.js">build-canvas.js</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./makaileon/day6/flappy.html">flappy.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day7</h2>
+   <ul>
+   <a class="html" href="./makaileon/Day7/http.html">http.html</a><a class="mp3" href="./makaileon/Day7/kick.mp3">kick.mp3</a><a class="mp3" href="./makaileon/Day7/snare.mp3">snare.mp3</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day8</h2>
+   <ul>
+   <a class="html" href="./makaileon/day8/skeltons.html">skeltons.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day9</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Components</h3>
+   <ul>
+   <a class="html" href="./makaileon/day9/components/nav.html">nav.html</a><a class="html" href="./makaileon/day9/components/pictures.html">pictures.html</a><a class="html" href="./makaileon/day9/components/title.html">title.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Pages</h3>
+   <ul>
+   <a class="html" href="./makaileon/day9/pages/about.html">about.html</a><a class="html" href="./makaileon/day9/pages/contact.html">contact.html</a><a class="html" href="./makaileon/day9/pages/home.html">home.html</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./makaileon/day9/spa.html">spa.html</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./makaileon/index.html">index.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h1>PDunCanCode</h1>
+   <ul>
+   <a class="html" href="./pDunCanCode/index.html">index.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h1>Rj</h1>
+   <ul>
+   <a class="html" href="./rj/index.html">index.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h1>Vinson</h1>
+   <ul>
+   
+<div>
+<li>
+   <h2>Day10</h2>
+   <ul>
+   <a class="html" href="./vinson/day10/geolocation.html">geolocation.html</a><a class="html" href="./vinson/day10/index.html">index.html</a><a class="html" href="./vinson/day10/vanta.html">vanta.html</a><a class="js" href="./vinson/day10/getfiles.js">getfiles.js</a><a class="js" href="./vinson/day10/three.js">three.js</a><a class="birds" href="./vinson/day10/vanta.birds.min.js">vanta.birds.min.js</a><a class="waves" href="./vinson/day10/vanta.waves.min.js">vanta.waves.min.js</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day2</h2>
+   <ul>
+   <a class="html" href="./vinson/day2/local-storage.html">local-storage.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day3</h2>
+   <ul>
+   <a class="html" href="./vinson/day3/crud.html">crud.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day4</h2>
+   <ul>
+   <a class="html" href="./vinson/day4/blackjack.html">blackjack.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day5</h2>
+   <ul>
+   <a class="html" href="./vinson/day5/scope.html">scope.html</a><a class="js" href="./vinson/day5/colors.js">colors.js</a><a class="js" href="./vinson/day5/create-header.js">create-header.js</a><a class="js" href="./vinson/day5/execute.js">execute.js</a><a class="js" href="./vinson/day5/player.js">player.js</a><a class="js" href="./vinson/day5/update-score.js">update-score.js</a><a class="js" href="./vinson/day5/variables.js">variables.js</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day6</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Img</h3>
+   <ul>
+   <a class="gif" href="./vinson/day6/img/0.gif">0.gif</a><a class="gif" href="./vinson/day6/img/1.gif">1.gif</a><a class="gif" href="./vinson/day6/img/2.gif">2.gif</a><a class="gif" href="./vinson/day6/img/3.gif">3.gif</a><a class="gif" href="./vinson/day6/img/4.gif">4.gif</a><a class="gif" href="./vinson/day6/img/5.gif">5.gif</a><a class="gif" href="./vinson/day6/img/bunny.gif">bunny.gif</a><a class="gif" href="./vinson/day6/img/rvky5wg.gif">rvky5wg.gif</a><a class="png" href="./vinson/day6/img/sprite.png">sprite.png</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Js</h3>
+   <ul>
+   <a class="js" href="./vinson/day6/js/bird.js">bird.js</a><a class="js" href="./vinson/day6/js/build-canvas.js">build-canvas.js</a><a class="js" href="./vinson/day6/js/drawable.js">drawable.js</a><a class="js" href="./vinson/day6/js/globals.js">globals.js</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Js2</h3>
+   <ul>
+   <a class="js" href="./vinson/day6/js2/bird.js">bird.js</a><a class="js" href="./vinson/day6/js2/build-canvas.js">build-canvas.js</a><a class="js" href="./vinson/day6/js2/build-img.js">build-img.js</a><a class="js" href="./vinson/day6/js2/drawable.js">drawable.js</a><a class="js" href="./vinson/day6/js2/main.js">main.js</a><a class="js" href="./vinson/day6/js2/movable.js">movable.js</a><a class="js" href="./vinson/day6/js2/sources.js">sources.js</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./vinson/day6/flappy.html">flappy.html</a><a class="html" href="./vinson/day6/flappy2.html">flappy2.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day7</h2>
+   <ul>
+   <a class="html" href="./vinson/day7/drums.html">drums.html</a><a class="html" href="./vinson/day7/http.html">http.html</a><a class="mp4" href="./vinson/day7/mov_bbb.mp4">mov_bbb.mp4</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day8</h2>
+   <ul>
+   <a class="html" href="./vinson/day8/skeletons.html">skeletons.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Day9</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Components</h3>
+   <ul>
+   <a class="html" href="./vinson/day9/components/nav.html">nav.html</a><a class="html" href="./vinson/day9/components/pictures.html">pictures.html</a><a class="html" href="./vinson/day9/components/title.html">title.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Pages</h3>
+   <ul>
+   <a class="html" href="./vinson/day9/pages/about.html">about.html</a><a class="html" href="./vinson/day9/pages/contact.html">contact.html</a><a class="html" href="./vinson/day9/pages/home.html">home.html</a><a class="html" href="./vinson/day9/pages/signup.html">signup.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Utility</h3>
+   <ul>
+   <a class="js" href="./vinson/day9/utility/utility.js">utility.js</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./vinson/day9/spa.html">spa.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h2>Test</h2>
+   <ul>
+   
+<div>
+<li>
+   <h3>Components</h3>
+   <ul>
+   <a class="html" href="./vinson/test/components/anchor.html">anchor.html</a><a class="html" href="./vinson/test/components/title.html">title.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+<div>
+<li>
+   <h3>Pages</h3>
+   <ul>
+   <a class="html" href="./vinson/test/pages/about.html">about.html</a><a class="html" href="./vinson/test/pages/landing.html">landing.html</a>
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./vinson/test/drag.html">drag.html</a><a class="html" href="./vinson/test/music.html">music.html</a><a class="html" href="./vinson/test/objects.html">objects.html</a><a class="html" href="./vinson/test/spa.html">spa.html</a>
+</ul>
+</li>
+
+</div>
+     
+    
+</ul>
+</li>
+
+</div>
+     
+    <a class="html" href="./index.html">index.html</a><a class="html" href="./welcome.html">welcome.html</a><a class="js" href="./build-index.js">build-index.js</a><a class="md" href="./README.md">README.md</a><a class="jpg" href="./rocks-tile.jpg">rocks-tile.jpg</a><a class="json" href="./test.json">test.json</a>
+    <script >
+        document.querySelectorAll('h1').forEach(function() {
+          this.addEventListener('click', show);
+        });
+    
+        function show(event) {
+            console.log( event);
+            // document.querySelectorAll('.show').forEach( item => {
+            //     item.classList.remove('show');
+            // });
+          event.target.classList.contains('show') ? 
+          event.target.classList.remove('show') :
+          event.target.classList.add('show');
+          
+        }
+    </script>
 </body>
-</html>
-
-
+ 

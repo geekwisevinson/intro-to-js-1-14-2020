@@ -5,7 +5,7 @@ class Drawable {
     imgArr = [];
     imgIndex = 0;
     frame = 0;
-    frameSpeed = 4.2;
+    frameSpeed = 3;
 
     x = 0;
     y = 0;

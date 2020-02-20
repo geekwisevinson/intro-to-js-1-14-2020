@@ -1,0 +1,39 @@
+.vf-body {
+    height: 100%;
+}
+.vf-size-w-full {
+    width: 100%;
+}
+.vf-size-h-full {
+    height: 100%;
+}
+.vf-size-w-100 {
+    width: 100px;
+}
+.vf-size-h-100 {
+    height: 100px;
+}
+.vf-size-w-200 {
+    width: 200px;
+}
+.vf-size-h-200 {
+    height: 200px;
+}
+.vf-size-w-300 {
+    width: 300px;
+}
+.vf-size-h-300 {
+    height: 300px;
+}
+.vf-size-w-400 {
+    width: 400px;
+}
+.vf-size-h-400 {
+    height: 400px;
+}
+.vf-size-w-500 {
+    width: 500px;
+}
+.vf-size-h-500 {
+    height: 500px;
+}

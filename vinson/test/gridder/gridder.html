@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/basics.css">
+    <link rel="stylesheet" href="../css/v-flex-themes.css">
+</head>
+<body class="vf-theme-red-white">
+
+<div class="page vf-theme-black-white flex1 layout" >
+    <div class="head horizontal-padding vertical-padding gutter">
+        head
+    </div>
+    <div class="side no-overflow open">
+        <div class="horizontal-padding vertical-padding gutter">
+            side
+        </div>
+        side
+    </div>
+    <div class="main horizontal-padding vertical-padding gutter">
+        main
+    </div>
+    <div class="footer horizontal-padding vertical-padding gutter">
+        footer
+    </div>
+</div>
+
+<script>
+    const openSideWidth = 200;
+    let sideWidth = openSideWidth;
+
+    const page = document.querySelector('.page');
+
+    function shrinkSide() {
+        sideWidth += -3;
+        updateSide(sideWidth);
+        console.log('update');
+        if(sideWidth > 0) {
+            window.requestAnimationFrame(shrinkSide);
+        }
+    }
+    function expandSide() {
+        sideWidth += 3;
+        updateSide(sideWidth);
+        if(sideWidth < openSideWidth) {
+            window.requestAnimationFrame(expandSide);
+        } else {
+            sideWidth = openSideWidth;
+        }
+    }
+    function updateSide(width) {
+        page.style.gridTemplateColumns = `${width}px 1fr 1fr 1fr`;
+    }
+
+    shrinkSide();
+    setTimeout(function () {
+        expandSide();
+    }, 4000)
+
+</script>
+</body>
+</html>

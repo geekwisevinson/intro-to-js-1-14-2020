@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+
+    // all statements end with a semicolon;
+    // white space does not change code functionality
+    /*
+    convetion state place veriables at top
+    convention place execution code in the middle
+    convention place functions at bottom
+    */
+    // declare variable without initial value
+    var myVar;
+    let myLet;
+    // const has to be declared with an initial value
+    const myConst=true;
+
+    
+    // types
+
+    var myString = 'single' + "double" + 'backticks ${myConst}'
+    const myNumber = 8 + 33.3;
+    const myBoolean = false;
+
+    // complex structures
+    const myObject =  {
+        // assignment in an object requires a colon :
+        name: myString + 'some direct string',
+        // property is a variable attached to an object
+        address: {
+            streetName: 'name of street'
+        }
+
+        //arrays are great for looping since they have a number index
+    const myArray = [
+        myString + 'some direct string',
+    ];
+
+    const myRef = myArray[0]
+
+    myArray.filter(function (item)){
+        return typeof item === 'string';
+    }
+
+    // functions
+    // functions can have as many params as you need
+    // params is a varialbe that is passed into a function
+
+        function (param1, param2, param3){
+            // variables in a function should be written at the top of the function
+            const myConst = 2;
+            let answer =0;
+            answer = myConst*4;
+            return answer;
+        }
+
+        // the value of "myFunctionReturn" will be what is returned
+        const myFunctionReturn = myFunction(1,2,3);
+
+        // implied return
+
+        const myArrowFunction = (param1, param2, param3) => param1 * param2;
+
+        const myArrowFunction = (param1, param2, param3) => {
+            // variables in a function should be written at the top of the function
+            const myConst = param1;
+            let answer = param2;
+            answer = myConst * param3;
+            return answer;
+            // all functions return undefined unless you assign the 
+            param1 * param2;
+
+            // methods
+            const myObjectWithMethods = {
+                name: 'Vince',
+                // objects can have functions called "methods"
+                greet1: greet,
+
+            };
+            const myObjectWithMethods2 = {
+                name: 'John',
+                // objects can have functions called "methods"
+                greet1: greet,
+            };
+
+            function greet() {
+                console.log ('hello my name is'+ this.name)
+            }
+
+            }
+// classes
+
+class MyPerson {
+    lastName = 'F';
+    constructor(name) {
+        this.name = name;
+    }
+    greet(){
+        const myLet = 1;
+        console.log(myLet, this.name);
+    }
+}
+
+const myPerson = new MyPerson('Max');
+const myPerson2 = new MyPerson('Joe');
+const myPerson3 = new MyPerson('Larry');
+const myPerson4 = new MyPerson('John');
+
+class Student extends MyPerson {
+    title = 'student';
+    constructor(name) {
+        super(name);
+    }
+}
+
+const myStudent = new MyPerson ('James', 3)
+
+</script>
+
+</body>
+</html>

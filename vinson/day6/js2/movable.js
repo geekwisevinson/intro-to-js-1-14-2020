@@ -93,7 +93,7 @@ class Movable extends Drawable{
         }
     }
     checkPosition() {
-        if (this.y > 500) {
+        if (this.y > 530) {
             this.walls.down = true;
         }
         if (this.y <= 500) {
@@ -166,7 +166,10 @@ class Movable extends Drawable{
         console.log(this.frame % this.frameSpeed, this.frame, this.frameSpeed);
         if (this.imgArr.length && this.frame % this.frameSpeed < 1) {
             this.img = this.imgArr[this.imgIndex];
-            this.imgIndex += 1;
+            if (this.xSpeed) {
+                this.imgIndex += 1;
+            }
+
             if (this.imgIndex >= this.imgArr.length ) {
                 this.imgIndex = 0;
             }

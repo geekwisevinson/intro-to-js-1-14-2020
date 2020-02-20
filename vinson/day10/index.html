@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        input {
+            width: 500px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+</script>
+
+<script>
+    const create = (thing) => document.createElement(thing);
+    const q = (thing) => document.querySelector(thing);
+    const canvasSize = 500;
+    const body = q('body');
+
+    const dial = create('input');
+    const alpha = create('input');
+    body.appendChild(alpha);
+    const canvas = create('canvas');
+    const context = canvas.getContext('2d');
+    const xOffset = canvas.getContext('2d');
+
+
+
+    let mouseDown = false;
+    prepDial();
+
+    function prepCanvas() {
+        body.appendChild(canvas);
+        canvas.width = 'canvasSize';
+        canvas.height = 'canvasSize';
+        context.fillStyle = 'white';
+        context.fillRect(0,0,'canvasSize','canvasSize');
+    }
+    prepCanvas();
+
+    prepCanvas();
+
+    body.appendChild(selectButton);
+
+    let hue = 0;
+    let alphaValue = 1;
+
+
+
+    function updateBackgroundColor() {
+        body.style.backgroundColor = getColor();
+    }
+
+    function getColor() {
+        return `hsla(${hue}, ${50}%, ${alphaValue}%, 1)`;
+    }
+
+    setInterval(updateBackgroundColor, 100);
+
+    function updatePath(x, y) {
+        const offset = canvas.getBoundingClientRect();
+        context.lineTo(x - offset.x, y - offset.y);
+        context.lineWidth = 10;
+        if(alphaValue > 90) {
+            context.lineWidth = 50;
+        }
+        context.strokeStyle = getColor();
+        context.stroke();
+
+    }
+
+    document.addEventListener('mousemove', function (event) {
+        if (mouseDown) {
+            updatePath(event.clientX, event.clientY);
+        }
+    });
+
+    document.addEventListener('mouseup', function () {
+        mouseDown = false;
+    });
+    document.addEventListener('mousedown', function (event) {
+        mouseDown = true;
+        const offset = canvas.getBoundingClientRect();
+        context.beginPath();
+        context.moveTo(event.clientX - offset.x, event.clientY - offset.y);
+        console.log('mousedown');
+    });
+
+    function prepDial() {
+        dial.type = 'range';
+        dial.min = 0;
+        dial.max = 255;
+        dial.addEventListener('input', function (event) {
+            console.log(event.target.value);
+            hue = this.value;
+        });
+        body.appendChild(dial);
+        body.appendChild(alpha);
+        alpha.type = 'range';
+        alpha.min = 0;
+        alpha.max = 100;
+        alpha.step = 1;
+        alpha.addEventListener('input', function () {
+            alphaValue = this.value;
+        })
+
+    }
+
+</script>
+
+
+</body>
+</html>

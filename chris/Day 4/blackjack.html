@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+
+* {
+    font-size: xx-large;
+}
+
+.cards {
+    height: 30vh;
+}
+
+.cards:nth-child(1){
+    background-color: yellow;
+}
+
+.cards:nth-child(2){
+    background-color: blue;
+}
+
+.card {
+    height: 200px;
+    width: 100px;
+    background-color: grey;
+    border: 1px solid red;
+    display: inline-block;
+}
+
+.suit (
+text-align: center;
+
+
+)
+
+</style>
+<body>
+
+    <div>dealer: <span class = dealerTotal></span>
+
+    </div>
+
+    <div>
+        <span class="playerTotal">
+
+    </span> 
+</div>
+
+<div class="cards">
+<button onclick="drawCard(0)">+</button>
+
+</div>
+
+<div class="cards">
+
+    <button onclick="drawCard(1)">+</button>
+</div>
+
+<script>
+
+let cards = [];
+const hearts = '&hearts'
+const clubs = '&clubs'
+const spades = '&spades;'
+const diamonds = '&diams;'
+const values = ['2','3','4','5','6','7','8','9','A','J','Q','K'];
+const suits = [hearts,clubs,spades, diamonds];
+const reds = [hearts, diamonds];
+
+Function startcardsover() {
+    const tempCards = [];
+    suits.foreach( suits => {
+        values.foreach(value=> {
+            tempCards.push({
+                value,
+                suit,
+                color: reds
+
+            })
+        })
+    })
+}
+startcardsover()
+
+function drawCard(player,hidden){
+    const CardEl = document.createElement('div');
+    cardEl.classList.add('card');
+    const table = document.queryselectorall('.cards')[0];
+    table.apendChild(cardEl);
+    const myCard = cards.splice(getRandom(cards.length,1))[0];
+    cardEl.innerHTML () ='
+    
+    <div>
+
+    <div>A</div>
+    <div>hearts</div>
+
+    </div>
+
+}
+
+function getRandom(range) {
+    return math.floor(math.random*range)
+}
+drawCard(0);
+drawCard(0);
+drawCard (1);
+drawCard (1);
+
+
+
+</script>
+
+</body>
+</html>
