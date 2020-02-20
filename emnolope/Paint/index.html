@@ -1,0 +1,98 @@
+<!DOCTYPE=<html>
+<head>
+  <title>Button thing</title>
+  <style>
+    input[type=range]{
+      width:500px;
+    }
+  </style>
+  <script src=>
+</head>
+<body>
+<script>
+  const doCratel=(arg)=>{
+    el=document.createElement(arg);
+    body.appendChild(el);
+    return el;
+  };
+  const docSelect=(arg)=>document.querySelector(arg);
+  const body=docSelect('body');
+  const selectButton=doCratel('button');
+  const dial=doCratel('input'); 
+  const colorSlider=doCratel('input');
+  const sizeSlider=doCratel('input')
+  const canvas=doCratel('canvas');
+  if('canvas2d'){
+    canvas.context=canvas.getContext('2d');
+    canvas.size=400;
+    canvas.width=canvas.size;
+    canvas.height=canvas.size;
+    canvas.context.fillStyle='white';
+    canvas.context.fillRect(0,0,canvas.size,canvas.size);
+  }
+  selectButton.innerText="WOWEE";
+  //encapsulate canvas creation setup, and other stuff setup.
+  function myDial(){
+    return;
+  }
+  if('colorslider'){
+    colorSlider.type='range';
+    [colorSlider.min,colorSlider.max]=[0,360];
+    colorSlider.addEventListener('input',function(event){
+      console.log(event.target.value);//or this.value
+      hue=this.value;
+      updateColor();
+    })
+  }
+  if('sizeslider'){
+    sizeSlider.type='range';
+    [sizeSlider.min,sizeSlider.max]=[0,360];
+    sizeSlider.addEventListener('input',function(event){
+      console.log(event.target.value);//or this.value
+      canvas.context.lineWidth=this.value;
+      updateColor();
+    })
+  }
+  let hue=200;
+  function updateColor(){body.style.backgroundColor=`hsla(${hue},50%,50%,1)`;}updateColor();
+  //setInterval(()=>{updateColor();hue++;},100)
+  //function updateHue(){
+  //  if (hue<360)
+  //    hue++;
+  //    colorSlider.value++;
+  //};
+  function getColor(){return `hsla(${hue},50%,50%,1)`;}
+  mouseDown=false;
+  document.addEventListener('mousemove',event=>{
+    console.log(event.clientX,event.clientY);
+    cords=getMousePos(canvas,event);
+    updateTrail(cords.x,cords.y);
+  });
+  document.addEventListener('mouseup',event=>{
+    mouseDown=false;
+  })
+  document.addEventListener('mousedown',event=>{
+    mouseDown=true;
+    cords=getMousePos(canvas,event);
+    canvas.context.beginPath();
+    canvas.context.moveTo(cords.x,cords.y);
+  })
+  function updateTrail(xcord,ycord){
+    if(mouseDown){
+      canvas.context.lineTo(xcord,ycord);
+      canvas.context.strokeStyle=getColor();//implement hue color
+      canvas.context.stroke();
+    }
+  }
+  function getMousePos(canvas,evt){
+  var rect=canvas.getBoundingClientRect(), // abs. size of element
+      scaleX=canvas.width/rect.width,    // relationship bitmap vs. element for X
+      scaleY=canvas.height/rect.height;  // relationship bitmap vs. element for Y
+  return{
+    x:(evt.clientX-rect.left)*scaleX,   // scale mouse coordinates after they have
+    y:(evt.clientY-rect.top)*scaleY     // been adjusted to be relative to element
+  }
+}
+</script>
+</body>
+</html>
