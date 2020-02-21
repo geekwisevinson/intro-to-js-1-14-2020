@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Spa</title></head><body>
+<script src="./utility.js"></script>
+<script>
+  const globalData = {
+    images: ['https://image.shutterstock.com/image-illustration/3d-computer-desktop-pc-pc3d-260nw-1190426668.jpg', 'https://www.pcsknox.com/images/easyblog_articles/426/Gnome-computer.png'],
+    imageIndex: 0,
+    pages: {},
+    components: {},
+  };
+  const log = new Log();//<--What is this?
+  loadPage('home');
+  //LOADS FILE
+  //function getTextFromFile(type,file){
+  function fetchHTML(type,file){
+    return fetch(`./${type}.${file}.html`)
+      .then(res=>{return res.text()});
+  }
+  function updateHtml(el,text) {
+    el.innerHTML = text;//is to update the ELEMENT with the HTML
+  }
+  //function fetchComponent()
+  //function getComponentFromFile(file)
+  function fetchComponent(file) {//<--bad function name over encapsulated very confusing
+    //is to get the text from the components file
+    //to get text, a PROMISE. ... it has to wait
+    return fetchHTML('components',file);
+  }
+  function loadPage(file){
+    return fetchHTML('pages',file).then(res=>{ //is to start the process of loading a specific test');to get HTML!','a promise, has to wait
+        updateHtml(document.body, res);//to update the body with the HTML!
+        checkForComponents(document.body);//see if we need to replace any html with components
+      });
+  }
+  function checkForComponents(el) {
+    const components = el.querySelectorAll('[data-component]');//is to query the html and look for the [data-component] attribute');
+    components.forEach(component=>{  //to loop over all the components it finds
+      const componentName=component.getAttribute('data-component');
+      const models=JSON.parse(component.getAttribute('data-models'));
+      //promise for each component it finds
+      fetchComponent(componentName).then(text=>{
+        component.innerHTML=text;
+        for (let prop in models)   //forEach component it finds that has a model
+          component.innerHTML=text.replace(prop,models[prop])
+        if (componentName==='pictures')
+          changeImage(globalData.imageIndex);
+      });
+    })
+  }
+  function changeImage(value) {
+    log.intent(changeImage.name,'load and manage the pictures',globalData.imageIndex);
+    const img = document.querySelector('img');
+    if(img){
+      globalData.imageIndex+=value;
+      if(globalData.imageIndex<0)
+        globalData.imageIndex=globalData.images.length-1;
+      if(globalData.imageIndex>globalData.images.length-1)
+        globalData.imageIndex=0;
+      img.src = globalData.images[globalData.imageIndex];
+    }
+  }
+</script>
+
+</body>
+</html>

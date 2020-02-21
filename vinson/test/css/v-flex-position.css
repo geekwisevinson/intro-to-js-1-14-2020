@@ -1,0 +1,19 @@
+.vf-position-a-start {
+    align-self: flex-start;
+}
+.vf-position-j-start {
+    justify-self: flex-start;
+}
+.vf-position-a-end {
+    align-self: flex-end;
+}
+.vf-position-j-end {
+    justify-self: flex-end;
+}
+.vf-position-a-center {
+    align-self: center;
+}
+.vf-position-j-start {
+    justify-self: center;
+}
+

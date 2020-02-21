@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><title>Spa</title></head><body>
+<html><head><meta charset="UTF-8"><title>SPA: Single Page Application</title></head><body>
 <script>
 /*
  * 1. any prop update should have a function
  * 2. any calc should have a function that returns;
  * 3. 
  */
- 
-function getTextFromFile(type,file){
-  return fetch(`./${type}/${file}.html`)
-    .then(res=>{return res.text()});
-}
+loadPage('home');
 function loadPage(file){
   return getTextFromFile('pages',file)
-    .then(res=>{updateHTML(document.body,res)});
-  }
-function updateHTML(el,text){
+    .then(res=>{
+      updateHTML(document.body,res);
+      checkForComponents(document.body);
+    })
+  ;
+}
+function getTextFromFile(type,file){
+  return fetch(`./${type}/${file}.html`)
+    .then(res=>{
+      console.log('gTFF',res.text());
+      return res.text()
+    });
+}
+
+function updateHTML(el,text){//this loads the page
   el.innerHTML=text;
 }
-function checkForComponents(el){
+function loadComponent(file){
+  return getTextFromFile('components',file);
+}
+function replaceText(string,fromString,toString){
+  string.replace(fromString,toString);
+}
+function checkForComponents(el){//this changes the page according to the framework
   const components=el.querySelectorAll('[data component]');
   components.forEach(component=>{
     const componentName=component(getAttribute('data-component'));
     const models=JSON.parse(component.getAttribute('data-models'));
     console.log(componentName,models);
-    loadComponent(componentName).then(text=>{component.innerHTML=text;});
+    loadComponent(componentName).then(text=>{
+      for(let prop in models){
+        component.innerHTML=replaceText(text,prop,models[prop]);
+      }
+    });
   });
 }
-//function checkFor(el,thing){
-//  const components=el.querySelectorAll('['+thing+']');
-//  components.forEach(component=>{
-//    const componentName=component.getAttribute(thing);
-//    console.log(componentName);
-//  })
-//}
 </script>
 <button onclick="loadPage('home')">Home</button>
 <button onclick="loadPage('about')">About</button>

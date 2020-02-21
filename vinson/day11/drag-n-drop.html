@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag-n-drop</title>
+    <style>
+        body {
+            background-color: sandybrown;
+        }
+        .empty {
+            display: inline-block;
+            width: 160px;
+            height: 160px;
+            border: 3px solid black;
+            background: whitesmoke;
+        }
+        .fill {
+            width: 150px;
+            height: 150px;
+
+            background-color: yellow;
+            position: relative;
+            top: 5px;
+            left: 5px;
+            background-image: url('https://source.unsplash.com/random/150x150');
+        }
+        .invisible {
+            display: none;
+        }
+        .hovered {
+            background-color: grey;
+            border-style: dashed;
+        }
+    </style>
+</head>
+<body>
+    <h1>Puff the magic dragon drop</h1>
+    <div class="empty">
+        <div class="fill" draggable="true"></div>
+    </div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+
+    <script>
+        const fill = document.querySelector('.fill');
+        const empties = document.querySelectorAll('.empty');
+        console.log(fill, empties);
+
+        fill.addEventListener('dragstart', function () {
+            setTimeout( () => {
+                this.classList.add('invisible');
+            }, 0)
+        });
+        fill.addEventListener('dragend', function () {
+            setTimeout( () => {
+                this.classList.remove('invisible');
+            }, 0)
+        });
+
+        empties.forEach( empty => {
+            empty.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                console.log('dragover');
+            });
+            empty.addEventListener('dragenter', function (e) {
+                e.preventDefault();
+                console.log('dragenter');
+                this.classList.add('hovered');
+            });
+            empty.addEventListener('dragleave', function (e) {
+                e.preventDefault();
+                console.log('dragleave');
+                this.classList.remove('hovered');
+            });
+            empty.addEventListener('drop', function (e) {
+                console.log('drop');
+                this.appendChild(fill);
+                this.classList.remove('hovered');
+            });
+        });
+
+    </script>
+</body>
+</html>
