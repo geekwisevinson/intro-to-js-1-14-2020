@@ -9,9 +9,18 @@
 
 </div>
 
+<div class="heading">
+
+</div>
+
+<div class="direction">
+
+</div>
 <script>
     let id = 1;
     const coordsEl = document.querySelector( '.coords');
+    const elHeading = document.querySelector( '.heading');
+    const elDirection = document.querySelector( '.direction');
     function geo_success(position) {
         console.log(position);
         showPreLocation(position);
@@ -47,6 +56,71 @@
             coordsEl.removeChild(coordsEl.childNodes[0])
         }
 
+        const sixteenth = 22.5;
+        const test = position.coords.heading;
+        const heading = test ?  Math.floor(test) : null;
+        switch (heading) {
+            case 0:
+                updateElDirection('North');
+                break;
+            case 1:
+                updateElDirection('North-East');
+                break;
+            case 2:
+                updateElDirection('North-East');
+                break;
+            case 3:
+                updateElDirection('East');
+                break;
+            case 4:
+                updateElDirection('East');
+                break;
+            case 5:
+                updateElDirection('South-East');
+                break;
+            case 6:
+                updateElDirection('South-East');
+                break;
+            case 7:
+                updateElDirection('South');
+                break;
+            case 8:
+                updateElDirection('South');
+                break;
+            case 9:
+                updateElDirection('South');
+                break;
+            case 10:
+                updateElDirection('South-West');
+                break;
+            case 11:
+                updateElDirection('South-West');
+                break;
+            case 12:
+                updateElDirection('West');
+                break;
+            case 13:
+                updateElDirection('West');
+                break;
+            case 14:
+                updateElDirection('North-West');
+                break;
+            case 15:
+                updateElDirection('North-West');
+                break;
+            case 16:
+                updateElDirection('North');
+                break;
+                default:
+                    updateElDirection('No Heading');
+        }
+    }
+
+    function updateElHeading(value) {
+        elHeading.innerHTML = value;
+    }
+    function updateElDirection(value) {
+        elDirection.innerHTML = value;
     }
     const wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
 </script>
