@@ -5,10 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+<div class="coords">
 
+</div>
 
 <script>
     let id = 1;
+    const coords = document.querySelector( '.coords');
     function geo_success(position) {
         console.log(position);
         showPreLocation(position);
@@ -37,9 +40,13 @@
             id: id,
         };
         id++;
-        document.body.appendChild(pre);
+        coords.appendChild(pre);
         pre.innerHTML = JSON.stringify(coords, null, 4);
         console.log(coords);
+        if ( id > 2) {
+            coords.removeChild(coords.childNodes[0])
+        }
+
     }
     const wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
 </script>
