@@ -11,7 +11,7 @@
 
 <script>
     let id = 1;
-    const coords = document.querySelector( '.coords');
+    const coordsEl = document.querySelector( '.coords');
     function geo_success(position) {
         console.log(position);
         showPreLocation(position);
@@ -40,11 +40,11 @@
             id: id,
         };
         id++;
-        coords.appendChild(pre);
+        coordsEl.appendChild(pre);
         pre.innerHTML = JSON.stringify(coords, null, 4);
         console.log(coords);
         if ( id > 2) {
-            coords.removeChild(coords.childNodes[0])
+            coordsEl.removeChild(coords.childNodes[0])
         }
 
     }
