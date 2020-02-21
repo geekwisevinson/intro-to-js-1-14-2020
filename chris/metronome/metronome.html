@@ -4,6 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<style>
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
     
@@ -13,16 +53,21 @@
         - Assume meter of 4/4 for now
         - Possibly include button for Tap
     Objective 2: Allow user to enter tempo manually or by up down arrows (+/-)
+        - Using slider
     Objective 3: Allow user to play the click back per the entered tempo
 -->
 
 <button onclick="getTime(event)">TAP</button>
 <p>BPM: <span id="bpm">-</span></p>
+<div class="slidecontainer">
+  <input type="range" min="40" max="200" value="120" class="slider" id="myRange">
+</div>
+
+<audio src="2.wav" id="my_audio" controls></audio>
 
 <script>
 
-let count = 0;
-let timeDiff1 = 0;
+let count1 = 0;
 let timeDiff2 = 0;
 let timeDiff3 = 0;
 let timeDiff4 = 0;
@@ -31,79 +76,66 @@ let time2 = 0;
 let time3 = 0;
 let time4 = 0;
 
-// const create = (thing) => document.createElement(thing);
-// const q = (thing) => document.querySelector(thing);
-// const body = q('body');
-// const dial = create('input');
-
 document.body.addEventListener("keypress", getTime);
 
 
 function getTime(event) {
 
-    if(count===4){
-        count=0
+    if(count1===4){
+        count1=0
     }
 
-    count = count + 1
+    count1 = count1 + 1
 
-    console.log(count);
+    console.log(count1);
 
-    switch(count) {
+    switch(count1) {
 
     case 1:
     time1 = event.timeStamp/1000;
-    timeDiff1 = time1-time4;
-    if(timeDiff1>2 && time4!==0){clearAll()}
-    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    bpmCalc(timeDiff2,timeDiff3,timeDiff4);
     break;
 
     case 2:
     time2 = event.timeStamp/1000;
     timeDiff2 = time2-time1;
     if(timeDiff2>2){clearAll()}
-    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    bpmCalc(timeDiff2,timeDiff3,timeDiff4);
     break;
 
     case 3:
     time3 = event.timeStamp/1000;
     timeDiff3 = time3-time2;
     if(timeDiff3>2){clearAll()}
-    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    bpmCalc(timeDiff2,timeDiff3,timeDiff4);
     break;
 
     case 4:
     time4 = event.timeStamp/1000;
     timeDiff4 = time4-time3;
     if(timeDiff4>2){clearAll()}
-    bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4);
+    bpmCalc(timeDiff2,timeDiff3,timeDiff4);
     break;
 }
 
-    function bpmCalc(timeDiff1,timeDiff2,timeDiff3,timeDiff4) {
-        
-        if(time4===0)
-        {
+    function bpmCalc(timeDiff2,timeDiff3,timeDiff4) {
+
             avgTime = (timeDiff2 + timeDiff3 + timeDiff4)/3;
-            console.log('average of 3')
+  
+            console.log('timeDiff2='+timeDiff2);
+            console.log('timeDiff3='+timeDiff3);
+            console.log('timeDiff4='+timeDiff4);
+            bpm = (60/avgTime);
+            bpm = Math.round(bpm);
+
+        if(time1===0 || time2===0 || time3===0 || time4 ===0 || bpm<40 || bpm>200) {
         }
         else {
-            avgTime = (timeDiff1 + timeDiff2 + timeDiff3 + timeDiff4)/4;
-            console.log('average of 4')
-        }
-        console.log('timeDiff1='+timeDiff1);
-        console.log('timeDiff2='+timeDiff2);
-        console.log('timeDiff3='+timeDiff3);
-        console.log('timeDiff4='+timeDiff4);
-        bpm = (60/avgTime);
-        bpm = Math.round(bpm);
-
-        if(timeDiff1===0 || timeDiff2===0 || timeDiff3===0 || timeDiff4 ===0 || bpm<30 || bpm>200) {
-        }
-        else {
-
-        var bpmWrite = document.getElementById("bpm");
-        bpmWrite.firstChild.nodeValue = bpm;
+        const bpmWrite = document.querySelector("#bpm");
+        bpmWrite.innerHTML = bpm;
+        document.getElementById("myRange").value = bpm;
+        console.log(bpm);
+        startMetronome(bpm);
         }
     }
 
@@ -117,13 +149,43 @@ function getTime(event) {
         time2 = 0;
         time3 = 0;
         time4 = 0;
-        count = 0;
+        count1 = 0;
         avgTime = 0;
         bpm = 0;
-        var bpmWrite = document.getElementById("bpm");
-        bpmWrite.firstChild.nodeValue = bpm;
+        const bpmWrite = document.querySelector("#bpm");
+        bpmWrite.innerHTML = bpm;
     }
 }
+
+const slider = document.querySelector("#myRange");
+const output = document.querySelector("#bpm");
+output.innerHTML = slider.value;
+
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+// setTimeout(function(){
+//       document.getElementById("my_audio").play();
+//       console.log('your audio is started just now');
+//     }, 8000)
+
+
+let myVar = null;
+
+function startMetronome (bpm){
+    if(myVar){clearInterval};
+    console.log('startMetronome'+bpm);
+    myVar = setInterval(myTimer, 60000/bpm);
+
+}
+
+function myTimer() {
+document.getElementById("my_audio").play();
+console.log('mytimer');
+}
+
 </script>
 
 </body>
