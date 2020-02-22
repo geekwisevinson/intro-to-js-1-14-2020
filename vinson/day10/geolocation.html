@@ -58,7 +58,8 @@
 
         const sixteenth = 22.5;
         const test = position.coords.heading;
-        const heading = test ?  Math.floor(test) : null;
+        const heading = test ?  Math.floor(test/ sixteenth) : null;
+        updateElHeading(heading);
         switch (heading) {
             case 0:
                 updateElDirection('North');
