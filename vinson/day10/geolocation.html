@@ -58,6 +58,7 @@
 
         const sixteenth = 22.5;
         const test = position.coords.heading;
+        document.body.style.backgroundColor = `hsl(${Math.floor(test)}, 50%, 50%)`;
         const heading = test ?  Math.floor(test/ sixteenth) : null;
         updateElHeading(heading);
         switch (heading) {
@@ -112,8 +113,8 @@
             case 16:
                 updateElDirection('North');
                 break;
-                default:
-                    updateElDirection('No Heading');
+            default:
+                updateElDirection('No Heading');
         }
     }
 
