@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    class TimeMaster {
+        startLoop = new Date();
+        lastLoop = new Date();
+        currentLoop = new Date();
+        actions = {};
+        fps = 1000;
+        intervalTime = 100;
+        step = 0;
+        el = null;
+        intervalID = null;
+        constructor(props) {
+            console.log(this.setIntervalTime(1), '*');
+        }
+        start() {
+            this.startLoop = new Date();
+            this.intervalID = setInterval(() => {
+                this.step += 1;
+                this.updateTime();
+                this.checkTime();
+                this.getFps();
+                this.doActions(this.step);
+            }, this.intervalTime);
+            console.log(this.intervalTime, '********')
+        }
+
+        end() {
+            clearInterval(this.intervalID);
+        }
+
+        updateTime() {
+            return this.currentLoop = new Date();
+        }
+
+        checkTime() {
+            return this.getTimeSinceStart();
+        }
+        getFps() {
+            this.currentLoop = new Date();
+            this.fps = 1000 / (this.currentLoop - this.lastLoop);
+            this.lastLoop = this.currentLoop;
+            return this.fps;
+        }
+        getTimeSinceStart() {
+            return (this.currentLoop - this.startLoop) / 1000;
+        }
+
+        setIntervalTime(fps) {
+            this.intervalTime = 1000 / fps;
+            return this.intervalTime;
+        }
+
+        setAction(step, actions) {
+            if (!this.actions[step]) {
+                this.actions[step] = [];
+            }
+            this.actions[step].push(actions);
+        }
+
+        doActions(step) {
+            if (this.actions[step]) {
+                console.log('Action Step', step);
+                this.actions[step].forEach( (action) => this.doAction(action))
+            } else {
+                console.log('step', this.step);
+            }
+        }
+
+        doAction(action) {
+            console.log(action[0].name);
+            action[0](action[1]);
+        }
+        changeColor(config) {
+            this.el['style'].color = config.color;
+        }
+        createEl(config) {
+            this.el = document.createElement(config.type);
+        }
+        append(config) {
+            console.log('this', this);
+            console.log(this.el, 'el');
+            config.parent['appendChild'](this.el);
+        }
+        updateHTML(config) {
+            this.el['innerHTML'] = config['html'];
+        }
+
+        updateStyle(config) {
+            for(let prop in config) {
+                if (config.hasOwnProperty(prop)) {
+                    this.el['style'][prop] = config[prop];
+                }
+            }
+        }
+    }
+
+    function createHeader() {
+        const timeMaster = new TimeMaster();
+        timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'h1'}]);
+        timeMaster.setAction(2, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
+        timeMaster.setAction(3, [timeMaster.updateHTML.bind(timeMaster), {html: 'HELLO'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {color: 'yellow'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {position: 'absolute'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {top: '30px'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {left: '30px'}]);
+        timeMaster.setAction(100, [timeMaster.end.bind(timeMaster)]);
+        timeMaster.start();
+    }
+    function createParagraph() {
+        const timeMaster = new TimeMaster();
+        timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'p'}]);
+        timeMaster.setAction(2, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
+        timeMaster.setAction(3, [timeMaster.updateHTML.bind(timeMaster), {html: 'This is a paragraph!'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {color: 'red'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {position: 'absolute'}]);
+        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {top: '300px'}]);
+        timeMaster.setAction(100, [timeMaster.end.bind(timeMaster)]);
+        timeMaster.start();
+    }
+    createHeader();
+    createParagraph();
+
+
+
+
+</script>
+
+</body>
+</html>
