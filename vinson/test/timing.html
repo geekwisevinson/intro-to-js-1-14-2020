@@ -6,6 +6,19 @@
     <link rel="stylesheet" href="codemirror/lib/codemirror.css">
     <script src="codemirror/lib/codemirror.js"></script>
 
+    <style>
+        .containers4 {
+            display: flex;
+
+        }
+
+        .containers4 > * {
+            display: flex;
+            flex: 1;
+            margin: 10px;
+            height: 45vh;
+        }
+    </style>
 
 
     <script src="codemirror/addon/edit/closetag.js"></script>
@@ -13,11 +26,22 @@
     <script src="codemirror/mode/xml/xml.js"></script>
     <script src="codemirror/mode/javascript/javascript.js"></script>
     <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
     <link rel="stylesheet" href="codemirror/theme/dracula.css">
 </head>
 <body>
-<textarea name="" id="htmlEditor1"></textarea>
-<textarea name="" id="htmlEditor2"></textarea>
+<div class="containers4">
+    <textarea name="" id="htmlEditor1"></textarea>
+    <textarea name="" id="htmlEditor2"></textarea>
+</div>
+<div class="containers4">
+    <div class="result1">
+        result 1
+    </div>
+    <div class="result2">
+        result 2
+    </div>
+</div>
 <script>
     const htmlEditor1 = CodeMirror.fromTextArea(
         document.querySelector('#htmlEditor1'), {
@@ -27,11 +51,16 @@
             autoCloseTags: true,
             theme: 'dracula',
         });
+
+
     const htmlEditor2 = CodeMirror.fromTextArea(document.querySelector('#htmlEditor2'), {
-        mode: 'javascript',
-        theme: 'dracula',
+        mode: 'htmlmixed',
+        selectionPointer: true,
         lineNumbers: true,
+        autoCloseTags: true,
+        theme: 'dracula',
     });
+
     class TimeMaster {
         startLoop = new Date();
         lastLoop = new Date();
@@ -43,12 +72,15 @@
         el = null;
         intervalID = null;
         data = {};
+
         constructor(props) {
-            console.log(this.setIntervalTime(1), '*');
+            this.setIntervalTime((props && props.fps) ? props.fps : 1);
         }
+
         updateData(prop, value) {
             this.data[prop] = value;
         }
+
         start() {
             this.startLoop = new Date();
             this.intervalID = setInterval(() => {
@@ -61,6 +93,7 @@
             }, this.intervalTime);
             console.log(this.intervalTime, '********')
         }
+
         myHTML() {
             console.log('myHTML')
         }
@@ -76,12 +109,14 @@
         checkTime() {
             return this.getTimeSinceStart();
         }
+
         getFps() {
             this.currentLoop = new Date();
             this.fps = 1000 / (this.currentLoop - this.lastLoop);
             this.lastLoop = this.currentLoop;
             return this.fps;
         }
+
         getTimeSinceStart() {
             return (this.currentLoop - this.startLoop) / 1000;
         }
@@ -101,9 +136,8 @@
         doActions(step) {
             if (this.actions[step]) {
                 console.log('Action Step', step);
-                this.actions[step].forEach( (action) => this.doAction(action))
+                this.actions[step].forEach((action) => this.doAction(action))
             } else {
-                console.log('step', this.step);
             }
         }
 
@@ -111,6 +145,7 @@
             console.log(action[0].name);
             action[0](action[1]);
         }
+
         createEl(config) {
             this.removeEl();
             this.el = document.createElement(config.type);
@@ -122,18 +157,22 @@
             console.log(this);
             this.el.controller = this;
         }
+
         removeEl() {
             if (this.el) {
                 this.el['remove']();
             }
             this.el = null;
         }
+
         append(config) {
             config.parent['appendChild'](this.el);
         }
+
         prepend(config) {
             config.parent['prepend'](this.el);
         }
+
         updateHTML(config) {
             if (this.el) {
                 this.el['innerHTML'] = config['html'];
@@ -143,12 +182,13 @@
         }
 
         updateStyle(config) {
-            for(let prop in config) {
+            for (let prop in config) {
                 if (config.hasOwnProperty(prop)) {
                     this.el['style'][prop] = config[prop];
                 }
             }
         }
+
         replace(config) {
             if (this.el) {
                 const newNode = document.createElement(config.type);
@@ -156,6 +196,19 @@
                 this.el['remove']();
                 this.el = newNode;
             }
+        }
+
+        doTil(actionFunc, conditionFunc, finishedFunc) {
+            const doTilId = setInterval(() => {
+                if (conditionFunc()) {
+                    actionFunc();
+                } else {
+                    if (finishedFunc) {
+                        finishedFunc();
+                    }
+                    clearInterval(doTilId);
+                }
+            }, this.intervalTime);
         }
     }
 
@@ -194,7 +247,9 @@
         timeMaster.setAction(1, [timeMaster.updateStyle.bind(timeMaster), stepperStyles()]);
         timeMaster.start();
     }
-    createStepperKeeper();
+
+    // createStepperKeeper();
+
     function createPlayer() {
         const timeMaster = new TimeMaster();
         timeMaster.myHTML = htmlPlayer;
@@ -207,7 +262,8 @@
         timeMaster.start();
         return timeMaster;
     }
-    const player1 = createPlayer();
+
+    // const player1 = createPlayer();
 
     function stepperHTML() {
         return `
@@ -216,6 +272,7 @@
 </div>
         `
     }
+
     function stepperStyles() {
         return {
             color: 'red',
@@ -236,9 +293,144 @@
         `;
     }
 
+    function insertTextAtCursor(editor, text, start) {
+        const doc = editor.getDoc();
+        const cursor = doc.getCursor();
+        doc.replaceRange(text, {
+            line: start ? start.line : 0,
+            ch: start ? start.ch : 0,
+            sticky: null
+        }, {
+            line: cursor.line,
+            ch: cursor.position,
+            sticky: null
+        });
+    }
+
+    // const testString = htmlSetup();
+    // const textApp = new TimeMaster({fps: 30});
+    // let i = 0;
+    // textApp.doTil(function () {
+    //     console.log('test');
+    //     i++;
+    //     const htmlValue = htmlEditor1.getValue();
+    //     document.querySelector('.result1').innerHTML = htmlValue;
+    //     insertTextAtCursor(htmlEditor1, testString.slice(0, i));
+    // }, function () {
+    //     return (testString.slice(0, i) !== testString);
+    // }, function () {
+    //     console.log('finished');
+    //     setTimeout(function () {
+    //         i = 0;
+    //         const testStart = {line: 7, ch: 0};
+    //         htmlEditor1.setCursor(testStart);
+    //         textApp.doTil(function () {
+    //             document.querySelector('.result1').innerHTML = htmlEditor1.getValue();
+    //             i++;
+    //             insertTextAtCursor(htmlEditor1, textJS().slice(0, i), testStart);
+    //             const htmlValue = htmlEditor1.getValue();
+    //             const scriptValue = getBetweenScripts(htmlValue);
+    //             try {
+    //                 eval(scriptValue);
+    //             }
+    //             catch (e) {
+    //                 console.log('error');
+    //             }
+    //         }, function () {
+    //             return (textJS().slice(0, i) !== textJS());
+    //         }, function () {
+    //             console.log('finished')
+    //         });
+    //     }, 0);
+    // });
 
 
+    function htmlSetup() {
+        return `<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    <h1 class="test">test</h1>
+        <${'script'}>
 
+        <${'/script'}>
+    </body>
+</html>`.trim();
+    }
+
+    function textJS() {
+        return `            const test = 'missing';
+            const test2 = 3333333;
+            const apple = 'mac';
+            console.log(test2);
+            document.querySelectorAll('.test')[0].innerHTML = 'what' + apple;
+            `;
+    }
+
+
+    function getBetweenScripts(text) {
+        const tagName = 'script';
+        const startTag =  `<${tagName}>`;
+        const closeTag = `</${tagName}>`;
+        if (text.includes(startTag) && text.includes(closeTag)) {
+            return text.slice(text.indexOf(startTag) + startTag.length + 1, text.indexOf(closeTag)).trim();
+        } else {
+            return '';
+        }
+    }
+
+    function makeEditor(editor, result, textHtml, textJS, jsStart) {
+        if (editor.allSet !== true) {
+            console.log('add listen');
+            editor.on("change", function(cm, change) { onChangeUpdate(editor, result)});
+        }
+        editor.allSet = true;
+        editor.setValue('');
+
+        const textApp = new TimeMaster({fps: 30});
+        let i = 0;
+        textApp.doTil(function () {
+            i++;
+            insertTextAtCursor(editor, textHtml.slice(0, i));
+        }, function () {
+            return (textHtml.slice(0, i) !== textHtml);
+        }, function () {
+            console.log('finished');
+            setTimeout(function () {
+                i = 0;
+                editor.setCursor(jsStart);
+                textApp.doTil(function () {
+                    i++;
+                    insertTextAtCursor(editor, textJS.slice(0, i), jsStart);
+                }, function () {
+                    return (textJS.slice(0, i) !== textJS);
+                }, function () {
+                    console.log('finished')
+                });
+            }, 0);
+        });
+    }
+
+    makeEditor(htmlEditor1, '.result1', htmlSetup(), textJS(), {line: 7, ch: 0, sticky: null});
+    makeEditor(htmlEditor2, '.result2', htmlSetup(), textJS(), {line: 7, ch: 0, sticky: null});
+
+
+    function onChangeUpdate(editor, result) {
+        document.querySelector(result).innerHTML = editor.getValue();
+        const htmlValue = editor.getValue();
+        let scriptValue = getBetweenScripts(htmlValue);
+        scriptValue = scriptValue.replace(/querySelector\('/g, `querySelector('${result} `);
+        scriptValue = scriptValue.replace(/querySelector\("/g, `querySelector("${result} `);
+        scriptValue = scriptValue.replace(/querySelectorAll\('/g, `querySelectorAll('${result} `);
+        scriptValue =scriptValue.replace(/querySelectorAll\("/g, `querySelectorAll("${result} `);
+        try {
+            eval(scriptValue);
+        }
+        catch (e) {
+            console.log('error');
+        }
+    }
 </script>
 
 </body>

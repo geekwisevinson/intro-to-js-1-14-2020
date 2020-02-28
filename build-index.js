@@ -93,6 +93,9 @@ function reOrder( a, b ) {
     if (a.type === 'js' && ( b.type !== 'folder' && b.type !== 'html' && b.type !== 'js'  )) {
         return good;
     }
+    if (a.name.toUpperCase() < b.name.toUpperCase()) {
+        return good;
+    }
     return 0;
 }
 
