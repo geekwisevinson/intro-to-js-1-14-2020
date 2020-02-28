@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button onclick="playSweep()">
+
+</button>
+<script>
+const fridge = 'full';
+    function areaPublic() {
+        const tv = '32 inch';
+        function areaMember() {
+            const tv = '55 inch';
+            function areaVip() {
+                const tv = '75 inch';
+                console.log('vip', tv);
+                console.log(tv + ' is awesome!!', 'and i love the fridge. its', fridge)
+            }
+            areaVip();
+        }
+        console.log('public ', tv);
+        areaMember();
+    }
+    areaPublic();
+
+    function whatIsThis() {
+        console.log('this is this', this);
+    }
+
+    whatIsThis();
+
+    const player1 = {
+        name: 'player1',
+        whatIsThis: whatIsThis,
+    };
+const player2 = {
+    name: 'player2',
+    whatIsThis: whatIsThis,
+};
+    player1.whatIsThis();
+player2.whatIsThis();
+console.log(('b' + 'a' + + 'a' + 'a').toLowerCase());
+</script>
+</body>
+</html>

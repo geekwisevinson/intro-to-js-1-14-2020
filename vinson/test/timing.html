@@ -3,10 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script src="codemirror/lib/codemirror.js"></script>
+
+
+
+    <script src="codemirror/addon/edit/closetag.js"></script>
+
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <link rel="stylesheet" href="codemirror/theme/dracula.css">
 </head>
 <body>
-
+<textarea name="" id="htmlEditor1"></textarea>
+<textarea name="" id="htmlEditor2"></textarea>
 <script>
+    const htmlEditor1 = CodeMirror.fromTextArea(
+        document.querySelector('#htmlEditor1'), {
+            mode: 'htmlmixed',
+            selectionPointer: true,
+            lineNumbers: true,
+            autoCloseTags: true,
+            theme: 'dracula',
+        });
+    const htmlEditor2 = CodeMirror.fromTextArea(document.querySelector('#htmlEditor2'), {
+        mode: 'javascript',
+        theme: 'dracula',
+        lineNumbers: true,
+    });
     class TimeMaster {
         startLoop = new Date();
         lastLoop = new Date();
@@ -17,8 +42,12 @@
         step = 0;
         el = null;
         intervalID = null;
+        data = {};
         constructor(props) {
             console.log(this.setIntervalTime(1), '*');
+        }
+        updateData(prop, value) {
+            this.data[prop] = value;
         }
         start() {
             this.startLoop = new Date();
@@ -28,8 +57,12 @@
                 this.checkTime();
                 this.getFps();
                 this.doActions(this.step);
+                this.updateHTML({html: this.myHTML()})
             }, this.intervalTime);
             console.log(this.intervalTime, '********')
+        }
+        myHTML() {
+            console.log('myHTML')
         }
 
         end() {
@@ -78,19 +111,35 @@
             console.log(action[0].name);
             action[0](action[1]);
         }
-        changeColor(config) {
-            this.el['style'].color = config.color;
-        }
         createEl(config) {
+            this.removeEl();
             this.el = document.createElement(config.type);
+            this.el.controller = this;
+        }
+
+        log() {
+            delete this.el.controller;
+            console.log(this);
+            this.el.controller = this;
+        }
+        removeEl() {
+            if (this.el) {
+                this.el['remove']();
+            }
+            this.el = null;
         }
         append(config) {
-            console.log('this', this);
-            console.log(this.el, 'el');
             config.parent['appendChild'](this.el);
         }
+        prepend(config) {
+            config.parent['prepend'](this.el);
+        }
         updateHTML(config) {
-            this.el['innerHTML'] = config['html'];
+            if (this.el) {
+                this.el['innerHTML'] = config['html'];
+            } else {
+                console.log('no el', this.el, config);
+            }
         }
 
         updateStyle(config) {
@@ -100,33 +149,92 @@
                 }
             }
         }
+        replace(config) {
+            if (this.el) {
+                const newNode = document.createElement(config.type);
+                this.el['parentNode'].insertBefore(newNode, this.el['nextSibling']);
+                this.el['remove']();
+                this.el = newNode;
+            }
+        }
     }
 
-    function createHeader() {
+    // function createHeader() {
+    //     const timeMaster = new TimeMaster();
+    //     timeMaster.myHTML = stepperHTML;
+    //     timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'h1'}]);
+    //     timeMaster.setAction(2, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
+    //     timeMaster.setAction(3, [timeMaster.updateHTML.bind(timeMaster), {html: 'HELLO'}]);
+    //     timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {color: 'yellow'}]);
+    //     timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {position: 'absolute'}]);
+    //     timeMaster.setAction(5, [timeMaster.updateStyle.bind(timeMaster), {top: '30px'}]);
+    //     timeMaster.setAction(6, [timeMaster.updateStyle.bind(timeMaster), {left: '30px'}]);
+    //     timeMaster.setAction(100, [timeMaster.end.bind(timeMaster)]);
+    //
+    //     timeMaster.start();
+    // }
+    // function createParagraph() {
+    //     const timeMaster = new TimeMaster();
+    //     timeMaster.myHTML = stepperHTML;
+    //     timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'p'}]);
+    //     timeMaster.setAction(2, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
+    //     timeMaster.setAction(3, [timeMaster.updateHTML.bind(timeMaster), {html: 'This is a paragraph!'}]);
+    //     timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {color: 'red'}]);
+    //     timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {position: 'absolute'}]);
+    //     timeMaster.setAction(6, [timeMaster.updateStyle.bind(timeMaster), {top: '300px'}]);
+    //     timeMaster.setAction(100, [timeMaster.end.bind(timeMaster)]);
+    //     timeMaster.start();
+    // }
+
+    function createStepperKeeper() {
         const timeMaster = new TimeMaster();
-        timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'h1'}]);
-        timeMaster.setAction(2, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
-        timeMaster.setAction(3, [timeMaster.updateHTML.bind(timeMaster), {html: 'HELLO'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {color: 'yellow'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {position: 'absolute'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {top: '30px'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {left: '30px'}]);
-        timeMaster.setAction(100, [timeMaster.end.bind(timeMaster)]);
-        timeMaster.start();
-    }
-    function createParagraph() {
-        const timeMaster = new TimeMaster();
+        timeMaster.myHTML = stepperHTML;
         timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'p'}]);
-        timeMaster.setAction(2, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
-        timeMaster.setAction(3, [timeMaster.updateHTML.bind(timeMaster), {html: 'This is a paragraph!'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {color: 'red'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {position: 'absolute'}]);
-        timeMaster.setAction(4, [timeMaster.updateStyle.bind(timeMaster), {top: '300px'}]);
-        timeMaster.setAction(100, [timeMaster.end.bind(timeMaster)]);
+        timeMaster.setAction(1, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
+        timeMaster.setAction(1, [timeMaster.updateStyle.bind(timeMaster), stepperStyles()]);
         timeMaster.start();
     }
-    createHeader();
-    createParagraph();
+    createStepperKeeper();
+    function createPlayer() {
+        const timeMaster = new TimeMaster();
+        timeMaster.myHTML = htmlPlayer;
+        timeMaster.updateData('health', 100);
+        timeMaster.updateData('attack', 10);
+        timeMaster.updateData('attackType', 'Fire');
+        timeMaster.setAction(1, [timeMaster.createEl.bind(timeMaster), {type: 'p'}]);
+        timeMaster.setAction(1, [timeMaster.append.bind(timeMaster), {parent: document.body}]);
+        timeMaster.setAction(1, [timeMaster.updateStyle.bind(timeMaster), stepperStyles()]);
+        timeMaster.start();
+        return timeMaster;
+    }
+    const player1 = createPlayer();
+
+    function stepperHTML() {
+        return `
+<div>
+     <div><span>Stepper: </span><span>${this.step}</span></div>
+</div>
+        `
+    }
+    function stepperStyles() {
+        return {
+            color: 'red',
+            fontSize: '40px',
+            // position: 'absolute',
+            // top: '10px',
+            opacity: .3
+        };
+    }
+
+    function htmlPlayer() {
+        return `
+<div style="border: 1px solid black">
+     <div><span>Health: </span><span>${this.data['health']}</span></div>
+      <div><span>Attack: </span><span>${this.data['attack']}</span></div>
+            <div><span>Attack Type: </span><span>${this.data['attackType']}</span></div>
+</div>
+        `;
+    }
 
 
 
