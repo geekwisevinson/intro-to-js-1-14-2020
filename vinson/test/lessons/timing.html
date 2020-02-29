@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script src="codemirror/lib/codemirror.js"></script>
+
+    <style>
+        .containers4 {
+            display: flex;
+            position: relative;
+            flex: 3;
+        }
+        .containers4 > * {
+            display: flex;
+            flex: 1;
+            z-index: 100;
+        }
+        .CodeMirror-scroll {
+            display: block;
+            width: 100%;
+        }
+        .CodeMirror {
+            height: 100%;
+        }
+        .result {
+            border: 1px solid black;
+            display: block;
+        }
+        .vert-fill {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            z-index: 1;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+
+        }
+        body > * {
+            flex: 1;
+        }
+        .instructions {
+            flex: 1;
+        }
+
+        .quiet {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            opacity: .3;
+        }
+        .loud {
+            display: none;
+        }
+    </style>
+
+
+    <script src="codemirror/addon/edit/closetag.js"></script>
+
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+    <link rel="stylesheet" href="codemirror/theme/dracula.css">
+    <script src="time-master.js"></script>
+
+<!--    Lessons    -->
+    <script src="questions-answers/query-selector.js"></script>
+    <script src="questions-answers/query-selector-all.js"></script>
+</head>
+<body>
+<div class="quiet"></div>
+<div class="vert-fill">
+    <div class="instructions">
+        <button onclick="startOver()">Start This Lesson Over</button>
+        <button onclick="revealAnswer()">Reveal Answer</button>
+        <button onclick="loadNextQA()">Load Next</button>
+        <button onclick="loadLastQA()">Load Last</button>
+        <div class="instructions-text">
+
+        </div>
+    </div>
+    <div class="containers4">
+
+        <textarea name="" id="htmlEditor1"></textarea>
+        <textarea name="" id="htmlEditor2"></textarea>
+        <div style="position: absolute; top: 0; left: 0; right: 50%; bottom: 0;"></div>
+    </div>
+    <div class="containers4">
+        <div class="result result1">
+            result 1
+        </div>
+        <div class="result result2">
+            result 2
+        </div>
+    </div>
+</div>
+
+<script>
+    const lessons = [];
+    let lessonIndex = 0;
+    let startOver = function () {
+        console.log('not set');
+    };
+    let revealAnswer = function () {
+        console.log('not set');
+    };
+    const htmlEditor1 = CodeMirror.fromTextArea(
+        document.querySelector('#htmlEditor1'), {
+            mode: 'htmlmixed',
+            selectionPointer: true,
+            lineNumbers: true,
+            autoCloseTags: true,
+            theme: 'dracula',
+        });
+    const htmlEditor2 = CodeMirror.fromTextArea(document.querySelector('#htmlEditor2'), {
+        mode: 'htmlmixed',
+        selectionPointer: true,
+        lineNumbers: true,
+        autoCloseTags: true,
+        theme: 'dracula',
+    });
+    function insertTextAtCursor(editor, text, start) {
+        const doc = editor.getDoc();
+        const cursor = doc.getCursor();
+        doc.replaceRange(text, {
+            line: start ? start.line : 0,
+            ch: start ? start.ch : 0,
+            sticky: null
+        }, {
+            line: cursor.line,
+            ch: cursor.position,
+            sticky: null
+        });
+    }
+
+    let textHtml = '';
+    let textJs = '';
+    let jsStart = {line: 0, ch: 0, sticky: null};
+    function getBetweenScripts(text) {
+        const tagName = 'script';
+        const startTag =  `<${tagName}>`;
+        const closeTag = `</${tagName}>`;
+        if (text.includes(startTag) && text.includes(closeTag)) {
+            return text.slice(text.indexOf(startTag) + startTag.length + 1, text.indexOf(closeTag)).trim();
+        } else {
+            return '';
+        }
+    }
+    function makeEditor(editor, result, textHtml, textJS, jsStart) {
+        if (editor.allSet !== true) {
+            console.log('add listen');
+            editor.on("change", function(cm, change) { onChangeUpdate(editor, result)});
+        }
+        editor.allSet = true;
+        editor.setValue('');
+
+        const textApp = new TimeMaster({fps: 30});
+        let i = 0;
+
+        revealAnswer = function() {
+            (
+                function () {
+                    setTimeout(function () {
+                        disableScreen();
+                        i = 0;
+                        htmlEditor1.setCursor(jsStart);
+                        textApp.doTil(function () {
+                            i++;
+                            insertTextAtCursor(htmlEditor1, textJS.slice(0, i), jsStart);
+                            console.log(jsStart);
+                        }, function () {
+                            return (textJS.slice(0, i) !== textJS);
+                        }, function () {
+                            console.log('finished');
+                            enableScreen();
+                        });
+                    }, 0);
+                }
+            )();
+        };
+        disableScreen();
+        textApp.doTil(function () {
+            i++;
+            insertTextAtCursor(editor, textHtml.slice(0, i));
+        }, function () {
+            return (textHtml.slice(0, i) !== textHtml);
+        }, function () {
+            console.log('finished');
+            enableScreen();
+        });
+    }
+
+
+    enableScreen();
+    startOver = function () {
+        disableScreen();
+        htmlEditor1.setValue('');
+        makeEditor(htmlEditor1, '.result1', textHtml, textJs, jsStart);
+        makeEditor(htmlEditor2, '.result2', textHtml, textJs, jsStart);
+    };
+
+    function onChangeUpdate(editor, result) {
+        document.querySelector(result).innerHTML = editor.getValue();
+        const htmlValue = editor.getValue();
+        let scriptValue = getBetweenScripts(htmlValue);
+        scriptValue =scriptValue.replace(/'body/g, `'`);
+        scriptValue =scriptValue.replace(/"body/g, `"`);
+        scriptValue = scriptValue.replace(/querySelector\('/g, `querySelector('${result} `);
+        scriptValue = scriptValue.replace(/querySelector\("/g, `querySelector("${result} `);
+        scriptValue = scriptValue.replace(/querySelectorAll\('/g, `querySelectorAll('${result} `);
+        scriptValue =scriptValue.replace(/querySelectorAll\("/g, `querySelectorAll("${result} `);
+
+        console.clear();
+        try {
+            console.log(scriptValue);
+            eval(scriptValue);
+        }
+        catch (e) {
+            console.log('error', e);
+        }
+    }
+    function disableScreen() {
+        document.querySelector('.quiet').classList.remove('loud');
+    }
+    function enableScreen() {
+        document.querySelector('.quiet').classList.add('loud');
+    }
+
+    function loadQA(htmlText, jsText, jsStartObj) {
+        textHtml = htmlText;
+        textJs = jsText;
+        jsStart = jsStartObj;
+        makeEditor(htmlEditor1, '.result1', textHtml, textJs, jsStart);
+        makeEditor(htmlEditor2, '.result2', textHtml, textJs, jsStart);
+    }
+
+    lessons.push(getQuerySelectorQA);
+    lessons.push(getQuerySelectorAllQA);
+    function loadNextQA() {
+        lessonIndex++;
+        if (lessonIndex >= lessons.length) {
+            lessonIndex = 0;
+        }
+        document.querySelector('.instructions-text').innerHTML = lessons[lessonIndex]().instructions;
+        loadQA(lessons[lessonIndex]().html, lessons[lessonIndex]().js, lessons[lessonIndex]().jsStart);
+    }
+    function loadLastQA() {
+        lessonIndex--;
+        if (lessonIndex < 0) {
+            lessonIndex = lessons.length - 1;
+        }
+        document.querySelector('.instructions-text').innerHTML = lessons[lessonIndex]().instructions;
+        loadQA(lessons[lessonIndex]().html, lessons[lessonIndex]().js, lessons[lessonIndex]().jsStart);
+    }
+
+    loadNextQA();
+
+</script>
+
+</body>
+</html>
