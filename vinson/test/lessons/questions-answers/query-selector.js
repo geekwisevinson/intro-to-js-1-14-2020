@@ -4,6 +4,7 @@ function getQuerySelectorQA() {
         js: getJs(),
         jsStart: {line: 7, ch: 0, sticky: null},
         instructions : getInstructions(),
+        name: 'targeting: querySelectorAll',
     };
 
     function getHtml() {

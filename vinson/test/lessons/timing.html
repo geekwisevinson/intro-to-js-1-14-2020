@@ -54,13 +54,25 @@
 
         .quiet {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: red;
             z-index: 100;
-            opacity: .3;
+            opacity: .1;
         }
         .loud {
             display: none;
+        }
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .button-row button {
+            background-color: cornflowerblue;
+            font-size: large;
         }
     </style>
 
@@ -75,6 +87,9 @@
     <script src="time-master.js"></script>
 
 <!--    Lessons    -->
+    <script src="questions-answers/data-types-boolean.js"></script>
+    <script src="questions-answers/data-types-numbers.js"></script>
+    <script src="questions-answers/data-types-strings.js"></script>
     <script src="questions-answers/query-selector.js"></script>
     <script src="questions-answers/query-selector-all.js"></script>
 </head>
@@ -82,10 +97,17 @@
 <div class="quiet"></div>
 <div class="vert-fill">
     <div class="instructions">
-        <button onclick="startOver()">Start This Lesson Over</button>
-        <button onclick="revealAnswer()">Reveal Answer</button>
-        <button onclick="loadNextQA()">Load Next</button>
-        <button onclick="loadLastQA()">Load Last</button>
+        <div class="button-row">
+            <button onclick="startOver()">Start This Lesson Over</button>
+            <button onclick="revealAnswer()">Reveal Answer</button>
+            <button onclick="loadNextQA()">Load Next</button>
+            <button onclick="loadLastQA()">Load Last</button>
+            <select  id="lesson-select">
+
+            </select>
+        </div>
+
+
         <div class="instructions-text">
 
         </div>
@@ -108,6 +130,23 @@
 
 <script>
     const lessons = [];
+    lessons.push(getDataTypesBoolean);
+    lessons.push(getDataTypesNumbers);
+    lessons.push(getDataTypesStrings);
+    lessons.push(getQuerySelectorQA);
+    lessons.push(getQuerySelectorAllQA);
+    const lessonSelect = document.querySelector('#lesson-select');
+    lessonSelect.addEventListener('change', function (e) {
+        console.log(e);
+        lessonIndex = e.target.selectedIndex;
+        loadCurrentQa();
+    });
+    lessons.forEach( lesson => {
+        const option = document.createElement('option');
+        const test = lesson();
+        option.innerHTML = lesson().name;
+       lessonSelect.appendChild(option);
+    });
     let lessonIndex = 0;
     let startOver = function () {
         console.log('not set');
@@ -158,14 +197,14 @@
         }
     }
     function makeEditor(editor, result, textHtml, textJS, jsStart) {
+        disableScreen();
         if (editor.allSet !== true) {
-            console.log('add listen');
             editor.on("change", function(cm, change) { onChangeUpdate(editor, result)});
         }
         editor.allSet = true;
         editor.setValue('');
 
-        const textApp = new TimeMaster({fps: 30});
+        const textApp = new TimeMaster({fps: 40});
         let i = 0;
 
         revealAnswer = function() {
@@ -189,7 +228,7 @@
                 }
             )();
         };
-        disableScreen();
+
         textApp.doTil(function () {
             i++;
             insertTextAtCursor(editor, textHtml.slice(0, i));
@@ -201,8 +240,6 @@
         });
     }
 
-
-    enableScreen();
     startOver = function () {
         disableScreen();
         htmlEditor1.setValue('');
@@ -219,11 +256,13 @@
         scriptValue = scriptValue.replace(/querySelector\('/g, `querySelector('${result} `);
         scriptValue = scriptValue.replace(/querySelector\("/g, `querySelector("${result} `);
         scriptValue = scriptValue.replace(/querySelectorAll\('/g, `querySelectorAll('${result} `);
-        scriptValue =scriptValue.replace(/querySelectorAll\("/g, `querySelectorAll("${result} `);
+        scriptValue = scriptValue.replace(/querySelectorAll\("/g, `querySelectorAll("${result} `);
+        scriptValue = scriptValue.trim();
+        if (scriptValue) {
+            console.clear();
+        }
 
-        console.clear();
         try {
-            console.log(scriptValue);
             eval(scriptValue);
         }
         catch (e) {
@@ -234,6 +273,8 @@
         document.querySelector('.quiet').classList.remove('loud');
     }
     function enableScreen() {
+        console.log('enable screen');
+        console.clear();
         document.querySelector('.quiet').classList.add('loud');
     }
 
@@ -245,27 +286,27 @@
         makeEditor(htmlEditor2, '.result2', textHtml, textJs, jsStart);
     }
 
-    lessons.push(getQuerySelectorQA);
-    lessons.push(getQuerySelectorAllQA);
+
     function loadNextQA() {
         lessonIndex++;
         if (lessonIndex >= lessons.length) {
             lessonIndex = 0;
         }
-        document.querySelector('.instructions-text').innerHTML = lessons[lessonIndex]().instructions;
-        loadQA(lessons[lessonIndex]().html, lessons[lessonIndex]().js, lessons[lessonIndex]().jsStart);
+        loadCurrentQa();
     }
     function loadLastQA() {
         lessonIndex--;
         if (lessonIndex < 0) {
             lessonIndex = lessons.length - 1;
         }
+        loadCurrentQa();
+   }
+
+    function loadCurrentQa() {
         document.querySelector('.instructions-text').innerHTML = lessons[lessonIndex]().instructions;
         loadQA(lessons[lessonIndex]().html, lessons[lessonIndex]().js, lessons[lessonIndex]().jsStart);
     }
-
-    loadNextQA();
-
+    loadCurrentQa();
 </script>
 
 </body>
