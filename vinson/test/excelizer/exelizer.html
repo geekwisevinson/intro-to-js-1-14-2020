@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="vendor/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+
+</head>
+<body>
+<a target="_blank">Save</a>
+<script>
+    const days = ["Saturday",  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    let startDate = null;
+    let endDate = null;
+    let payStartDate = null;
+
+    let daysArray = [];
+
+
+    function s2ab(s) {
+        const buff = new ArrayBuffer(s.length);
+        const view = new Uint8Array(buff);
+        for(let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buff;
+    }
+
+    document.querySelector('a').addEventListener('click', function () {
+        const wb = XLSX.utils.book_new();
+        wb.Props = {
+            Title: "SheetJS Tutorial",
+            Subject: "Test File",
+            Author: "Red Stapler",
+            CreatedDate: new Date(),
+        };
+        wb.SheetNames.push("Test Sheet");
+        const ws_data = getSheet();
+        wb.Sheets["Test Sheet"] = XLSX.utils.aoa_to_sheet(ws_data);;
+        const wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+        const blob = new Blob([s2ab(wbout)],{type:"application/octet-stream"});
+        this.href = window.URL.createObjectURL(blob);
+        this.target = '_blank';
+        this.download =  new Date().toLocaleString() + '.xlsx';
+    });
+
+    function getSheet() {
+        return [
+            [
+                "Hourglass Systems, Inc."
+            ],
+            [],
+            [
+                "Semi-Monthly Time Record "
+            ],
+            [],
+            [
+                null,
+                "Employee:",
+                null,
+                "Vinson Fernandez"
+            ],
+            [
+                null,
+                "Manager:",
+                null,
+                "Greg Kinder"
+            ],
+            [
+                null,
+                "Period ending:",
+                null,
+                convertDateToSerial(endDate),
+            ],
+            [],
+            ...getMonthCells(),
+            [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                "TWO WEEK TOTALS"
+            ],
+            [
+                "Employee signature:",
+                null,
+                null,
+                null,
+                null,
+                null,
+                "Date:",
+                convertDateToSerial(new Date()),
+                null,
+                88,
+                0,
+                0,
+                0,
+                88
+            ],
+            [],
+            [
+                "By signing this timecard, I attest that it is an accurate record of all hours worked, and that I have taken all required rest and meal periods. "
+            ],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+    }
+
+    function convertDateToSerial(date) {
+        const newYear2020Serial = 43831;
+        const newYear2020Date = new Date('01/01/2020');
+        return  newYear2020Serial + daysBetween(date, newYear2020Date);
+    }
+
+    function daysBetween(date1, date2) {
+        const res = Math.abs(date1 - date2) / 1000;
+        return Math.floor(res / 86400);
+    }
+
+
+    function getWeekCells(week) {
+        const weekCells = [[
+            "Day",
+            null,
+            "In",
+            "Out",
+            "sub",
+            "In",
+            "Out",
+            "Total",
+            "Total",
+            "Regular Hours",
+            "O/T Hours",
+            "Sick",
+            "Vacation ",
+            "Total"
+        ]];
+        for(let i =0; i < 7; i++) {
+            weekCells.push(getDayCells(week, i))
+        }
+        weekCells.push(
+            [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                "Total",
+                0,
+                8,
+                0,
+                0,
+                0,
+                8
+            ],
+        );
+
+        return weekCells;
+    }
+
+    function getRegularHours( day) {
+        if (day > 1) {
+            const date =  getDatePlusDay(globals.firstDateShown, day);
+            if (date >= globals.payPeriodStart && date <= globals.payPeriodEnd ){
+                return 8;
+            }
+        }
+        return null;
+    }
+
+    function getMonthCells() {
+        const monthCells = [];
+        for(let i = 0; i < 3; i++) {
+            monthCells.push(...getWeekCells(i));
+        }
+        return monthCells;
+    }
+
+    function getDayCells(week, dayNumber) {
+        return [
+            days[dayNumber],
+            convertDateToSerial(getDatePlusDay(startDate,((week) * 7) + dayNumber)),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            getRegularHours(week, dayNumber),
+            null,
+            null,
+            null,
+            8
+        ]
+    }
+
+    function getPeriodEnding() {
+
+    }
+
+    function getFirstDayOfMonth(date) {
+        return new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+    function getLastDayOfMonth(date) {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    }
+
+    function getDatePlusDay(date, days) {
+        const newDate = new Date(date);
+        newDate.setDate(date.getDate() + days);
+        return newDate;
+    }
+
+    function getStartDate() {
+        const date = new Date();
+        if (date.getDate() < 6 || date.getDate() > 24) {
+            console.log('you probably want the end period');
+            if (date.getDate() < 6) {
+                calcStartDate(date, 15, 1);
+            } else {
+                calcStartDate(date, 15, 0);
+            }
+        } else {
+            console.log('you probably want the start period');
+                calcStartDate(date, 1, 0);
+        }
+    }
+
+    function calcStartDate(date, day, lastMonth) {
+        payStartDate = new Date(date.getFullYear(), date.getMonth() - lastMonth, day);
+        const start = new Date(date.getFullYear(), date.getMonth() - lastMonth, day);
+        startDate = new Date(date.getFullYear(), date.getMonth() - lastMonth, day - start.getDay() + 6);
+        if (startDate > start) {
+            startDate.setDate(startDate.getDate() - 7)
+        }
+        console.log('lets calc start',);
+        console.log(date);
+        console.log(start);
+        console.log(startDate);
+        calcEndDate(payStartDate, 1);
+    }
+    
+    function calcEndDate(date, day) {
+        endDate = new Date(date.getFullYear(), date.getMonth(), 15 );
+        if (day !== 1) {
+            endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        }
+    }
+
+    getStartDate();
+
+
+    document.write(JSON.stringify(getMonthCells(), null, 4));
+
+
+</script>
+
+</body>
+</html>

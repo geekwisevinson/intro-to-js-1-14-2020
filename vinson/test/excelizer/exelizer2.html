@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="vendor/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <style>
+
+        .rowEl {
+            display: flex;
+            border: 1px solid black;
+            background-color: grey;
+            color: gold;
+            width: 1100px;
+        }
+        .rowEl > * {
+            flex: 1;
+        }
+        .even {
+            background-color: black;
+            color: white;
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+<body>
+<input type="date">
+<a target="_blank">Save</a>
+<div class="excel"></div>
+<pre class="globals"></pre>
+<script>
+
+
+
+
+
+
+    const datePicker = document.querySelector('input');
+    datePicker.value = new Date().toISOString().slice(0,10);
+
+    datePicker.addEventListener('change', function () {
+        runSetup();
+    });
+    const globals = {
+        days : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        payPeriodStart: null,
+        payPeriodEnd: null,
+        currentDate: null,
+        processingDate: null,
+        firstDateShown: null,
+        sheets: [],
+        weekTotals: [],
+    };
+    function getPayPeriodStart() {
+        console.log('this is the date for pay period start', globals.currentDate);
+        if (globals.currentDate.getDate() < 24 && globals.currentDate.getDate() > 6) {
+            setPayPeriodStart(createDate(globals.currentDate, 0, 1));
+            console.log('this is for the start period for month', getMonthName( globals.payPeriodStart ) );
+        } else {
+            if (globals.currentDate.getDate() > 24 ) {
+                setPayPeriodStart(createDate(globals.currentDate, 0, 1));
+                console.log('this is for the end period for month', getMonthName( globals.payPeriodStart ));
+            } else {
+                setPayPeriodStart(createDate(globals.currentDate, -1, 16));
+                console.log('this is for the end period last month', getMonthName( globals.payPeriodStart )  );
+            }
+        }
+    }
+    function setPayPeriodStart(date) {
+       globals.payPeriodStart = date;
+    }
+    function getPayPeriodEnd() {
+        if (globals.payPeriodStart.getDate() === 1) {
+            setPayPeriodEnd(createDate(globals.payPeriodStart, 0, 15));
+        } else {
+            setPayPeriodEnd(createDate(globals.payPeriodStart, 1, 0));
+        }
+    }
+    function setPayPeriodEnd(date) {
+        globals.payPeriodEnd = date;
+    }
+
+    function getCurrentDate() {
+        globals.currentDate = new Date(datePicker.value.replace(/-/g, '\/'));
+        console.log('*********************',globals.currentDate, datePicker.value);
+    }
+    function getFirstDateShow() {
+        globals.firstDateShown = createDate(globals.payPeriodStart, 0, globals.payPeriodStart.getDate());
+        globals.firstDateShown.setDate(globals.payPeriodStart.getDate() - globals.payPeriodStart.getDay() - 1);
+        // globals.firstDateShown = [globals.firstDateShown, getDayName(globals.firstDateShown)]
+    }
+    function getProcessingDate() {
+        globals.processingDate = createDate(globals.firstDateShown, 0, globals.firstDateShown.getDate());
+    }
+    function processDate() {
+        return globals.currentDate;
+    }
+    function main() {
+        getCurrentDate();
+        getPayPeriodStart();
+        getPayPeriodEnd();
+        getFirstDateShow();
+        getProcessingDate();
+        getSheet();
+        showGlobals();
+        showExcel();
+    }
+
+    function showExcel() {
+        const excel = document.querySelector('.excel');
+        excel.innerHTML = '';
+        globals.sheets.forEach( (row, index) => {
+           const rowEl = document.createElement('div');
+           excel.appendChild(rowEl);
+           rowEl.classList.add('rowEl');
+           if (index % 2 === 0) {
+               rowEl.classList.add('even');
+           }
+           row.forEach(item => {
+               const span = document.createElement('span');
+               span.innerHTML = item;
+               if(item && typeof item === 'number' && String(item).length === 5) {
+                   span.innerHTML = convertSerialToDate(item).toISOString().slice(0,10);
+               }
+               rowEl.appendChild(span);
+           });
+
+        });
+    }
+    function showGlobals() {
+        document.querySelector('.globals').innerHTML = JSON.stringify(globals, null, 4);
+    }
+
+
+
+
+
+
+    // helpers
+    function createDate(date, addMonths, day) {
+        return new Date(date.getFullYear(), date.getMonth() + addMonths, day );
+    }
+    function getMonthName(date) {
+        return date.toString().split(' ')[1]
+    }
+    function getDayName(date) {
+        return date.toString().split(' ')[0]
+    }
+
+    function s2ab(s) {
+        const buff = new ArrayBuffer(s.length);
+        const view = new Uint8Array(buff);
+        for(let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+        return buff;
+    }
+
+    document.querySelector('a').addEventListener('click', function () {
+        runSetup();
+        const wb = XLSX.utils.book_new();
+        wb.Props = {
+            Title: "SheetJS Tutorial",
+            Subject: "Test File",
+            Author: "Red Stapler",
+            CreatedDate: new Date(),
+        };
+        wb.SheetNames.push("Test Sheet");
+        const ws_data = getSheet();
+        wb.Sheets["Test Sheet"] = XLSX.utils.aoa_to_sheet(ws_data);
+        const wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+        const blob = new Blob([s2ab(wbout)],{type:"application/octet-stream"});
+        this.href = window.URL.createObjectURL(blob);
+        this.target = '_blank';
+        this.download =  new Date().toLocaleString() + '.xlsx';
+    });
+
+    function getSheet() {
+        globals.sheets = [];
+        globals.weekTotals = [];
+        globals.sheets.push(...addIntro());
+        globals.sheets.push(...addDays());
+        globals.sheets.push(...addOut());
+        return globals.sheets;
+    }
+
+    function runSetup() {
+        main();
+    }
+
+
+    function addIntro() {
+
+        return [
+            [
+                "Hourglass Systems, Inc."
+            ],
+            [],
+            [
+                "Semi-Monthly Time Record "
+            ],
+            [],
+            [
+                null,
+                "Employee:",
+                null,
+                "Vinson Fernandez"
+            ],
+            [
+                null,
+                "Manager:",
+                null,
+                "Greg Kinder"
+            ],
+            [
+                null,
+                "Period ending:",
+                null,
+                convertDateToSerial(globals.payPeriodEnd),
+            ],
+            [],
+        ]
+    }
+
+    function convertDateToSerial(date) {
+        const newYear2020Serial = 43831;
+        const newYear2020Date = new Date('01/01/2020');
+        // return date;
+        return  newYear2020Serial + daysBetween(date, newYear2020Date);
+    }
+    function convertSerialToDate(date) {
+        const newYear2020Serial = 43831;
+        const newYear2020Date = new Date('01/01/2020');
+        newYear2020Date.setDate(newYear2020Date.getDate() + (date - newYear2020Serial));
+        return  newYear2020Date;
+    }
+
+    function daysBetween(date1, date2) {
+        const res = Math.abs(date1 - date2) / 1000;
+        return Math.floor(res / 86400);
+    }
+
+    function addDays() {
+        console.log('addDays');
+        getProcessingDate();
+        const days = [];
+
+        function canAdd() {
+            console.log(daysBetween(globals.processingDate, globals.firstDateShown));
+            if (daysBetween(globals.processingDate, globals.firstDateShown) < 21) {
+
+                if (globals.weekTotals.length < 5) {
+                    if (globals.processingDate.getDay() === 6) {
+                        globals.weekTotals.push([0]);
+                        days.push(...addTitleRow());
+                    }
+
+                    days.push(addDay());
+                    if (globals.processingDate.getDay() === 5) {
+                        days.push(addTotalRow());
+                    }
+                }
+
+                globals.processingDate.setDate(globals.processingDate.getDate() + 1);
+                canAdd();
+            }
+
+        }
+        canAdd();
+
+        return days;
+    }
+
+    function addTotalRow() {
+        return [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "Total",
+            0,
+            globals.weekTotals[globals.weekTotals.length -1][0],
+            0,
+            0,
+            0,
+            globals.weekTotals[globals.weekTotals.length -1][0]
+        ]
+    }
+
+    function addDay() {
+        const dayHours = getRegularHours();
+        return [
+            globals.days[globals.processingDate.getDay()],
+            convertDateToSerial(globals.processingDate),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            dayHours,
+            null,
+            null,
+            null,
+            dayHours ? dayHours : 0,
+        ]
+    }
+    function getRegularHours() {
+            if (globals.processingDate >= globals.payPeriodStart && globals.processingDate <= globals.payPeriodEnd ){
+                if (globals.processingDate.getDay() > 0 && globals.processingDate.getDay() < 6) {
+                    globals.weekTotals[globals.weekTotals.length -1][0] = globals.weekTotals[globals.weekTotals.length -1][0] + 8;
+                    return 8;
+                }
+
+            }
+        return null;
+    }
+
+    function addTitleRow() {
+        return [[
+            "Day",
+            "Date",
+            "In",
+            "Out",
+            "sub",
+            "In",
+            "Out",
+            "Total",
+            "Total",
+            "Regular Hours",
+            "O/T Hours",
+            "Sick",
+            "Vacation ",
+            "Total"
+        ]];
+    }
+    function addOut() {
+        return [
+            [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                "TWO WEEK TOTALS"
+            ],
+            [
+                "Employee signature:",
+                null,
+                null,
+                null,
+                null,
+                null,
+                "Date:",
+                convertDateToSerial(new Date()),
+                null,
+                88,
+                0,
+                0,
+                0,
+                88
+            ],
+            [],
+            [
+                "By signing this timecard, I attest that it is an accurate record of all hours worked, and that I have taken all required rest and meal periods. "
+            ],
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
+    }
+    runSetup();
+
+</script>
+
+</body>
+</html>
