@@ -249,12 +249,14 @@
             console.log(daysBetween(globals.processingDate, globals.firstDateShown));
             if (daysBetween(globals.processingDate, globals.firstDateShown) < 21) {
 
-                if (globals.weekTotals.length < 5) {
+                if (globals.processingDate.getDay() === 6) {
+                    globals.weekTotals.push([0]);
+                }
+                if (globals.weekTotals.length < 4) {
                     if (globals.processingDate.getDay() === 6) {
                         globals.weekTotals.push([0]);
                         days.push(...addTitleRow());
                     }
-
                     days.push(addDay());
                     if (globals.processingDate.getDay() === 5) {
                         days.push(addTotalRow());
