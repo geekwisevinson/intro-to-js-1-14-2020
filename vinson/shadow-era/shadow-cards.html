@@ -57,7 +57,10 @@
 
 </div>
 <script>
-    let types = [];
+    const filterTypes = ['type', 'rarity', 'faction', 'class', 'subType', 'atkType', 'unique', 'cost', 'atk', 'hp'];
+
+
+
     const typeElements = {};
     const global = {
         type: {
@@ -79,34 +82,49 @@
         .then( () => {
             whenWeGetCards();
         });
-    function whenWeGetCards() {
-        cards.forEach( card => {
-            if (!types.includes(card.type)) {
-                types.push(card.type)
-            }
-        });
-        types.forEach( type => {
-            const div = document.createElement('div');
-            typeElements[type] = div;
-            div.classList.add(type);
-            document.body.appendChild(div);
-            resetTypeElement(type);
-            const button = document.createElement('button');
-            button.classList.add(`button-${type}`, 'type-button');
-            panelSelection.appendChild(button);
-            button.innerHTML = type;
-            button.addEventListener('click', function () {
-                console.log(matchObject);
-                if (matchObject.type.includes(type)) {
-                    matchObject.type.splice(matchObject.type.indexOf(type), 1);
-                } else {
-                    matchObject.type.push(type);
-                }
-                console.log(matchObject);
 
-                showCards();
+    function addFilterButtons() {
+        filterTypes.forEach( thing => {
+            global[thing] = [];
+            matchObject[thing] = [];
+            cards.forEach( card => {
+                card[thing] = card[thing].split(' ').join('').split(',').join('-');
+                if (!global[thing].includes(card[thing])) {
+                    global[thing].push(card[thing])
+                }
+            });
+
+            const thingTitle = document.createElement('div');
+            thingTitle.innerHTML = thing;
+            panelSelection.appendChild(thingTitle);
+            global[thing].forEach( type => {
+                const div = document.createElement('div');
+                typeElements[type] = div;
+                div.classList.add(type);
+                document.body.appendChild(div);
+                resetTypeElement(type);
+                const button = document.createElement('button');
+                button.classList.add(`button-${type}`, 'type-button');
+                panelSelection.appendChild(button);
+                button.innerHTML = type;
+                button.addEventListener('click', function () {
+                    if (matchObject[thing].includes(type)) {
+                        matchObject[thing].splice(matchObject[thing].indexOf(type), 1);
+                    } else {
+                        matchObject[thing].push(type);
+                        console.log(matchObject[thing]);
+                    }
+                    console.log(matchObject[thing].includes(type), matchObject, thing, type);
+                    showCards();
+                });
             });
         });
+
+    }
+    function whenWeGetCards() {
+       addFilterButtons();
+
+
         cards.forEach( card => {
             // create Card element
             const el = document.createElement('div');
@@ -127,11 +145,11 @@
         showCards();
     }
     function updatePre() {
-        pre.innerHTML = JSON.stringify(currentDeck, null, 4);
+        // pre.innerHTML = JSON.stringify(currentDeck, null, 4);
     }
     function handleCardClick(card) {
-        console.log(card);
-        if (card.type === global.type.hero ) {
+
+        if (card.type === "Hero" ) {
             if (!currentDeck.hero)  {
                 currentDeck.hero = card;
             } else {
@@ -172,17 +190,23 @@
             return ( matchObject[key].includes( card[key] ) );
         });
     }
-    let conditions = [match('type'), ];
+    let conditions = [match('type'), match('faction') ];
     function showCards() {
-        types.forEach( type => {
+        if (!currentDeck.hero) {
+            matchObject.type = ['Hero'];
+        }
+
+
+        global['type'].forEach( type => {
             typeElements[type].innerHTML = '';
             resetTypeElement(type);
         });
         const show = conditions.reduce(function (accumulator, currentValue) {
+            console.log(accumulator);
             return accumulator.filter(currentValue);
         }, cards );
         show.forEach( card => {
-            if (card.type === global.type.hero) {
+            if (card.type === 'Hero') {
                 if (!currentDeck.hero) {
                     typeElements[card.type].appendChild(card.el);
                 }
@@ -208,7 +232,6 @@
             button.classList.remove('selected');
         });
         matchObject.type.forEach( type => {
-            console.log('type', type);
             document.querySelector(`.button-${type}`).classList.add('selected')
         })
     }
@@ -229,7 +252,6 @@
     }
 
     function fillCurrentEl() {
-        console.log('fill el');
         currentDeckEl.innerHTML = '';
         const inCurrent = [];
         currentDeck.cards.forEach( card => {
