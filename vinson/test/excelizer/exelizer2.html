@@ -23,6 +23,41 @@
             color: white;
             border: 1px solid grey;
         }
+
+        /* Removes the clear button from date inputs */
+        input[type="date"]::-webkit-clear-button {
+            display: none;
+        }
+
+        /* Removes the spin button */
+        input[type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        /* Always display the drop down caret */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            color: #2c3e50;
+        }
+
+        /* A few custom styles for date inputs */
+        input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            color: #95a5a6;
+            font-family: "Helvetica", arial, sans-serif;
+            font-size: 18px;
+            border:1px solid #ecf0f1;
+            background:#ecf0f1;
+            padding:5px;
+            display: inline-block !important;
+            visibility: visible !important;
+        }
+
+        input[type="date"], focus {
+            color: #95a5a6;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
     </style>
 </head>
 <body>
@@ -115,14 +150,14 @@
            const rowEl = document.createElement('div');
            excel.appendChild(rowEl);
            rowEl.classList.add('rowEl');
-           if (index % 2 === 0) {
+           if (index % 2 === 0 || index % 17 === 0) {
                rowEl.classList.add('even');
            }
            row.forEach(item => {
                const span = document.createElement('span');
                span.innerHTML = item;
                if(item && typeof item === 'number' && String(item).length === 5) {
-                   span.innerHTML = convertSerialToDate(item).toISOString().slice(0,10);
+                   span.innerHTML = convertSerialToDate(item).toISOString().slice(0,10).split('-').sort((a, b)=> a > b ? 1 : -1).join('/');
                }
                rowEl.appendChild(span);
            });
@@ -226,7 +261,9 @@
         const newYear2020Serial = 43831;
         const newYear2020Date = new Date('01/01/2020');
         // return date;
-        return  newYear2020Serial + daysBetween(date, newYear2020Date);
+        const daysInBetween = (date < newYear2020Date ? -1 : 1) * daysBetween(date, newYear2020Date);
+        console.log(daysInBetween);
+        return  newYear2020Serial + daysInBetween;
     }
     function convertSerialToDate(date) {
         const newYear2020Serial = 43831;
@@ -241,23 +278,22 @@
     }
 
     function addDays() {
+        console.clear();
         console.log('addDays');
         getProcessingDate();
         const days = [];
 
         function canAdd() {
-            console.log(daysBetween(globals.processingDate, globals.firstDateShown));
             if (daysBetween(globals.processingDate, globals.firstDateShown) < 21) {
-
                 if (globals.processingDate.getDay() === 6) {
                     globals.weekTotals.push([0]);
                 }
                 if (globals.weekTotals.length < 4) {
                     if (globals.processingDate.getDay() === 6) {
-                        globals.weekTotals.push([0]);
                         days.push(...addTitleRow());
                     }
                     days.push(addDay());
+                    console.log('days', [...days], globals.processingDate, convertDateToSerial(globals.processingDate));
                     if (globals.processingDate.getDay() === 5) {
                         days.push(addTotalRow());
                     }
@@ -363,13 +399,13 @@
                 null,
                 null,
                 "Date:",
-                convertDateToSerial(new Date()),
+                convertDateToSerial(globals.currentDate),
                 null,
-                88,
+                getTotalAllWeeks(),
                 0,
                 0,
                 0,
-                88
+                getTotalAllWeeks(),
             ],
             [],
             [
@@ -381,6 +417,12 @@
             [],
             []
         ]
+    }
+
+    function getTotalAllWeeks() {
+        return globals.weekTotals.reduce( function (total, currentItem) {
+            return total + currentItem[0];
+        } , 0)
     }
     runSetup();
 

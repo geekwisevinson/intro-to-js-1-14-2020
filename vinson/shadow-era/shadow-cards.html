@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .card {
+            display: inline-block;
+        }
+        .card-img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<pre>
+
+</pre>
+    <h1>Deck Builder</h1>
+
+    <div class="panel-select">
+        <img width="300px" src="" alt="">
+    </div>
+<div id="selection">
+
+</div>
+<script>
+    const pre = document.querySelector('pre');
+    const selection = document.querySelector('#selection');
+    let currentDeck = {
+        hero: null,
+        cards: [],
+    };
+
+    let cards = [];
+    fetch('./card-data.json').then(res => res.json() ).then(res => cards = res).then( () => {
+        whenWeGetCards();
+    });
+    function whenWeGetCards() {
+        cards.forEach( card => {
+            const el = document.createElement('div');
+            const img = document.createElement('img');
+            card.el = el;
+            el.appendChild(img);
+            img.src = card.img;
+            el.classList.add('card');
+            img.classList.add('card-img');
+            el.addEventListener('click', function () {
+                handleCardClick(card);
+            });
+
+
+        });
+        updatePre();
+    }
+
+    function updatePre() {
+        pre.innerHTML = JSON.stringify(currentDeck, null, 4);
+    }
+
+    function handleCardClick(card) {
+        console.log(card);
+    }
+
+
+
+    let matchObject = {
+        type: ['Hero'],
+        faction: ['Human'],
+    };
+
+    function match( key ) {
+        return (function matchType( card ) {
+            if(key === 'any') {
+                return true;
+            }
+            return ( matchObject[key].includes(card[key]));
+        });
+    }
+
+    let conditions = [match('any')];
+    function showCards() {
+        const show = conditions.reduce(function (accumulator, currentValue) {
+            return accumulator.filter(currentValue);
+        }, cards );
+        console.log('show', show);
+        show.forEach( card => {
+            selection.appendChild(card.el);
+        });
+    }
+
+
+
+
+
+</script>
+</body>
+</html>
