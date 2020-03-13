@@ -10,6 +10,24 @@
         .card-img {
             width: 100px;
         }
+        .panel-select {
+            padding: 20px;
+        }
+        #current-deck {
+            display: flex;
+            overflow: scroll;
+            flex-wrap: nowrap;
+        }
+        .sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: -10px;
+            background-color: yellow;
+            padding: 10px;
+        }
+        .selected {
+            background-color: lime;
+        }
     </style>
 </head>
 <body>
@@ -18,82 +36,221 @@
 
 </pre>
     <h1>Deck Builder</h1>
-
+<div class="sticky">
+    <button onclick="currentDeck.cards = []; showCards();">Clear</button>
     <div class="panel-select">
         <img width="300px" src="" alt="">
     </div>
+    <div class="count">
+
+    </div>
+    <div id="current-deck-count">
+
+    </div>
+    <div id="current-deck">
+
+    </div>
+</div>
+
+
 <div id="selection">
 
 </div>
 <script>
+    let types = [];
+    const typeElements = {};
+    const global = {
+        type: {
+            hero: 'Hero'
+        }
+    };
     const pre = document.querySelector('pre');
+    const currentDeckEl = document.querySelector('#current-deck');
+    const panelSelection = document.querySelector('.panel-select');
     const selection = document.querySelector('#selection');
     let currentDeck = {
         hero: null,
         cards: [],
     };
-
     let cards = [];
-    fetch('./card-data.json').then(res => res.json() ).then(res => cards = res).then( () => {
-        whenWeGetCards();
-    });
+    fetch('./card-data.json')
+        .then(res => res.json() )
+        .then(res => cards = res)
+        .then( () => {
+            whenWeGetCards();
+        });
     function whenWeGetCards() {
         cards.forEach( card => {
+            if (!types.includes(card.type)) {
+                types.push(card.type)
+            }
+        });
+        types.forEach( type => {
+            const div = document.createElement('div');
+            typeElements[type] = div;
+            div.classList.add(type);
+            document.body.appendChild(div);
+            resetTypeElement(type);
+            const button = document.createElement('button');
+            button.classList.add(`button-${type}`, 'type-button');
+            panelSelection.appendChild(button);
+            button.innerHTML = type;
+            button.addEventListener('click', function () {
+                console.log(matchObject);
+                if (matchObject.type.includes(type)) {
+                    matchObject.type.splice(matchObject.type.indexOf(type), 1);
+                } else {
+                    matchObject.type.push(type);
+                }
+                console.log(matchObject);
+
+                showCards();
+            });
+        });
+        cards.forEach( card => {
+            // create Card element
             const el = document.createElement('div');
             const img = document.createElement('img');
             card.el = el;
             el.appendChild(img);
+            const countEl = document.createElement('div');
+            el.appendChild(countEl);
+            countEl.innerText = '0';
+            countEl.classList.add('count-el');
             img.src = card.img;
             el.classList.add('card');
             img.classList.add('card-img');
             el.addEventListener('click', function () {
                 handleCardClick(card);
             });
-
-
         });
-        updatePre();
+        showCards();
     }
-
     function updatePre() {
         pre.innerHTML = JSON.stringify(currentDeck, null, 4);
     }
-
     function handleCardClick(card) {
         console.log(card);
+        if (card.type === global.type.hero ) {
+            if (!currentDeck.hero)  {
+                currentDeck.hero = card;
+            } else {
+                if (currentDeck.hero === card) {
+                    currentDeck.hero = null;
+                }
+            }
+        } else {
+            if (currentDeck.cards.filter( item => item === card).length < 4) {
+                currentDeck.cards.push(card);
+            } else {
+
+                removeFromArray();
+                function removeFromArray() {
+                    const itemIndex = currentDeck.cards.indexOf(card);
+                    if (itemIndex !== -1) {
+                        currentDeck.cards.splice(itemIndex, 1);
+                        if (currentDeck.cards.indexOf(card) !== -1) {
+                            removeFromArray();
+                        }
+                    }
+                }
+            }
+        }
+
+        updatePre();
+        showCards();
     }
-
-
-
     let matchObject = {
-        type: ['Hero'],
+        type: ['Hero', 'Ally'],
         faction: ['Human'],
     };
-
     function match( key ) {
         return (function matchType( card ) {
-            if(key === 'any') {
+            if (key === 'any') {
                 return true;
             }
-            return ( matchObject[key].includes(card[key]));
+            return ( matchObject[key].includes( card[key] ) );
         });
     }
-
-    let conditions = [match('any')];
+    let conditions = [match('type'), ];
     function showCards() {
+        types.forEach( type => {
+            typeElements[type].innerHTML = '';
+            resetTypeElement(type);
+        });
         const show = conditions.reduce(function (accumulator, currentValue) {
             return accumulator.filter(currentValue);
         }, cards );
-        console.log('show', show);
         show.forEach( card => {
-            selection.appendChild(card.el);
+            if (card.type === global.type.hero) {
+                if (!currentDeck.hero) {
+                    typeElements[card.type].appendChild(card.el);
+                }
+                if (currentDeck.hero && currentDeck.hero['cardNo'] === card['cardNo']) {
+                    typeElements[card.type].appendChild(card.el);
+                }
+            } else {
+                typeElements[card.type].appendChild(card.el);
+                card.el.querySelector('.count-el').innerHTML = `
+                ${currentDeck.cards.filter( item => item === card).length}
+                /
+                ${percentageOf(currentDeck.cards.filter( item => item === card).length, currentDeck.cards.length)}%
+                `;
+            }
         });
+        fillCurrentEl();
+        updatePre();
+        addTypeSelect();
     }
 
+    function addTypeSelect() {
+        document.querySelectorAll('.type-button').forEach( button => {
+            button.classList.remove('selected');
+        });
+        matchObject.type.forEach( type => {
+            console.log('type', type);
+            document.querySelector(`.button-${type}`).classList.add('selected')
+        })
+    }
+    function createFilterButtons() {
+        createSearchButton();
+        function createSearchButton() {
+            const searchButton = document.createElement('button');
+            panelSelection.appendChild(searchButton);
+            searchButton.innerText = 'Search';
+            searchButton.addEventListener('click', showCards)
+        }
+    }
+    createFilterButtons();
+    function resetTypeElement(type) {
+        const title = document.createElement('h3');
+        title.innerText = type;
+        typeElements[type].appendChild(title);
+    }
 
+    function fillCurrentEl() {
+        console.log('fill el');
+        currentDeckEl.innerHTML = '';
+        const inCurrent = [];
+        currentDeck.cards.forEach( card => {
+            if (!inCurrent.includes(card.cardNo)) {
+                const clone = card.el.cloneNode(true);
+                currentDeckEl.appendChild(clone);
+                inCurrent.push(card.cardNo);
+                clone.addEventListener('click', function () {
+                    handleCardClick(card);
+                });
+            }
+        });
+        document.querySelector('.count').innerHTML = currentDeck.cards.length + '';
+    }
 
-
-
+    function percentageOf(testNumber, ofTotal) {
+        if (!testNumber || !ofTotal) {
+            return 0;
+        }
+        return Math.round(testNumber/ofTotal*100);
+    }
 </script>
 </body>
 </html>
