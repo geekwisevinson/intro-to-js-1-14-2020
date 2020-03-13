@@ -38,6 +38,7 @@
     <h1>Deck Builder</h1>
 <div class="sticky">
     <button onclick="currentDeck.cards = []; showCards();">Clear</button>
+    <button onclick="save()">Save</button>
     <div class="panel-select">
         <img width="300px" src="" alt="">
     </div>
@@ -122,9 +123,8 @@
 
     }
     function whenWeGetCards() {
-       addFilterButtons();
 
-
+        addFilterButtons();
         cards.forEach( card => {
             // create Card element
             const el = document.createElement('div');
@@ -142,13 +142,14 @@
                 handleCardClick(card);
             });
         });
+        loadCurrent();
         showCards();
     }
     function updatePre() {
         // pre.innerHTML = JSON.stringify(currentDeck, null, 4);
     }
     function handleCardClick(card) {
-
+        console.log(card);
         if (card.type === "Hero" ) {
             if (!currentDeck.hero)  {
                 currentDeck.hero = card;
@@ -178,22 +179,43 @@
         updatePre();
         showCards();
     }
-    let matchObject = {
+    let matchObject;
+    updateMatchObj({
         type: ['Hero', 'Ally'],
-        faction: ['Human'],
-    };
+        faction: ['Human', 'Shadow'],
+    });
+    function updateMatchObj(value) {
+        console.log('update match object', value);
+        matchObject = value;
+    }
     function match( key ) {
         return (function matchType( card ) {
+            let isMatch = true;
             if (key === 'any') {
                 return true;
             }
-            return ( matchObject[key].includes( card[key] ) );
+            const matchKeys = Object.keys(matchObject);
+            matchKeys.forEach( matchKey => {
+
+                if (matchObject[matchKey].length) {
+                    if (!matchObject[matchKey].includes(card[matchKey])){
+                        isMatch = false;
+                    }
+                }
+            });
+
+
+            return isMatch;
         });
     }
-    let conditions = [match('type'), match('faction') ];
+    let conditions = [match('type') ];
     function showCards() {
         if (!currentDeck.hero) {
             matchObject.type = ['Hero'];
+            conditions = [match('type') ];
+            currentDeck.cards = [];
+        } else {
+            conditions.push(whatWontWorkForCard)
         }
 
 
@@ -202,7 +224,6 @@
             resetTypeElement(type);
         });
         const show = conditions.reduce(function (accumulator, currentValue) {
-            console.log(accumulator);
             return accumulator.filter(currentValue);
         }, cards );
         show.forEach( card => {
@@ -231,9 +252,12 @@
         document.querySelectorAll('.type-button').forEach( button => {
             button.classList.remove('selected');
         });
-        matchObject.type.forEach( type => {
-            document.querySelector(`.button-${type}`).classList.add('selected')
-        })
+        const matchKeys = Object.keys(matchObject);
+        matchKeys.forEach( matchKey => {
+            matchObject[matchKey].forEach(type => {
+                document.querySelector(`.button-${type}`).classList.add('selected')
+            })
+        });
     }
     function createFilterButtons() {
         createSearchButton();
@@ -272,6 +296,44 @@
             return 0;
         }
         return Math.round(testNumber/ofTotal*100);
+    }
+
+    function whatWontWorkForCard(card) {
+        const hero = currentDeck.hero;
+        if (hero.faction === 'Human') {
+            if (card.faction === 'Shadow') {
+                return false;
+            }
+        }
+        if (hero.faction === 'Shadow') {
+            if (card.faction === 'Human') {
+                return false;
+            }
+        }
+
+        if (card.class) {
+            if (card.class.indexOf(hero.class) === -1 && card.class !== 'empty' ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function save() {
+        localStorage.setItem('currentDeck', JSON.stringify(currentDeck));
+    }
+
+    function loadCurrent() {
+        const temp = JSON.parse(localStorage.getItem('currentDeck'));
+
+        console.log(temp);
+        if (temp) {
+            temp.hero = cards.find( card => card.cardNo === temp.hero.cardNo);
+            temp.cards = temp.cards.map( tempCard => cards.find( card => card.cardNo === tempCard.cardNo));
+            currentDeck = temp;
+        }
+        console.log(matchObject, 'matchObject');
+        matchObject.type = ['Hero'];
     }
 </script>
 </body>
