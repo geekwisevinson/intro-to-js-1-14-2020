@@ -59,9 +59,6 @@
 </div>
 <script>
     const filterTypes = ['type', 'rarity', 'faction', 'class', 'subType', 'atkType', 'unique', 'cost', 'atk', 'hp'];
-
-
-
     const typeElements = {};
     const global = {
         type: {
@@ -83,7 +80,6 @@
         .then( () => {
             whenWeGetCards();
         });
-
     function addFilterButtons() {
         filterTypes.forEach( thing => {
             global[thing] = [];
@@ -94,7 +90,6 @@
                     global[thing].push(card[thing])
                 }
             });
-
             const thingTitle = document.createElement('div');
             thingTitle.innerHTML = thing;
             panelSelection.appendChild(thingTitle);
@@ -120,10 +115,8 @@
                 });
             });
         });
-
     }
     function whenWeGetCards() {
-
         addFilterButtons();
         cards.forEach( card => {
             // create Card element
@@ -175,7 +168,6 @@
                 }
             }
         }
-
         updatePre();
         showCards();
     }
@@ -196,15 +188,12 @@
             }
             const matchKeys = Object.keys(matchObject);
             matchKeys.forEach( matchKey => {
-
                 if (matchObject[matchKey].length) {
                     if (!matchObject[matchKey].includes(card[matchKey])){
                         isMatch = false;
                     }
                 }
             });
-
-
             return isMatch;
         });
     }
@@ -217,8 +206,6 @@
         } else {
             conditions.push(whatWontWorkForCard)
         }
-
-
         global['type'].forEach( type => {
             typeElements[type].innerHTML = '';
             resetTypeElement(type);
@@ -247,7 +234,6 @@
         updatePre();
         addTypeSelect();
     }
-
     function addTypeSelect() {
         document.querySelectorAll('.type-button').forEach( button => {
             button.classList.remove('selected');
@@ -274,7 +260,6 @@
         title.innerText = type;
         typeElements[type].appendChild(title);
     }
-
     function fillCurrentEl() {
         currentDeckEl.innerHTML = '';
         const inCurrent = [];
@@ -290,14 +275,12 @@
         });
         document.querySelector('.count').innerHTML = currentDeck.cards.length + '';
     }
-
     function percentageOf(testNumber, ofTotal) {
         if (!testNumber || !ofTotal) {
             return 0;
         }
         return Math.round(testNumber/ofTotal*100);
     }
-
     function whatWontWorkForCard(card) {
         const hero = currentDeck.hero;
         if (hero.faction === 'Human') {
@@ -310,7 +293,6 @@
                 return false;
             }
         }
-
         if (card.class) {
             if (card.class.indexOf(hero.class) === -1 && card.class !== 'empty' ) {
                 return false;
@@ -318,14 +300,11 @@
         }
         return true;
     }
-
     function save() {
         localStorage.setItem('currentDeck', JSON.stringify(currentDeck));
     }
-
     function loadCurrent() {
         const temp = JSON.parse(localStorage.getItem('currentDeck'));
-
         console.log(temp);
         if (temp) {
             temp.hero = cards.find( card => card.cardNo === temp.hero.cardNo);
